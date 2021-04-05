@@ -1,20 +1,23 @@
-import {HashRouter as Router, Switch, Route} from "react-router-dom"
+import { HashRouter, Switch, Route } from "react-router-dom"
 import Header from "./parts/Header/Header";
 import Footer from "./parts/Footer/Footer";
+import AdminRoute from "./routes/Admin.Route";
 
 function App(props) {
     return (
-        <>
-           <Router>
-               <Header></Header>
-               <Switch>
-                   <Route path="/" exact={true} component={App}>
-                       <strong>This is Content</strong>
-                   </Route>
-               </Switch>
-               <Footer></Footer>
-           </Router>
-        </>
+        <div>
+            <HashRouter>
+                <Header></Header>
+                <Switch>
+                    <Route path="/" exact children={App}>
+                        <strong>Hello</strong>
+                    </Route>
+
+                    <AdminRoute></AdminRoute>
+                </Switch>
+                <Footer></Footer>
+            </HashRouter>
+        </div>
     );
 }
 
