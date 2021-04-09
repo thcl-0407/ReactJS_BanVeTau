@@ -1,0 +1,29 @@
+#boxLichTrinh {
+    border: 1px solid gray;
+    border-radius: 20px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 30%;
+}
+
+#txtNoiDi,
+#txtNoiDen {
+    margin-top: 2vh;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 1vh;
+    width: 100%;
+}
+
+#txtNoiDi::placeholder,
+#txtNoiDen::placeholder {
+    text-align: left;
+    font-family: FontAwesome;
+}
+
+#pnlTitleBoxLichTrinh {
+    background-color: #016aff;
+    padding: 1vh;
+    border-radius: 20px 20px 0 0;
+    color: #fff;
+}
