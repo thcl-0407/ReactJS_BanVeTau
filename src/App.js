@@ -7,15 +7,13 @@ function App(props) {
     return (
         <div>
             <HashRouter>
-                <Header></Header>
                 <Switch>
                     <Route path="/" exact children={App}>
-                        <strong>Hello</strong>
+                        <Header></Header>
+                        <Footer></Footer>
                     </Route>
-
                     <AdminRoute></AdminRoute>
                 </Switch>
-                <Footer></Footer>
             </HashRouter>
         </div>
     );
