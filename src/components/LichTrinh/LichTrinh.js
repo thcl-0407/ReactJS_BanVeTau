@@ -14,7 +14,7 @@ class LichTrinh extends React.Component {
                         <input type="radio" value="MotChieu"/><span>&nbsp;Một Chiều&emsp;</span>
                         <input type="radio" value="MotChieu"/><span>&nbsp;Khứ Hồi</span>
                     </div>
-                    <Calendar></Calendar>
+                    <Calendar/>
                     <input type="text" placeholder="&#xf041;&emsp;Điểm Đi Của Bạn" id="txtNoiDi"/>
                     <br/>
                     <input type="text" placeholder="&#xf041;&emsp;Điểm Đến Của Bạn" id="txtNoiDen"/>

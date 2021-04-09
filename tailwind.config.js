@@ -5,7 +5,10 @@ module.exports = {
     extend: {
       colors:{
         646: "#D3A646",
-        main: "#016AFF"
+        main: "#0091FF",
+        mainFont: "#0355A6",
+        872:"#BD8872",
+        mainHover:"#006EDC"
       }
     },
   },
