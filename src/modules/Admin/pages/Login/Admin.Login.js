@@ -15,7 +15,7 @@ function Login(props){
                         <input type="password" className="object-fill w-full focus:outline-none" placeholder="Mật Khẩu"></input>
                     </div>
                     <div className="mb-6 text-center px-6">
-                        <button id="btnAdminLoginSubmit" type="button" className="focus:outline-none border-2 border-main hover:bg-white hover:text-main object-fill w-full bg-main py-2 text-white font-semibold">Đăng Nhập</button>
+                        <button id="btnAdminLoginSubmit" type="button" className="focus:outline-none border-2 border-main hover:bg-white hover:text-main object-fill w-full bg-main py-2 text-white font-medium">Đăng Nhập</button>
                     </div>
                 </form>
             </div>
