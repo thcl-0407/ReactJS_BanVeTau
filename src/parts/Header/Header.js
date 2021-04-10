@@ -14,13 +14,10 @@ function Header(props) {
                 <Link to='/' className='hover:shadow-lg p-4 text-sm text-white font-medium hover:bg-mainHover'>
                     TRANG CHỦ
                 </Link>
-                <Link to='/TimVe' className='hover:shadow-lg p-4 text-sm text-white font-medium hover:bg-mainHover'>
-                    TÌM VÉ
-                </Link>
                 <Link to='/About' className='hover:shadow-lg p-4 text-sm text-white font-medium hover:bg-mainHover'>
                     HƯỚNG DẪN
                 </Link>
-                <Link to='/Contact' className='hover:shadow-lg p-4 text-sm text-white font-medium hover:bg-mainHover'>
+                <Link to='/LienHe' className='hover:shadow-lg p-4 text-sm text-white font-medium hover:bg-mainHover'>
                     LIÊN HỆ
                 </Link>
             </div>

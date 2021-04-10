@@ -1,7 +1,6 @@
-
 function LienHe(props){
     return(
-        <div className="col-auto">
+        <div>
             <div>
                 <h3>
                     Thông tin liên hệ

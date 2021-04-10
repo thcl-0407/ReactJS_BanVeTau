@@ -9,15 +9,16 @@ function App(props) {
         <div>
             <HashRouter>
                 <Switch>
-                    <Route path="/" exact children={App}>
+                    <Route path="/" exact comp={App}>
                         <Header></Header>
-                        <div className="min-h-screen">
-
-                        </div>
                         <Footer></Footer>
                     </Route>
-                    <AdminRoute></AdminRoute>
                     <KhachHangRoute></KhachHangRoute>
+                </Switch>
+            </HashRouter>
+            <HashRouter>
+                <Switch>
+                    <AdminRoute></AdminRoute>
                 </Switch>
             </HashRouter>
         </div>

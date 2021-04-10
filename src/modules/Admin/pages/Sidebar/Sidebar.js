@@ -7,12 +7,12 @@ function Sidebar() {
         <aside className="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl ml-0">
             <div className="p-6">
                 <div className="text-center">
-                    {/*<Link to="/" className="text-white text-3xl font-semibold hover:text-gray-300">Administrator</Link>*/}
+                    {/*<Link to="/" className="text-white text-3xl font-semibold hover:text-gray-300">Aministrator</Link>*/}
                 </div>
-                <button
+                {/*<button
                     className="border-4 border-main hover:border-main text-white w-full bg-main font-semibold py-2 mt-5 shadow-lg hover:shadow-xl hover:text-main hover:bg-white flex items-center justify-center">
                     <strong className="font-normal">Tạo Báo Cáo</strong>
-                </button>
+                </button>*/}
             </div>
             <nav className="text-white text-base font-semibold pt-3">
                 <Link to="/" className="flex items-center text-white py-4 pl-6 nav-item">
