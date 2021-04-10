@@ -2,8 +2,8 @@ function GioVe() {
     return (
         <div className="float-right">
             <div
-                className="border-2 border-blue-500 md:border-green-100 md:hover:border-gray-100 border-opacity-100 max-w-sm box-border h-32 w-64 rounded-2xl m-3">
-                <div className="bg-gray-300 text-white rounded-t-xl">
+                className="border border-blue-500 md:border-green-100 md:hover:border-gray-100 border-opacity-100 max-w-sm box-border h-32 w-64 m-3">
+                <div className="bg-gray-300 text-white">
                     <strong className="flex">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20"
                              fill="currentColor">
@@ -23,7 +23,7 @@ function GioVe() {
                 </div>
             </div>
             <div
-                className="border-2 border-blue-500 md:border-green-100 md:hover:border-gray-100 border-opacity-100 box-border h-32 w-64 rounded-2xl text-center align-middle m-3">
+                className="border border-blue-500 md:border-green-100 md:hover:border-gray-100 border-opacity-100 box-border h-32 w-64 text-center align-middle m-3">
                 <strong>Kết nối với chúng tôi</strong>
                 <div className="text-center mb-2">
                     <button>
