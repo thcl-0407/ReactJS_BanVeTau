@@ -4,6 +4,7 @@ import GioVe from "./../components/GioVe/GioVe";
 import LienHe from "./../modules/KhachHang/pages/LienHe";
 import Header from "./../parts/Header/Header"
 import Footer from "./../parts/Footer/Footer"
+import HuongDan from "./../modules/KhachHang/pages/HuongDan";
 
 function KhachHangRoute(props) {
     return (
@@ -17,6 +18,11 @@ function KhachHangRoute(props) {
             <Route path="/LienHe" exact>
                 <Header></Header>
                 <LienHe></LienHe>
+                <Footer></Footer>
+            </Route>
+            <Route path="/About" exact>
+                <Header></Header>
+                <HuongDan></HuongDan>
                 <Footer></Footer>
             </Route>
         </>

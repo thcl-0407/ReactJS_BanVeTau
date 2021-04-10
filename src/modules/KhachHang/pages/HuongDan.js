@@ -1,40 +1,22 @@
-function LienHe(props){
+function HuongDan(){
     return(
-        <div className="mx-24 my-3">
+        <div>
+            <div className="mx-24 my-3">
             <div className="mt-1">
-                <h3 className="text-blue-500 text-3xl">
-                    Thông tin liên hệ
-                </h3>
+                
             </div>
             <br/>
             <div className="grid grid-cols-2">
                 <div>
-                    <strong className="text-red-600">Tổng công ty đường sắt Việt Nam</strong>
-                    
-                    <h4 className="mt-2">
-                    Số 118 Lê Duẩn, Hoàn Kiếm, Hà Nội.<br/><br/>
-                    Điện thoại: 19006469<br/>
-                    Email: dsvn@vr.com.vn.
-                    </h4>
+                   
                 </div>
                 <div>
-                    <strong className="text-red-600">Tổng đài hỗ trợ khách hàng</strong>
-                    <h4 className="mt-2">
-                        Hotline: 19006469
-                        <br/>
-                        Khu vực miền Bắc: 1900 0109
-                        <br/>
-                        Khu vực miền Nam: 1900 1520
-                        <br/>
-                        Email: support1@dsvn.vn
-                        <br/>
-                            &emsp;&emsp;&emsp;support2@dsvn.vn
-                    </h4>
+                    
                 </div>
             </div>
             <div className="border mt-6">
                 <div className="text-2xl h-12 relative">
-                    <p className="bg-red-500 py-1 text-white object-cover w-full text-center">Quy định đổi trả vé</p>
+                    <p className="py-2 bg-red-500 text-white object-cover w-full text-center">Quy định đổi trả vé</p>
                 </div>
                 <div className="m-4">
                     <p>1. Thời gian và mức phí trả vé:</p>
@@ -49,7 +31,8 @@ function LienHe(props){
                 </div>
             </div>
         </div>
+        </div>
     )
 }
 
-export default LienHe
+export default HuongDan
