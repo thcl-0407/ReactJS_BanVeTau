@@ -6,7 +6,7 @@ toast.configure();
 export default class ToastifyMessage {
     static ToastError(msg) {
         toast.error(msg, {
-            position: toast.POSITION.TOP_RIGHT,
+            position: toast.POSITION.TOP_CENTER,
             bodyStyle: { width: "100%", textAlign: "center" },
             autoClose: 2000,
             closeButton: true,
@@ -16,7 +16,7 @@ export default class ToastifyMessage {
 
     static ToastSuccess(msg) {
         toast.success(msg, {
-            position: toast.POSITION.TOP_RIGHT,
+            position: toast.POSITION.TOP_CENTER,
             bodyStyle: { width: "100%", textAlign: "center" },
             autoClose: 2000,
             closeButton: true,

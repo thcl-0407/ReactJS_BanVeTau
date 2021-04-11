@@ -1,25 +1,31 @@
 import './Header.scss'
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 function Header(props) {
     return (
         <nav
-            className='h-12 flex justify-between items-center bg-main text-white relative shadow-sm font-medium'
+            className='flex justify-between bg-main text-white shadow-sm font-medium'
             role='navigation'>
-            <Link to='/' className='pl-8'>
+            <NavLink to='/' className='pl-8 my-2'>
                 Logo
-            </Link>
-            <div className='pr-8 md:block hidden'>
-                <Link to='/' className='hover:shadow-lg p-4 text-sm text-white font-medium hover:bg-mainHover'>
+            </NavLink>
+            <div className='pr-8 my-2'>
+                <NavLink to='/' className='hover:bg-mainHover hover:shadow-xl p-3 text-sm text-white font-medium'>
                     TRANG CHỦ
-                </Link>
-                <Link to='/About' className='hover:shadow-lg p-4 text-sm text-white font-medium hover:bg-mainHover'>
+                </NavLink>
+                <NavLink to='/About' className='hover:bg-mainHover hover:shadow-xl border-l p-3 text-sm text-white font-medium'>
                     HƯỚNG DẪN
-                </Link>
-                <Link to='/LienHe' className='hover:shadow-lg p-4 text-sm text-white font-medium hover:bg-mainHover'>
+                </NavLink>
+                <NavLink to='/LienHe' className='hover:bg-mainHover hover:shadow-xl border-l p-3 text-sm text-white font-medium'>
                     LIÊN HỆ
-                </Link>
+                </NavLink>
+                <NavLink to='/DangKy' className='hover:bg-mainHover hover:shadow-xl border-l p-3 text-sm text-white font-medium'>
+                    ĐĂNG KÝ
+                </NavLink>
+                <NavLink to='/DangNhap' className='hover:bg-mainHover hover:shadow-xl border-l p-3 text-sm text-white font-medium'>
+                    ĐĂNG NHẬP
+                </NavLink>
             </div>
         </nav>
     )

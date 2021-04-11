@@ -9,6 +9,9 @@ module.exports = {
         mainFont: "#0355A6",
         872:"#BD8872",
         mainHover:"#006EDC"
+      },
+      minHeight: {
+        screen: '85vh',
       }
     },
   },
