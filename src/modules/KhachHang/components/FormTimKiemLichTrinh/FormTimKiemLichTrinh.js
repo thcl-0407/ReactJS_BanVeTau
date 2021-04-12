@@ -1,4 +1,5 @@
 import DataPicker from "react-datepicker"
+import { useState } from "react";
 import {registerLocale} from "react-datepicker";
 import vi from 'date-fns/locale/vi';
 import "react-datepicker/dist/react-datepicker.css";
@@ -25,6 +26,8 @@ const SelectLoaiVe = ()=>{
 }
 
 function FormTimKiemLichTrinh(props){
+    const [startDate, setStartDate] = useState(new Date());
+    const [EndDate, setEndDate] = useState(new Date());
     return(
         <div className="flex bg-white">
             <div className="border border-gray-400 shadow-lg">
@@ -49,12 +52,12 @@ function FormTimKiemLichTrinh(props){
                     <div className="py-3">
                         <label>Ngày Đi</label>
                         <br/>
-                        <DataPicker className="border p-1.5" locale="vi"></DataPicker>
+                        <DataPicker className="border p-1.5" locale="vi" selected={startDate} onChange={date => setStartDate(date)}></DataPicker>
                     </div>
                     <div id="boxSelectNgayVe" className="py-3 hidden">
                         <label>Ngày Về</label>
                         <br/>
-                        <DataPicker className="border p-1.5" locale="vi"></DataPicker>
+                        <DataPicker className="border p-1.5" locale="vi" selected={EndDate} onChange={date => setEndDate(date)}></DataPicker>
                     </div>
                     <div className="pt-3 text-center">
                         <input type="button" className="cursor-pointer px-6 py-1.5 border-2 border-main bg-main text-white hover:bg-white hover:text-main hover:pointer" value="Xác Nhận"/>
