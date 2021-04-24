@@ -1,6 +1,8 @@
 import AdminService from "./../../../../services/Admin.Service"
 import lodash from "lodash"
 import ToastifyMessage from "./../../../../utilities/ToastifyMessage"
+import env from "react-dotenv"
+import history from "./../../../../history"
 
 //Gọi Function Này Khi Button Submit Đăng Nhập Được Click
 const btnAdminLoginSubmit_Click = ()=>{
@@ -11,9 +13,15 @@ const btnAdminLoginSubmit_Click = ()=>{
         ToastifyMessage.ToastError("Chưa Nhập Đủ Thông Tin")
         return
     }
-
+    
     AdminService.DangNhap(UserName, MatKhau).then(response => {
-        console.log(response)
+        console.log("Call Admin Login", response)
+
+        if(response.data.status){
+            history.push("/Admin/Dashboard")
+        }else{
+            ToastifyMessage.ToastError(response.data.data)
+        }
     })
 }
 

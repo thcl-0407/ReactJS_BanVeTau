@@ -1,8 +1,14 @@
 import lodash from "lodash";
 import axios from "axios";
+import env from "react-dotenv"
 
 const DangNhap = (UserName, MatKhau)=>{
-    return axios.get()
+    let param = {
+        UserName: UserName,
+        MatKhau: MatKhau
+    } 
+
+    return axios.post(env.BASE_URL_API_NHANVIEN + "loginNV", param)
 }
 
 const ThemMoiNhanVien = (NhanVien)=>{

@@ -1,17 +1,18 @@
 import DataPicker from "react-datepicker"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {registerLocale} from "react-datepicker";
 import vi from 'date-fns/locale/vi';
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select'
 import "./FormTimKiemLichTrinh.scss"
+import { subDays } from "date-fns";
+import KhachHangService from "./../../../../services/KhachHang.Service"
+import ToastifyMessage from "../../../../utilities/ToastifyMessage";
+import lodash from "lodash"
 
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-]
+var options = []
 
+//Config Date
 registerLocale('vi', vi)
 
 const SelectLoaiVe = ()=>{
@@ -27,7 +28,56 @@ const SelectLoaiVe = ()=>{
 
 function FormTimKiemLichTrinh(props){
     const [startDate, setStartDate] = useState(new Date());
-    const [EndDate, setEndDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [MaGaDi, setMaGaDi] = useState();
+    const [MaGaDen, setMaGaDen] = useState();
+
+    useEffect(()=>{
+        KhachHangService.GetDanhSachNhaGa().then(response =>{
+            response.data.data.forEach(item => {
+                console.log(item)
+                let temp_object = {
+                    "value": item.MaNhaGa, 
+                    "label": item.TenNhaGa
+                }
+
+                options.push(temp_object)
+            })
+        })
+    }, [options]);
+
+
+    const TimKiemLichTrinh = ()=>{
+        let param = {
+            MaGaDi: MaGaDi.value,
+            MaGaDen: MaGaDen.value,
+            NgayDi: startDate,
+        }
+
+        //Chưa Chọn Mã Ga Đi
+        //Chưa Chọn Mã Ga Đến
+        
+        //Chọn Trùng Mã
+        if(param.MaGaDi == param.MaGaDen){
+            ToastifyMessage.ToastError("Ga Đi Không Trùng Ga Đến")
+            return
+        }
+
+        KhachHangService.TimKiemLichTrinh(param).then((res)=>{
+            console.log(res)
+        })
+    }
+
+    const ChonMaGaDi = (selected)=>{
+        console.log("Chon Ma Ga Di", selected.value)
+        setMaGaDi(selected)
+    }
+
+    const ChonMaGaDen = (selected)=>{
+        console.log("Chon Ma Ga Den",selected.value)
+        setMaGaDen(selected)
+    }
+
     return(
         <div className="flex bg-white">
             <div className="border border-gray-400 shadow-lg">
@@ -38,12 +88,12 @@ function FormTimKiemLichTrinh(props){
                     <div>
                         <label>Ga Đi</label>
                         <br/>
-                        <Select options={options}></Select>
+                        <Select options={options} onChange={ChonMaGaDi}></Select>
                     </div>
                     <div className="py-3">
                         <label>Ga Đến</label>
                         <br/>
-                        <Select options={options}></Select>
+                        <Select options={options} onChange={ChonMaGaDen}></Select>
                     </div>
                     <div className="py-3 flex justify-center">
                         <input type="radio" onClick={SelectLoaiVe} value="MotChieu" name="LoaiVe" id="rbtnVeMotChieu" defaultChecked={true}/><span>&nbsp;Một Chiều&emsp;</span>
@@ -52,15 +102,15 @@ function FormTimKiemLichTrinh(props){
                     <div className="py-3">
                         <label>Ngày Đi</label>
                         <br/>
-                        <DataPicker className="border p-1.5" locale="vi" selected={startDate} onChange={date => setStartDate(date)}></DataPicker>
+                        <DataPicker className="border p-1.5" locale="vi" selected={startDate} onChange={date => setStartDate(date)} minDate={subDays(new Date(),0)}></DataPicker>
                     </div>
                     <div id="boxSelectNgayVe" className="py-3 hidden">
                         <label>Ngày Về</label>
                         <br/>
-                        <DataPicker className="border p-1.5" locale="vi" selected={EndDate} onChange={date => setEndDate(date)}></DataPicker>
+                        <DataPicker className="border p-1.5" locale="vi" selected={endDate} onChange={date => setEndDate(date)} minDate={subDays(new Date(),0)}></DataPicker>
                     </div>
                     <div className="pt-3 text-center">
-                        <input type="button" className="cursor-pointer px-6 py-1.5 border-2 border-main bg-main text-white hover:bg-white hover:text-main hover:pointer" value="Xác Nhận"/>
+                        <input onClick={TimKiemLichTrinh} type="button" className="cursor-pointer px-6 py-1.5 border-2 border-main bg-main text-white hover:bg-white hover:text-main hover:pointer" value="Xác Nhận"/>
                     </div>
                 </div>
             </div>
