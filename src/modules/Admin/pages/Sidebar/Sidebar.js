@@ -1,10 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import QuanLyNhanVien from '../QuanLyNhanVien/QuanLyNhanVien';
 import "./Sidebar.scss"
 
 function Sidebar() {
     return (
-        <aside className="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl ml-0">
+        <div>
+        <aside className="relative bg-sidebar h-screen hidden sm:block shadow-xl ml-0 w-60 float-left">
             <div className="p-6">
                 <div className="text-center">
                     {/*<Link to="/" className="text-white text-3xl font-semibold hover:text-gray-300">Aministrator</Link>*/}
@@ -74,6 +76,8 @@ function Sidebar() {
                 </Link>
             </nav>
         </aside>
+        
+        </div>
     )
 }
 

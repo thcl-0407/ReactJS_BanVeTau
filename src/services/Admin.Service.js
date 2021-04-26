@@ -11,11 +11,20 @@ const DangNhap = (UserName, MatKhau)=>{
     return axios.post(env.BASE_URL_API_NHANVIEN + "loginNV", param)
 }
 
+const GetNhanVienBySDT=(SoDienThoai)=>{
+    return axios.get(env.BASE_URL_API_NHANVIEN + "nhanvien/sdt=" + SoDienThoai)
+}
+
+const GetNhanVien= ()=>{
+    return axios.get(env.BASE_URL_API_NHANVIEN + "nhanviens")
+}
 const ThemMoiNhanVien = (NhanVien)=>{
 
 }
 
 export default {
     DangNhap, 
-    ThemMoiNhanVien
+    ThemMoiNhanVien,
+    GetNhanVien,
+    GetNhanVienBySDT
 }

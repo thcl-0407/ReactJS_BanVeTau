@@ -49,15 +49,19 @@ function FormTimKiemLichTrinh(props){
 
     const TimKiemLichTrinh = ()=>{
 
+        /*Kiểm tra ga đi trống */
         if(lodash.isEmpty(MaGaDi)){
             ToastifyMessage.ToastError("Ga Đi Trống")
             return
         }
+
+        /*Kiểm tra ga đến trống */
         if (lodash.isEmpty(MaGaDen)){
             ToastifyMessage.ToastError("Ga Đến Trống")
             return
         }
 
+        /*Kiểm tra ngày đi trống */
         if (lodash.isNil(startDate)){
             ToastifyMessage.ToastError("Ngày đi không được trống")
             return
@@ -67,12 +71,7 @@ function FormTimKiemLichTrinh(props){
             MaGaDen: MaGaDen.value,
             NgayDi: startDate,
         }
-
-        //Chưa Chọn Mã Ga Đi
-        
-        //Chưa Chọn Mã Ga Đến
-        //check chưa chọn ngày
-        
+  
         //Chọn Trùng Mã
         if(param.MaGaDi == param.MaGaDen){
             ToastifyMessage.ToastError("Ga Đi Không Trùng Ga Đến")
