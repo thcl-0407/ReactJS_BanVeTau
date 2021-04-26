@@ -9,7 +9,7 @@ import { subDays } from "date-fns";
 import KhachHangService from "./../../../../services/KhachHang.Service"
 import ToastifyMessage from "../../../../utilities/ToastifyMessage";
 import lodash from "lodash"
-
+import history from "./../../../../history"
 var options = []
 
 //Config Date
@@ -48,6 +48,7 @@ function FormTimKiemLichTrinh(props){
 
 
     const TimKiemLichTrinh = ()=>{
+
         let param = {
             MaGaDi: MaGaDi.value,
             MaGaDen: MaGaDen.value,
@@ -55,8 +56,17 @@ function FormTimKiemLichTrinh(props){
         }
 
         //Chưa Chọn Mã Ga Đi
-        //Chưa Chọn Mã Ga Đến
         
+        //Chưa Chọn Mã Ga Đến
+        //check chưa chọn ngày
+        if(lodash.isEmpty(param.MaGaDi)){
+            ToastifyMessage.ToastError("Ga Đi Trống")
+            return
+        }
+        if (lodash.isEmpty(param.MaGaDen)){
+            ToastifyMessage.ToastError("Ga Đến Trống")
+            return
+        }
         //Chọn Trùng Mã
         if(param.MaGaDi == param.MaGaDen){
             ToastifyMessage.ToastError("Ga Đi Không Trùng Ga Đến")
@@ -66,6 +76,9 @@ function FormTimKiemLichTrinh(props){
         KhachHangService.TimKiemLichTrinh(param).then((res)=>{
             console.log(res)
         })
+
+        history.push("/TimVe")
+        options=[]
     }
 
     const ChonMaGaDi = (selected)=>{
@@ -88,12 +101,12 @@ function FormTimKiemLichTrinh(props){
                     <div>
                         <label>Ga Đi</label>
                         <br/>
-                        <Select options={options} onChange={ChonMaGaDi}></Select>
+                        <Select options={options} onChange={ChonMaGaDi} id="txtMaGaDi"></Select>
                     </div>
                     <div className="py-3">
                         <label>Ga Đến</label>
                         <br/>
-                        <Select options={options} onChange={ChonMaGaDen}></Select>
+                        <Select options={options} onChange={ChonMaGaDen} id="txtMaGaDen"></Select>
                     </div>
                     <div className="py-3 flex justify-center">
                         <input type="radio" onClick={SelectLoaiVe} value="MotChieu" name="LoaiVe" id="rbtnVeMotChieu" defaultChecked={true}/><span>&nbsp;Một Chiều&emsp;</span>

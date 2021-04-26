@@ -10,7 +10,17 @@ const GetDanhSachNhaGa = ()=>{
     return axios.get(env.BASE_URL_API_KHACHHANG + "nhaGa")
 }
 
+const DangNhapKhachHang=(SoDienThoai, MatKhau)=>{
+    let param={
+        SoDienThoai: SoDienThoai,
+        MatKhau: MatKhau
+    }
+
+    return axios.post(env.BASE_URL_API_KHACHHANG +"loginKH", param)
+}
+
 export default {
     TimKiemLichTrinh,
-    GetDanhSachNhaGa
+    GetDanhSachNhaGa,
+    DangNhapKhachHang
 }

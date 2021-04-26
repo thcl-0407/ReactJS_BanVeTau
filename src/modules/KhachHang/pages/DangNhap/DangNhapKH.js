@@ -1,6 +1,38 @@
 import { Link } from "react-router-dom";
+import lodash from "lodash"
+import env from "react-dotenv"
+import KhachHangService from "./../../../../services/KhachHang.Service"
+import history from "./../../../../history"
+import ToastifyMessage from "../../../../utilities/ToastifyMessage";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
-function DangNhapKH() {
+
+const btnKhachHangLoginSubmit_Click=()=>{
+    let SoDienThoai = document.getElementById("txtSoDienThoai").value
+    let MatKhau = document.getElementById("txtMatKhau").value
+
+   
+
+    if(lodash.isEmpty(SoDienThoai) || lodash.isEmpty(MatKhau)){
+        ToastifyMessage.ToastError("Chưa Nhập Đủ Thông Tin")
+        return
+    }
+
+    KhachHangService.DangNhapKhachHang(SoDienThoai, MatKhau).then(response => {
+        console.log("Call Login", response)
+
+        if(response.data.status){
+            
+            history.push("/")
+            
+        }else{
+            ToastifyMessage.ToastError(response.data.data)
+        }
+    })
+}
+
+function DangNhapKH(props) {
     return (
         <div className="flex justify-center items-center min-h-screen">
             <div className="bg-white shadow-xl border border-gray-400">
@@ -10,7 +42,7 @@ function DangNhapKH() {
                 <form className="w-80">
                     <div className="mx-5 mt-6 mb-3 flex justify-start p-2.5 border border-gray-400">
                         <strong className="mr-2.5"><i className="fas fa-user"></i></strong>
-                        <input type="text" id="txtUserName" className="object-fill w-full focus:outline-none" placeholder="Số điện thoại"></input>
+                        <input type="text" id="txtSoDienThoai" className="object-fill w-full focus:outline-none" placeholder="Số điện thoại"></input>
                     </div>
                     <div className="mx-5 mb-1 flex justify-start p-2.5 border border-gray-400">
                         <strong className="mr-2.5"><i className="fas fa-key"></i></strong>
@@ -22,7 +54,7 @@ function DangNhapKH() {
                     </div>
 
                     <div className="mb-6 text-center px-6">
-                        <button id="btnKhachHangLoginSubmit" type="button" className="focus:outline-none border-2 border-mainFont hover:bg-white hover:text-mainFont object-fill w-full bg-mainFont py-2 text-white font-medium">Đăng Nhập</button>
+                        <button id="btnKhachHangLoginSubmit" onClick={btnKhachHangLoginSubmit_Click} type="button" className="focus:outline-none border-2 border-mainFont hover:bg-white hover:text-mainFont object-fill w-full bg-mainFont py-2 text-white font-medium">Đăng Nhập</button>
                     </div>
 
                     
