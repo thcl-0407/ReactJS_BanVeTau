@@ -5,13 +5,16 @@ import history from "./../../../../history"
 import { useEffect, useState } from "react"
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
+import ProfileChiTietNhanVien from "./ProfileChiTietNhanVien"
 function QuanLyNhanVien(props){
     const [data, setData] = useState([]);
     //const [showCreateModal,hideCreateModal]= useModal()
     const [open, setOpen] = useState(false);
     const onOpenModal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
- 
+    const [openChiTiet, setOpenChiTiet]=useState(false)
+    const onOpenModalChiTiet=()=>setOpenChiTiet(true)
+    const onCloseModalChiTiet=()=>setOpenChiTiet(false)
     useEffect(()=>{
     AdminService.GetNhanVien().then(response =>{
             console.log(response)
@@ -43,7 +46,7 @@ function QuanLyNhanVien(props){
                         <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">Họ tên nhân viên</th>
                         <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">Số điện thoại</th>
                         <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">Ca làm việc</th>
-                        <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">Trạng thái</th>
+                        <th className="w-1/8 bg-blue-100 border text-left px-8 py-4"></th>
                         <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">Hoạt động</th>
                     </tr>
                 </thead>
@@ -55,7 +58,12 @@ function QuanLyNhanVien(props){
                             <td>{item.HoTenNhanVien}</td>  
                             <td>{item.SoDienThoai}</td>
                             <td>{item.CaLamViec}</td>
-                            <td></td>
+                            <td>
+                                <button onClick={onOpenModalChiTiet}>Chi tiết</button>
+                                <Modal open={openChiTiet} onClose={onCloseModalChiTiet} center>
+                                    <ProfileChiTietNhanVien></ProfileChiTietNhanVien>
+                                </Modal>
+                            </td>
                             {/* <td className="bg-blue-200 text-purple-600 py-1 px-2 rounded-2xl text-xs my-1"></td> */}
                             <td>
                                     <button className="bg-red-600 text-white py-1 px-3 rounded-full text-xs" >Khoá</button>
