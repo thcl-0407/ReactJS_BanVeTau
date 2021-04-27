@@ -3,12 +3,14 @@ import lodash from "lodash"
 import ToastifyMessage from "./../../../../utilities/ToastifyMessage"
 import history from "./../../../../history"
 import { useEffect, useState } from "react"
-import { useModal } from "react-modal-hook"
-
+import { Modal } from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
 function QuanLyNhanVien(props){
     const [data, setData] = useState([]);
     //const [showCreateModal,hideCreateModal]= useModal()
-    
+    const [open, setOpen] = useState(false);
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => setOpen(false);
  
     useEffect(()=>{
     AdminService.GetNhanVien().then(response =>{
@@ -21,10 +23,16 @@ function QuanLyNhanVien(props){
         <div className="">
             
                 <div>
-                    <button className="bg-blue-300 text-white py-1 px-3 rounded-sm text-xl mb-2 ml-10" >Thêm mới nhân viên</button>
-                
-                    <input className="mr-60 border-2 float-right" placeholder="Tìm kiếm bằng số điện thoại" />
-                    
+                    <button className="bg-blue-300 text-white py-1 px-3 rounded-sm text-xl mb-2 ml-10" onClick={onOpenModal}>Thêm mới nhân viên</button>
+                        {/* Quản lý modal thêm */}
+                        <Modal open={open} onClose={onCloseModal} center>
+                            <h2 className="text-center text-lg">Chi tiết thông tin nhân viên</h2>
+                            <form className="grid grid-cols-2">
+                                <label>Mã Nhân Viên</label><br/>
+                                <input placeholder="Mã nhân viên"/>
+                            </form>
+                        </Modal>
+                    <input className="mr-60 border-2 float-right" placeholder="Tìm kiếm bằng số điện thoại" />                   
                 </div>
 
             <table className="border-collapse border border-green-800 shadow-lg bg-white ml-10">
@@ -56,6 +64,9 @@ function QuanLyNhanVien(props){
                     })}
                 </tbody>
             </table>
+            <div>
+            
+            </div>
         </div>
 
     )
