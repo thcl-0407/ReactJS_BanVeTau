@@ -2,6 +2,7 @@ import {Route} from "react-router-dom"
 import Sidebar from "./../modules/Admin/pages/Sidebar/Sidebar"
 import AdminLogin from "./../modules/Admin/pages/Login/Admin.Login"
 import QuanLyNhanVien from "../modules/Admin/pages/QuanLyNhanVien/QuanLyNhanVien"
+import QuanLyKhachHang from "../modules/Admin/pages/QuanLyKhachHang/QuanLyKhachHang"
 
 
 function AdminRoute(props) {
@@ -14,6 +15,10 @@ function AdminRoute(props) {
             <Route path="/Admin/QLNV" exact>
                 <Sidebar></Sidebar>
                 <QuanLyNhanVien/>
+            </Route>
+            <Route path="/Admin/QLKH" exact>
+                <Sidebar></Sidebar>
+                <QuanLyKhachHang/>
             </Route>
         </>
     )

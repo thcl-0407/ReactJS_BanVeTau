@@ -18,6 +18,10 @@ const GetNhanVienBySDT=(SoDienThoai)=>{
 const GetNhanVien= ()=>{
     return axios.get(env.BASE_URL_API_NHANVIEN + "nhanviens")
 }
+
+const GetKhachHang=()=>{
+    return axios.get(env.BASE_URL_API_NHANVIEN + "khachhangs")
+}
 const ThemMoiNhanVien = (NhanVien)=>{
 
 }
@@ -26,5 +30,6 @@ export default {
     DangNhap, 
     ThemMoiNhanVien,
     GetNhanVien,
-    GetNhanVienBySDT
+    GetNhanVienBySDT,
+    GetKhachHang
 }
