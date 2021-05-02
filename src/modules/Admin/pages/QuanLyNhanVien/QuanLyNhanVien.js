@@ -7,6 +7,8 @@ import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import ProfileChiTietNhanVien from "./ProfileChiTietNhanVien";
 import React from "react";
+import TimKiemNhanVien from "./TimKiemNhanVien";
+
 
 function QuanLyNhanVien(props) {
   const [data, setData] = useState([]);
@@ -17,6 +19,7 @@ function QuanLyNhanVien(props) {
   const [openChiTiet, setOpenChiTiet] = useState(false);
   const [selectSoDienThoai, setSelectSoDienThoai] = useState("");
 
+
   const onOpenModalChiTiet = (SoDienThoai) => {
     console.log(SoDienThoai);
     setOpenChiTiet(true);
@@ -24,17 +27,19 @@ function QuanLyNhanVien(props) {
   };
 
   const onCloseModalChiTiet = () => setOpenChiTiet(false);
+
   useEffect(() => {
     AdminService.GetNhanVien().then((response) => {
       console.log(response);
       setData(response.data.data);
-    });
+    }
+    );
   }, []);
 
   return (
     <div className="flex justify-center pt-8">
       <div>
-        <div>
+        <div className="flex">
           <button
             className="bg-blue-300 text-white py-1 px-3 rounded-sm text-xl mb-2 ml-10"
             onClick={onOpenModal}
@@ -52,10 +57,10 @@ function QuanLyNhanVien(props) {
               <input placeholder="Mã nhân viên" />
             </form>
           </Modal>
-          <input
-            className="mr-60 border-2 float-right"
-            placeholder="Tìm kiếm bằng số điện thoại"
-          />
+          
+            <TimKiemNhanVien/>
+          
+              
         </div>
 
         <table className="border-collapse border border-green-800 shadow-lg bg-white ml-10">

@@ -6,35 +6,34 @@ import { useEffect, useState } from "react"
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 
+function ProfileChiTietKhachHang(props){
 
-function ProfileChiTietNhanVien(props){
     const [profile, setProfile] = useState([]);
     
     useEffect(()=>{
         console.log(props.SoDienThoai)
 
         if(!lodash.isNil(props.SoDienThoai)){
-            AdminService.GetNhanVienBySDT(props.SoDienThoai).then(response => {
+            AdminService.GetKhachHangBySDT(props.SoDienThoai).then(response => {
                 console.log(response.data.data)
                 setProfile(response.data.data)
             })
         }
     },[])
 
-    return(
-
+    return (
         <form>
-            <h1 className="text-center font-extrabold text-2xl">Thông tin chi tiết nhân viên</h1>
+            <h1 className="text-center font-extrabold text-2xl">Thông tin chi tiết khách hàng</h1>
             {/* <h2>Thông tin cá nhân</h2> */}
             <div className="grid grid-cols-2 border border-separate my-1 mx-3">                
-                <div className="grid grid-cols-2 m-2">
+                {/* <div className="grid grid-cols-2 m-2">
                     <h2 className="font-bold">Mã nhân viên</h2>
                     <p>{profile.MaNhanVien}</p>
-                </div>
+                </div> */}
                     
                 <div className="grid grid-cols-2 m-2">
-                    <h2 className="font-bold">Họ tên nhân viên</h2>
-                    <p className="ml-7">{profile.HoTenNhanVien}</p>
+                    <h2 className="font-bold">Họ tên khách hàng</h2>
+                    <p className="ml-7">{profile.HoTen}</p>
                 </div>
                
                 <div className="grid grid-cols-2 m-2">
@@ -47,17 +46,17 @@ function ProfileChiTietNhanVien(props){
                     <p className="ml-7">{profile.SoCMND}</p>
                 </div>
 
-                <div className="grid grid-cols-2 m-2">
+                {/* <div className="grid grid-cols-2 m-2">
                     <h2 className="font-bold">Ca làm việc</h2>
                     <p>{profile.CaLamViec}</p>
-                </div>
+                </div> */}
             </div>
             
 
-                <div className="grid grid-cols-2">
+                {/* <div className="grid grid-cols-2">
                     <h2 className="font-bold">Tên tài khoản</h2>
                     <p className="ml-2">{profile.UserName}</p>
-                </div>
+                </div> */}
                 {/* <div className="grid grid-cols-2">
                     <h2 className="font-bold">Mật khẩu</h2>
                     <p className="ml-2" >{profile.MatKhau}</p>
@@ -68,4 +67,4 @@ function ProfileChiTietNhanVien(props){
     )
 }
 
-export default ProfileChiTietNhanVien
+export default ProfileChiTietKhachHang

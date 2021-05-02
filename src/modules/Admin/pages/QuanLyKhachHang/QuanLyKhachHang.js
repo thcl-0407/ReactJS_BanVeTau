@@ -5,11 +5,27 @@ import history from "./../../../../history"
 import { useEffect, useState } from "react"
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
-
+import ProfileChiTietKhachHang from "./ProfileChiTietKhachHang"
+import React from "react";
 
 function QuanLyKhachHang(props){
     const [khachHang, setKhachHang]= useState([])
 
+    //const [data, setData] = useState([]);
+  //const [showCreateModal,hideCreateModal]= useModal()
+  const [open, setOpen] = useState(false);
+  //const onOpenModal = () => setOpen(true);
+  //const onCloseModal = () => setOpen(false);
+  const [openChiTiet, setOpenChiTiet] = useState(false);
+  const [selectSoDienThoai, setSelectSoDienThoai] = useState("");
+
+  const onOpenModalChiTiet = (SoDienThoai) => {
+    console.log(SoDienThoai);
+    setOpenChiTiet(true);
+    setSelectSoDienThoai(SoDienThoai);
+  };
+
+  const onCloseModalChiTiet = () => setOpenChiTiet(false);
     useEffect(()=>{
         AdminService.GetKhachHang().then(response =>{
                 console.log(response)
@@ -17,7 +33,7 @@ function QuanLyKhachHang(props){
         })
         },[])
     return(
-        <div>
+        <div className="flex justify-center pt-8">
             <table className="border-collapse border border-green-800 shadow-lg bg-white ml-10">
                 <thead className="table-header-group">
                     <tr className="bg-blue-100 border text-left px-8 py-4">
@@ -34,11 +50,25 @@ function QuanLyKhachHang(props){
                             <td>{index+1}</td>
                             <td>{item.HoTen}</td>
                             <td>{item.SoDienThoai}</td>
-                            <td></td>
+                            <td>
+                            <button className="underline text-blue-400"
+                      onClick={onOpenModalChiTiet.bind(null, item.SoDienThoai)}
+                    >
+                      Chi tiết
+                    </button>
+                            </td>
                         </tr>
                     })}
                 </tbody>
             </table>
+            <div></div>
+            <React.Fragment>
+          <Modal open={openChiTiet} onClose={onCloseModalChiTiet} center>
+            <ProfileChiTietKhachHang
+              SoDienThoai={selectSoDienThoai}
+            ></ProfileChiTietKhachHang>
+          </Modal>
+        </React.Fragment>
         </div>
     )
 }
