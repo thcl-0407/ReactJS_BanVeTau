@@ -17,7 +17,7 @@ function Sidebar() {
                 </button>*/}
             </div>
             <nav className="text-white text-base font-semibold pt-3">
-                <Link to="/" className="flex items-center text-white py-4 pl-6 nav-item">
+                {/* <Link to="/" className="flex items-center text-white py-4 pl-6 nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 pl-0" viewBox="0 0 20 20"
                          fill="currentColor">
                         <path
@@ -25,7 +25,7 @@ function Sidebar() {
                     </svg>
                     &nbsp;&nbsp;
                     <strong className="font-normal">Trang Chủ</strong>
-                </Link>
+                </Link> */}
                 <Link to="/Admin/QLNV"
                       className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-0" viewBox="0 0 20 20"
