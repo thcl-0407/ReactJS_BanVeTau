@@ -7,8 +7,8 @@ import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import ProfileChiTietNhanVien from "./ProfileChiTietNhanVien";
 import React from "react";
-import TimKiemNhanVien from "./TimKiemNhanVien";
-
+import ThemNhanVien from "./ThemNhanVien";
+//import TimKiemNhanVien from "./TimKiemNhanVien";
 
 function QuanLyNhanVien(props) {
   const [data, setData] = useState([]);
@@ -18,7 +18,8 @@ function QuanLyNhanVien(props) {
   const onCloseModal = () => setOpen(false);
   const [openChiTiet, setOpenChiTiet] = useState(false);
   const [selectSoDienThoai, setSelectSoDienThoai] = useState("");
-
+  const [filtered, setFilterd] = useState([]);
+  const [result, setResult] = useState("");
 
   const onOpenModalChiTiet = (SoDienThoai) => {
     console.log(SoDienThoai);
@@ -30,11 +31,24 @@ function QuanLyNhanVien(props) {
 
   useEffect(() => {
     AdminService.GetNhanVien().then((response) => {
-      console.log(response);
+      console.log("getAll",response);
       setData(response.data.data);
-    }
-    );
+      setFilterd(response.data.data);
+    });
   }, []);
+
+  // useEffect(() => {
+  //   const results = filtered.filter((res) =>{
+  //     console.log("searchSDT",res.SoDienThoai)
+  //     res.SoDienThoai.toLowerCase().includes(result)
+  // });
+  //   setData(results);
+  // }, [result]);
+  // console.log(data)
+
+  const onChange = (e) => {
+    setResult(e.target.value);
+  };
 
   return (
     <div className="flex justify-center pt-8">
@@ -48,19 +62,34 @@ function QuanLyNhanVien(props) {
           </button>
           {/* Quản lý modal thêm */}
           <Modal open={open} onClose={onCloseModal} center>
-            <h2 className="text-center text-lg">
+            {/* <h2 className="text-center text-lg">
               Chi tiết thông tin nhân viên
             </h2>
             <form className="grid grid-cols-2">
               <label>Mã Nhân Viên</label>
               <br />
               <input placeholder="Mã nhân viên" />
-            </form>
+            </form> */}
+            <ThemNhanVien/>
           </Modal>
-          
-            <TimKiemNhanVien/>
-          
-              
+          <input
+            placeholder="Tim bang so dien thoai"
+            value={result}
+            onChange={onChange}
+          />
+          {/* {data.map((item, index) => (
+            
+            <tr
+                  key={index}
+                  className="bg-white border px-8 py-4 text-center"
+                >
+                  <td className="px-2 py-2">{index + 1}</td>
+                  <td>{item.MaNhanVien}</td>
+                  <td>{item.HoTenNhanVien}</td>
+                  <td>{item.SoDienThoai}</td>
+                  <td>{item.CaLamViec}</td>
+            </tr>
+          ))} */}
         </div>
 
         <table className="border-collapse border border-green-800 shadow-lg bg-white ml-10">
@@ -100,7 +129,8 @@ function QuanLyNhanVien(props) {
                   <td>{item.SoDienThoai}</td>
                   <td>{item.CaLamViec}</td>
                   <td>
-                    <button className="underline text-blue-400"
+                    <button
+                      className="underline text-blue-400"
                       onClick={onOpenModalChiTiet.bind(null, item.SoDienThoai)}
                     >
                       Chi tiết
