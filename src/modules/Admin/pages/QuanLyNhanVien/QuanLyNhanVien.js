@@ -37,17 +37,12 @@ function QuanLyNhanVien(props) {
     });
   }, []);
 
-  // useEffect(() => {
-  //   const results = filtered.filter((res) =>{
-  //     console.log("searchSDT",res.SoDienThoai)
-  //     res.SoDienThoai.toLowerCase().includes(result)
-  // });
-  //   setData(results);
-  // }, [result]);
-  // console.log(data)
+  const TimKiemNhanVien = () => {
+    let strKey = document.getElementById("txtSoDienThoaiTimKiem").value
 
-  const onChange = (e) => {
-    setResult(e.target.value);
+    if(!lodash.isEmpty(strKey.trim())){  
+      console.log('tim kiem')
+    }
   };
 
   return (
@@ -73,10 +68,11 @@ function QuanLyNhanVien(props) {
             <ThemNhanVien/>
           </Modal>
           <input
+            type="text"
+            id="txtSoDienThoaiTimKiem"
             placeholder="Tim bang so dien thoai"
-            value={result}
-            onChange={onChange}
-          />
+            defaultValue={result}/>
+          <button onClick={TimKiemNhanVien}>Tim Kiem</button>
           {/* {data.map((item, index) => (
             
             <tr
