@@ -27,7 +27,7 @@ const GetKhachHang=()=>{
     return axios.get(env.BASE_URL_API_NHANVIEN + "khachhangs")
 }
 const ThemMoiNhanVien = (NhanVien)=>{
-
+    return axios.post(env.BASE_URL_API_NHANVIEN + "themNhanVien", NhanVien)
 }
 
 export default {
