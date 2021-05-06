@@ -8,26 +8,26 @@ const DangNhap = (UserName, MatKhau)=>{
         MatKhau: MatKhau
     }
 
-    return axios.post(env.BASE_URL_API_NHANVIEN + "loginNV", param)
+    return axios.post(env.BASE_URL_API + "loginNV", param)
 }
 
 const GetNhanVienBySDT=(SoDienThoai)=>{
-    return axios.get(env.BASE_URL_API_NHANVIEN + "nhanvien/sdt=" + SoDienThoai)
+    return axios.get(env.BASE_URL_API + "nhanvien/sdt=" + SoDienThoai)
 }
 
 const GetKhachHangBySDT=(SoDienThoai)=>{
-    return axios.get(env.BASE_URL_API_NHANVIEN + "khachhang/sdt=" + SoDienThoai)
+    return axios.get(env.BASE_URL_API + "khachhang/sdt=" + SoDienThoai)
 }
 
 const GetNhanVien= ()=>{
-    return axios.get(env.BASE_URL_API_NHANVIEN + "nhanviens")
+    return axios.get(env.BASE_URL_API + "nhanviens")
 }
 
 const GetKhachHang=()=>{
-    return axios.get(env.BASE_URL_API_NHANVIEN + "khachhangs")
+    return axios.get(env.BASE_URL_API + "khachhangs")
 }
 const ThemMoiNhanVien = (NhanVien)=>{
-    return axios.post(env.BASE_URL_API_NHANVIEN + "themNhanVien", NhanVien)
+    return axios.post(env.BASE_URL_API + "themNhanVien", NhanVien)
 }
 
 export default {
