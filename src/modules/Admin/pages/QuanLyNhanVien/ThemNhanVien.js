@@ -29,20 +29,20 @@ function ThemNhanVien(props) {
        AdminService.ThemMoiNhanVien(NhanVien).then((res)=>{
            console.log("add", res)
            //props.history.push('Admin/QLNV')
-           history.push("/Admin/QLNV")
+           history.push("Admin/QLNV")
        })
   };
-  const onChange=(e)=>{
-    e.persist();
-    setNhanVien({...nhanvien, [e.target.SoDienThoai]:e.target.defaultValue})
-  }
+  // const onChange=(e)=>{
+  //   e.persist();
+  //   setNhanVien({...nhanvien, [e.target.SoDienThoai]:e.target.defaultValue})
+  // }
   return (
     <div>
       <h1 className="text-center font-bold text-2xl">Thêm nhân viên</h1>
       <form onSubmit={ThemNhanVien}>
         <div className="grid grid-cols-2">
           <label>Mã Nhân Viên</label>
-          <input type="text" placeholder="Mã nhân viên" id="txtMaNhanVien" defaultValue={nhanvien.MaNhanVien} onChange={ onChange }/>
+          <input type="text" placeholder="Mã nhân viên" id="txtMaNhanVien" defaultValue={nhanvien.MaNhanVien}/>
         </div>
         <div className="grid grid-cols-2">
           <label>Họ tên nhân viên</label>
@@ -51,32 +51,32 @@ function ThemNhanVien(props) {
             placeholder="Họ tên nhân viên"
             id="txtHoTenNhanVien"
             defaultValue={nhanvien.HoTenNhanVien}
-            onChange={ onChange }
+            
           />
         </div>
         <div className="grid grid-cols-2">
           <label>Tên tài khoản</label>
-          <input placeholder="Tên tài khoản" id="txtTenTaiKhoan" defaultValue={nhanvien.UserName} onChange={ onChange }/>
+          <input placeholder="Tên tài khoản" id="txtTenTaiKhoan" defaultValue={nhanvien.UserName}/>
         </div>
         <div className="grid grid-cols-2">
           <label>Ca Làm Việc</label>
-          <input placeholder="Ca làm việc" id="txtCaLamViec" defaultValue={nhanvien.CaLamViec} onChange={ onChange }/>
+          <input placeholder="Ca làm việc" id="txtCaLamViec" defaultValue={nhanvien.CaLamViec}/>
         </div>
         <div className="grid grid-cols-2">
           <label>Số điện thoại</label>
-          <input placeholder="Số điện thoại" id="txtSoDienThoai" defaultValue={nhanvien.SoDienThoai} onChange={ onChange }/>
+          <input placeholder="Số điện thoại" id="txtSoDienThoai" defaultValue={nhanvien.SoDienThoai}/>
         </div>
         <div className="grid grid-cols-2">
           <label>Số chứng minh nhân dân</label>
-          <input placeholder="Số chứng minh nhân dân" id="txtSoCMND" defaultValue={nhanvien.SoCMND} onChange={ onChange }/>
+          <input placeholder="Số chứng minh nhân dân" id="txtSoCMND" defaultValue={nhanvien.SoCMND} />
         </div>
         <div className="grid grid-cols-2">
           <label>Mật khẩu</label>
-          <input type="password" placeholder="Mật khẩu" id="txtMatKhau" defaultValue={nhanvien.MatKhau} onChange={ onChange }/>
+          <input type="password" placeholder="Mật khẩu" id="txtMatKhau" defaultValue={nhanvien.MatKhau}/>
         </div>
         <div className="grid grid-cols-2">
           <label>Admin</label>
-          <input type="text" placeholder="Admin" id="txtMatKhau" defaultValue={nhanvien.isAdmin} onChange={ onChange }/>
+          <input type="text" placeholder="Admin" id="txtMatKhau" defaultValue={nhanvien.isAdmin}/>
         </div>
         <div className="pt-3 text-center">
           <button
