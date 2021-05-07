@@ -33,18 +33,18 @@ function QuanLyNhanVien(props) {
     AdminService.GetNhanVien().then((response) => {
       console.log("getAll",response);
       setData(response.data.data);
-      //setFilterd(response.data.data);
+      setFilterd(response.data.data);
     });
-  });
+  },[]);
 
   const TimKiemNhanVien = () => {
     let strKey = document.getElementById("txtSoDienThoaiTimKiem").value
 
     if(!lodash.isEmpty(strKey.trim())){  
-      console.log('tim kiem')
+      //console.log('tim kiem')
       AdminService.GetNhanVienBySDT(strKey).then((res)=>{
         console.log("log search", res)
-        setData(res.data.data);
+        setData([res.data.data]);
         //setFilterd(res.data.data)
       })
     }
@@ -111,6 +111,7 @@ function QuanLyNhanVien(props) {
             </tr>
           </thead>
           <tbody>
+            {/* {console.log(data)} */}
             {data.map(function (item, index) {
               return (
                 <tr

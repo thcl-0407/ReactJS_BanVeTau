@@ -196,7 +196,7 @@ window.env = {
   "npm_package_devDependencies__tailwindcss_postcss7_compat": "^2.0.4",
   "npm_package_eslintConfig_extends_0": "react-app",
   "npm_package_eslintConfig_extends_1": "react-app/jest",
-  "npm_package_gitHead": "79c7c393145ff2739d44fb5f6447c6c666232550",
+  "npm_package_gitHead": "9b14751b5e4e8d28cbb6b2b69d6894a4f4eddfb4",
   "npm_package_name": "banvetau_react_js",
   "npm_package_private": "true",
   "npm_package_scripts_build": "react-dotenv && craco build",
