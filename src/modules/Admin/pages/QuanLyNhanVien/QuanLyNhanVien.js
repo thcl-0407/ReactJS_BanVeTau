@@ -33,15 +33,20 @@ function QuanLyNhanVien(props) {
     AdminService.GetNhanVien().then((response) => {
       console.log("getAll",response);
       setData(response.data.data);
-      setFilterd(response.data.data);
+      //setFilterd(response.data.data);
     });
-  }, []);
+  });
 
   const TimKiemNhanVien = () => {
     let strKey = document.getElementById("txtSoDienThoaiTimKiem").value
 
     if(!lodash.isEmpty(strKey.trim())){  
       console.log('tim kiem')
+      AdminService.GetNhanVienBySDT(strKey).then((res)=>{
+        console.log("log search", res)
+        setData(res.data.data);
+        //setFilterd(res.data.data)
+      })
     }
   };
 
@@ -57,23 +62,16 @@ function QuanLyNhanVien(props) {
           </button>
           {/* Quản lý modal thêm */}
           <Modal open={open} onClose={onCloseModal} center>
-            {/* <h2 className="text-center text-lg">
-              Chi tiết thông tin nhân viên
-            </h2>
-            <form className="grid grid-cols-2">
-              <label>Mã Nhân Viên</label>
-              <br />
-              <input placeholder="Mã nhân viên" />
-            </form> */}
             <ThemNhanVien/>
           </Modal>
           <input
+            className="ml-96 border border-4 mb-2"
             type="text"
             id="txtSoDienThoaiTimKiem"
             placeholder="Tim bang so dien thoai"
             defaultValue={result}/>
-          <button onClick={TimKiemNhanVien}>Tim Kiem</button>
-          {/* {data.map((item, index) => (
+          <button onClick={TimKiemNhanVien} className="bg-blue-300 text-white py-1 px-3 rounded-sm text-xl mb-2">Tìm kiếm</button>
+          {/* {filtered.map((item, index) => (
             
             <tr
                   key={index}
