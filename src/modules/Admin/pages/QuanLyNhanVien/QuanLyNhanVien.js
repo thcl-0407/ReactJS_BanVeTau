@@ -50,6 +50,9 @@ function QuanLyNhanVien(props) {
     }
   };
 
+  const isThemNhanVienThanhCong=()=>{
+    onCloseModal(true)
+  }
   return (
     <div className="flex justify-center pt-8">
       <div>
@@ -62,7 +65,7 @@ function QuanLyNhanVien(props) {
           </button>
           {/* Quản lý modal thêm */}
           <Modal open={open} onClose={onCloseModal} center>
-            <ThemNhanVien/>
+            <ThemNhanVien isSuccess={isThemNhanVienThanhCong}/>
           </Modal>
           <input
             className="ml-96 border border-4 mb-2"

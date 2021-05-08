@@ -20,17 +20,21 @@ const GetKhachHangBySDT=(SoDienThoai)=>{
 }
 
 const GetNhanVien= ()=>{
-    return axios.get(env.BASE_URL_API + "nhanviens")
+    return axios.get(env.API_ADMIN_LOCAL + "nhanviens")
 }
 
 const GetKhachHang=()=>{
     return axios.get(env.BASE_URL_API + "khachhangs")
 }
 const ThemMoiNhanVien = (NhanVien)=>{
-    return axios.post(env.BASE_URL_API + "themNhanVien", NhanVien)
+    return axios.post(env.API_ADMIN_LOCAL + "themNhanVien", NhanVien)
 }
 const GetAllLichTrinh=()=>{
     return axios.get(env.API_ADMIN_LOCAL +"lichtrinhs")
+}
+
+const GetNhaGaByID=(ID)=>{
+    return axios.get(env.API_ADMIN_LOCAL +"nhaGa/id=" + ID)
 }
 
 export default {
@@ -40,5 +44,6 @@ export default {
     GetNhanVienBySDT,
     GetKhachHang,
     GetKhachHangBySDT,
-    GetAllLichTrinh
+    GetAllLichTrinh,
+    GetNhaGaByID
 }

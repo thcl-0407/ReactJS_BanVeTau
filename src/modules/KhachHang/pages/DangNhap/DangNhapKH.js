@@ -22,7 +22,7 @@ function DangNhapKH(props) {
             console.log("Call Login", response)
     
             if(response.data.status){
-                setCookie(user)
+                setCookie(response.data.user)
                 history.push("/")
                 
             }else{
