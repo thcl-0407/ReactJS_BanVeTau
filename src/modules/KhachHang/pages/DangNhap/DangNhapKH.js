@@ -9,6 +9,11 @@ import { useCookies } from 'react-cookie';
 function DangNhapKH(props) {
     const [cookies, setCookie] = useCookies(['CurrentUser']);
 
+    //Người Dùng Đã Đăng Nhập
+    if(!cookies.CurrentUser == "undefined"){
+        history.push("/")
+    }
+
     const btnKhachHangLoginSubmit_Click=()=>{
         let SoDienThoai = document.getElementById("txtSoDienThoai").value
         let MatKhau = document.getElementById("txtMatKhau").value
@@ -22,7 +27,14 @@ function DangNhapKH(props) {
             console.log("Call Login", response)
     
             if(response.data.status){
+<<<<<<< HEAD
+                console.log(response.data.user)
+                setCookie('CurrentUser',response.data.user)
+
+                ToastifyMessage.ToastSuccess("Đăng Nhập Thành Công")
+=======
                 setCookie(response.data.user)
+>>>>>>> 82c270371b9967588649c9961626e1bbd53fe58f
                 history.push("/")
                 
             }else{
