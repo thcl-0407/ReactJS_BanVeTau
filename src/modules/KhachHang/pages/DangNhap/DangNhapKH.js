@@ -22,7 +22,7 @@ function DangNhapKH(props) {
             console.log("Call Login", response)
     
             if(response.data.status){
-                setCookie()
+                setCookie(user)
                 history.push("/")
                 
             }else{
@@ -54,8 +54,6 @@ function DangNhapKH(props) {
                     <div className="mb-6 text-center px-6">
                         <button id="btnKhachHangLoginSubmit" onClick={btnKhachHangLoginSubmit_Click} type="button" className="focus:outline-none border-2 border-mainFont hover:bg-white hover:text-mainFont object-fill w-full bg-mainFont py-2 text-white font-medium">Đăng Nhập</button>
                     </div>
-
-                    
                 </form>
             </div>
         </div>
