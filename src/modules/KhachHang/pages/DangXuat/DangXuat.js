@@ -1,13 +1,12 @@
 import React from 'react'
-import { useCookies } from 'react-cookie';
 import lodash from 'lodash';
 import history from './../../../../history'
+import {reactLocalStorage} from 'reactjs-localstorage';
 
 function DangXuat(props){
-    const [cookies, removeCookie] = useCookies(['CurrentUser']);
-
     const ExecDangXuat = ()=>{
-        removeCookie('CurrentUser')
+        reactLocalStorage.remove('CurrentUser');
+        reactLocalStorage.remove('CurrentToken');
         history.push('/')
     }
 

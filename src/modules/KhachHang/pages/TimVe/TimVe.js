@@ -3,16 +3,8 @@ import FormTimKiemLichTrinh from "./../../components/FormTimKiemLichTrinh/FormTi
 import GioVe from "./../../components/GioVe/GioVe"
 import lodash from "lodash";
 import "./TimVe.scss"
-import { useCookies } from 'react-cookie';
 
 function TimVe(props) {
-    const [cookies, setCookie, removeCookie] = useCookies(['KhachHangLogin']);
-    const [count, setCount] = useState();
-
-    useEffect(() => {
-        console.log(cookies.KhachHangLogin)
-    });
-
     return (
         <div id="boxTimVe" className="min-h-screen flex justify-center items-center p-12">
             <div className="grid grid-rows-2">

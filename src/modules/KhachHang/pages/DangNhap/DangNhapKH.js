@@ -4,16 +4,9 @@ import env from "react-dotenv"
 import KhachHangService from "./../../../../services/KhachHang.Service"
 import history from "./../../../../history"
 import ToastifyMessage from "../../../../utilities/ToastifyMessage";
-import { useCookies } from 'react-cookie';
+import {reactLocalStorage} from 'reactjs-localstorage';
 
 function DangNhapKH(props) {
-    const [cookies, setCookie] = useCookies(['CurrentUser']);
-
-    //Người Dùng Đã Đăng Nhập
-    if(!cookies.CurrentUser == "undefined"){
-        history.push("/")
-    }
-
     const btnKhachHangLoginSubmit_Click=()=>{
         let SoDienThoai = document.getElementById("txtSoDienThoai").value
         let MatKhau = document.getElementById("txtMatKhau").value
@@ -28,11 +21,11 @@ function DangNhapKH(props) {
     
             if(response.data.status){
                 console.log(response.data.user)
-                setCookie('CurrentUser',response.data.user)
+                
+                reactLocalStorage.setObject('CurrentUser', response.data.user)
+                reactLocalStorage.setObject('CurrentToken', response.data.token)
 
                 ToastifyMessage.ToastSuccess("Đăng Nhập Thành Công")
-                setCookie(response.data.user)
-                
                 history.push("/")
                 
             }else{

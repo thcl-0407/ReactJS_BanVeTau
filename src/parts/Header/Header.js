@@ -1,14 +1,12 @@
 import './Header.scss'
-import React from 'react';
+import {React, useState, useEffect} from 'react';
 import lodash from 'lodash';
 import { NavLink } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import {reactLocalStorage} from 'reactjs-localstorage';
 
 function Header(props) {
-    const [cookies, setCookie] = useCookies(['CurrentUser']);
-
     //Check Đã Đăng Nhập Chưa
-    if (cookies.CurrentUser == "undefined") {
+    if (lodash.isEmpty(reactLocalStorage.getObject('CurrentUser'))) {
         return (
             <nav
                 className='flex justify-between bg-main text-white shadow-sm font-medium'
@@ -54,7 +52,7 @@ function Header(props) {
                         LIÊN HỆ
                     </NavLink>
                     <span className='p-3 text-sm text-white font-medium'>
-                        CHÀO, {lodash.isNil(cookies.CurrentUser.HoTen)?"":cookies.CurrentUser.HoTen}
+                        CHÀO, {reactLocalStorage.getObject('CurrentUser').HoTen}
                     </span>
                     <NavLink to='/DangXuat' className='hover:bg-mainHover hover:shadow-xl border-l p-3 text-sm text-white font-medium'>
                         ĐĂNG XUẤT

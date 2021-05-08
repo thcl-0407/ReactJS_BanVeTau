@@ -1,15 +1,10 @@
 import React from 'react';
-import { useCookies } from 'react-cookie';
 import lodash from "lodash";
 import ToastifyMessage from "./../../../../utilities/ToastifyMessage"
 
 function GioVe(props) {
-    const [cookie] = useCookies(['KhachHangLogin']);
-
     function btnMuaVe_Click(){
-        if (lodash.isUndefined(cookie.KhachHangLogin)){
-            ToastifyMessage.ToastError("Bạn Cần Phải Đăng Nhập")
-        }
+        
     }
 
     return (

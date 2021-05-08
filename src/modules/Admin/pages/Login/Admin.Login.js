@@ -2,36 +2,32 @@ import AdminService from "./../../../../services/Admin.Service"
 import lodash from "lodash"
 import ToastifyMessage from "./../../../../utilities/ToastifyMessage"
 import history from "./../../../../history"
-import { withCookies, Cookies } from 'react-cookie';
-import { useCookies } from "react-cookie";
 
-//Gọi Function Này Khi Button Submit Đăng Nhập Được Click
-const btnAdminLoginSubmit_Click = ()=>{
-    let UserName = document.getElementById("txtUserName").value
-    let MatKhau = document.getElementById("txtMatKhau").value
+function Login(props) {
+    //Gọi Function Này Khi Button Submit Đăng Nhập Được Click
+    const btnAdminLoginSubmit_Click = () => {
+        let UserName = document.getElementById("txtUserName").value
+        let MatKhau = document.getElementById("txtMatKhau").value
 
-    if(lodash.isEmpty(UserName) || lodash.isEmpty(MatKhau)){
-        ToastifyMessage.ToastError("Chưa Nhập Đủ Thông Tin")
-        return
-    }
-    
-    AdminService.DangNhap(UserName, MatKhau).then(response => {
-        console.log("Call Admin Login", response)
-
-        if(response.data.status){
-            history.push("/Admin/Dashboard")
-            
-        }else{
-            ToastifyMessage.ToastError(response.data.data)
+        if (lodash.isEmpty(UserName) || lodash.isEmpty(MatKhau)) {
+            ToastifyMessage.ToastError("Chưa Nhập Đủ Thông Tin")
+            return
         }
-    })
-}
 
-function Login(props){
-    
+        AdminService.DangNhap(UserName, MatKhau).then(response => {
+            console.log("Call Admin Login", response)
+
+            if (response.data.status) {
+                history.push("/Admin/Dashboard")
+
+            } else {
+                ToastifyMessage.ToastError(response.data.data)
+            }
+        })
+    }
 
     return (
-        <div className="flex justify-center items-center min-h-screen" style={{backgroundColor: "#EDEDED"}}>
+        <div className="flex justify-center items-center min-h-screen" style={{ backgroundColor: "#EDEDED" }}>
             <div className="bg-white shadow-xl border border-gray-400">
                 <div className="py-3.5 text-center text-mainFont">
                     <p className="font-semibold text-lg">Chào, Admin !</p>
