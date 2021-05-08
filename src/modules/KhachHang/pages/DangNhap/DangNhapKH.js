@@ -27,10 +27,14 @@ function DangNhapKH(props) {
             console.log("Call Login", response)
     
             if(response.data.status){
+<<<<<<< HEAD
                 console.log(response.data.user)
                 setCookie('CurrentUser',response.data.user)
 
                 ToastifyMessage.ToastSuccess("Đăng Nhập Thành Công")
+=======
+                setCookie(response.data.user)
+>>>>>>> 82c270371b9967588649c9961626e1bbd53fe58f
                 history.push("/")
                 
             }else{

@@ -3,6 +3,7 @@ import Sidebar from "./../modules/Admin/pages/Sidebar/Sidebar"
 import AdminLogin from "./../modules/Admin/pages/Login/Admin.Login"
 import QuanLyNhanVien from "../modules/Admin/pages/QuanLyNhanVien/QuanLyNhanVien"
 import QuanLyKhachHang from "../modules/Admin/pages/QuanLyKhachHang/QuanLyKhachHang"
+import QuanLyLichTrinh from "../modules/Admin/pages/QuanLyLichTrinh/QuanLyLichTrinh"
 
 
 function AdminRoute(props) {
@@ -19,6 +20,10 @@ function AdminRoute(props) {
             <Route path="/Admin/QLKH" exact>
                 <Sidebar></Sidebar>
                 <QuanLyKhachHang/>
+            </Route>
+            <Route path="/Admin/QLLT" exact>
+                <Sidebar></Sidebar>
+                <QuanLyLichTrinh/>
             </Route>
         </>
     )
