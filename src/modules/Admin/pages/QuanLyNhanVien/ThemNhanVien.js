@@ -42,6 +42,7 @@ function ThemNhanVien(props) {
     AdminService.ThemMoiNhanVien(NhanVien).then((res) => {
       console.log("them", res);
       history.push("/Admin/QLNV");
+      props.isSuccess()
     });
   };
   return (
