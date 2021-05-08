@@ -4,35 +4,33 @@ import env from "react-dotenv"
 import KhachHangService from "./../../../../services/KhachHang.Service"
 import history from "./../../../../history"
 import ToastifyMessage from "../../../../utilities/ToastifyMessage";
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
-
-
-const btnKhachHangLoginSubmit_Click=()=>{
-    let SoDienThoai = document.getElementById("txtSoDienThoai").value
-    let MatKhau = document.getElementById("txtMatKhau").value
-
-   
-
-    if(lodash.isEmpty(SoDienThoai) || lodash.isEmpty(MatKhau)){
-        ToastifyMessage.ToastError("Chưa Nhập Đủ Thông Tin")
-        return
-    }
-
-    KhachHangService.DangNhapKhachHang(SoDienThoai, MatKhau).then(response => {
-        console.log("Call Login", response)
-
-        if(response.data.status){
-            
-            history.push("/")
-            
-        }else{
-            ToastifyMessage.ToastError(response.data.data)
-        }
-    })
-}
+import { useCookies } from 'react-cookie';
 
 function DangNhapKH(props) {
+    const [cookies, setCookie] = useCookies(['CurrentUser']);
+
+    const btnKhachHangLoginSubmit_Click=()=>{
+        let SoDienThoai = document.getElementById("txtSoDienThoai").value
+        let MatKhau = document.getElementById("txtMatKhau").value
+    
+        if(lodash.isEmpty(SoDienThoai) || lodash.isEmpty(MatKhau)){
+            ToastifyMessage.ToastError("Chưa Nhập Đủ Thông Tin")
+            return
+        }
+    
+        KhachHangService.DangNhapKhachHang(SoDienThoai, MatKhau).then(response => {
+            console.log("Call Login", response)
+    
+            if(response.data.status){
+                setCookie()
+                history.push("/")
+                
+            }else{
+                ToastifyMessage.ToastError(response.data.data)
+            }
+        })
+    }
+
     return (
         <div className="flex justify-center items-center min-h-screen">
             <div className="bg-white shadow-xl border border-gray-400">
