@@ -29,6 +29,9 @@ const GetKhachHang=()=>{
 const ThemMoiNhanVien = (NhanVien)=>{
     return axios.post(env.BASE_URL_API + "themNhanVien", NhanVien)
 }
+const GetAllLichTrinh=()=>{
+    return axios.get(env.API_ADMIN_LOCAL +"lichtrinhs")
+}
 
 export default {
     DangNhap, 
@@ -36,5 +39,6 @@ export default {
     GetNhanVien,
     GetNhanVienBySDT,
     GetKhachHang,
-    GetKhachHangBySDT
+    GetKhachHangBySDT,
+    GetAllLichTrinh
 }
