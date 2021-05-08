@@ -19,6 +19,11 @@ const DangNhapKhachHang=(SoDienThoai, MatKhau)=>{
     return axios.post(env.BASE_URL_API +"loginKH", param)
 }
 
+const GetDanhSachTau_FollowLichTrinh = (param) => {
+    console.log(param) 
+    return axios.post(env.BASE_URL_API + "lichtrinh/date", param)
+}
+
 export default {
     TimKiemLichTrinh,
     GetDanhSachNhaGa,
