@@ -7,6 +7,7 @@ import HuongDan from "./../modules/KhachHang/pages/HuongDan/HuongDan";
 import DangKyKH from "../modules/KhachHang/pages/DangKy/DangKyKH";
 import DangNhapKH from "../modules/KhachHang/pages/DangNhap/DangNhapKH";
 import ChonVe from "../modules/KhachHang/pages/ChonVe/ChonVe";
+import DangXuat from "../modules/KhachHang/pages/DangXuat/DangXuat";
 
 function KhachHangRoute(props) {
     return (
@@ -31,6 +32,9 @@ function KhachHangRoute(props) {
                 <Header></Header>
                <ChonVe></ChonVe>
                 <Footer></Footer>
+            </Route>
+            <Route path="/DangXuat" exact>
+                <DangXuat></DangXuat>
             </Route>
         </>
     )

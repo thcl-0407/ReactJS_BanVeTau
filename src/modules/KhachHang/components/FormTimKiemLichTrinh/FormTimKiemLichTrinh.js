@@ -35,7 +35,7 @@ function FormTimKiemLichTrinh(props){
     useEffect(()=>{
         KhachHangService.GetDanhSachNhaGa().then(response =>{
             response.data.data.forEach(item => {
-                console.log(item)
+                //console.log(item)
                 let temp_object = {
                     "value": item.MaNhaGa, 
                     "label": item.TenNhaGa
