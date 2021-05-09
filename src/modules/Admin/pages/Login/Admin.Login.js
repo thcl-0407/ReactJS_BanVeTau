@@ -22,8 +22,8 @@ function Login(props) {
             if (response.data.status) {
                 console.log("user",response.data.user)
                 
-                reactLocalStorage.setObject('CurrentUser', response.data.user)
-                reactLocalStorage.setObject('CurrentToken', response.data.token)
+                reactLocalStorage.setObject('CurrentUserAdmin', response.data.user)
+                reactLocalStorage.setObject('CurrentTokenAdmin', response.data.token)
                 ToastifyMessage.ToastSuccess("Đăng Nhập Thành Công")
                 history.push("/Admin/Dashboard")
 
