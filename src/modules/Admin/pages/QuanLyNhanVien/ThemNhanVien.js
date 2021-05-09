@@ -39,6 +39,8 @@ function ThemNhanVien(props) {
       isAdmin: isAdmin,
     };
 
+    
+
     AdminService.ThemMoiNhanVien(NhanVien).then((res) => {
       console.log("them", res);
       history.push("/Admin/QLNV");

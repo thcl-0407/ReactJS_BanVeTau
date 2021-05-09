@@ -2,6 +2,8 @@ import AdminService from "./../../../../services/Admin.Service"
 import lodash from "lodash"
 import ToastifyMessage from "./../../../../utilities/ToastifyMessage"
 import history from "./../../../../history"
+import { reactLocalStorage } from "reactjs-localstorage"
+
 
 function Login(props) {
     //Gọi Function Này Khi Button Submit Đăng Nhập Được Click
@@ -18,6 +20,11 @@ function Login(props) {
             console.log("Call Admin Login", response)
 
             if (response.data.status) {
+                console.log("user",response.data.user)
+                
+                reactLocalStorage.setObject('CurrentUser', response.data.user)
+                reactLocalStorage.setObject('CurrentToken', response.data.token)
+                ToastifyMessage.ToastSuccess("Đăng Nhập Thành Công")
                 history.push("/Admin/Dashboard")
 
             } else {
