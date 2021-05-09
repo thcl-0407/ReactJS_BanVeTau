@@ -20,8 +20,7 @@ const DangNhapKhachHang=(SoDienThoai, MatKhau)=>{
 }
 
 const GetDanhSachTau_FollowLichTrinh = (param) => {
-    console.log(param) 
-    return axios.post(env.API_ADMIN_LOCAL + "lichtrinh/date", param)
+    return axios.post(env.API_ADMIN_LOCAL + "tau/lichtrinh", param)
 }
 
 export default {

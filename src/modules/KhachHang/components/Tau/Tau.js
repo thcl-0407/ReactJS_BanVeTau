@@ -1,20 +1,29 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import DateFormat from "date-format"
 
-function Tau() {
+function Tau(props) {
+    let ThoiGianDi = DateFormat("dd-MM-yyyy", new Date(props.value.ThoiGianDi))
+
     return (
         <div className="inline-block m-2">
             <div className="bg-white shadow-xl border border-gray-400 w-80 hover:bg-blue-100">
                 <div className="text-center bg-mainFont">
-                    <h2 className="text-white">SE9</h2>
+                    <h2 className="text-white">{props.value.TenTau}</h2>
                 </div>
-                <form className="bg-white shadow-xl border border-gray-400 w-64 m-4 justify-center">
-                    <p>Thời gian đi</p>
-                    <p>Thời gian đến</p>
-                    <div className="grid grid-cols-2">
-                        <p>SL chỗ đặt</p>
-                        <p>SL lượng trống</p>
-                    </div>
-                </form>
+                <div className="p-2 bg-gray-300 hover:bg-gray-100 hover:cursor-pointer">
+                    <form className="bg-white shadow-xl border border-gray-400 p-2">
+                        <span className="font-black">Thời Gian Đi:&ensp;</span>
+                        <span>{ThoiGianDi}</span>
+                        <div>
+                            <span className="font-black">SL Chỗ Ngồi: &ensp;</span>
+                            <span>{props.value.SoLuongChoNgoi}</span>
+                        </div>
+                        <div>
+                            <span className="font-black">SL Chỗ Trống: &ensp;</span>
+                            <span></span>
+                        </div>
+                    </form>
+                </div>
                 {/* <div className="grid grid-cols-2">
                 <strong className="rounded-full h-12 w-12 flex items-center justify-center bg-blue-300"></strong>
                 <strong className="rounded-full h-12 w-12 flex items-center justify-center bg-blue-300"></strong>

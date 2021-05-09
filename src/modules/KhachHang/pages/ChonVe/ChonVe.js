@@ -1,16 +1,34 @@
-import {useContext} from "react"
+import { useContext, useEffect, useState } from "react"
 import Tau from "./../../components/Tau/Tau"
 import GioVe from "./../../components/GioVe/GioVe"
 import "./ChonVe.scss"
 import { LichTrinhContext } from "./../../../../contexts/LichTrinhContext"
+import DateFormat from "date-format"
+import KhachHangService from "./../../../../services/KhachHang.Service"
 
 function ChonVe(props) {
-    const {Schedule} = useContext(LichTrinhContext)
+    const { Schedule } = useContext(LichTrinhContext)
 
-    console.log(Schedule)
+    //State
+    const [Taus, SetTaus] = useState([])
+
+    useEffect(() => {
+        let param = {
+            MaGaDi: Schedule.MaGaDi,
+            MaGaDen: Schedule.MaGaDen,
+            ThoiGianDi: DateFormat("yyyy-MM-dd", Schedule.ThoiGianDi)
+        }
+
+        KhachHangService.GetDanhSachTau_FollowLichTrinh(param).then((response) => {            
+            SetTaus(response.data.data)
+        })
+    },[])
 
     return (
         <div className="">
+            <div className="pt-5 px-4">
+                <p className="py-2 font-extrabold text-xl text-mainFont">Chiều Đi Ngày {DateFormat("dd-MM-yyyy", Schedule.ThoiGianDi)} từ {Schedule.TenGaDi} đến {Schedule.TenGaDen}</p>
+            </div>
             <div className="grid grid-cols-4">
                 <div className="col-span-3 p-4">
                     <div className="border border-gray-400">
@@ -19,13 +37,11 @@ function ChonVe(props) {
                         </div>
                         <div className="flex justify-center">
                             <div className="p-6">
-                                <Tau></Tau>
-                                <Tau></Tau>
-                                <Tau></Tau>
-                                <Tau></Tau>
-                                <Tau></Tau>
-                                <Tau></Tau>
-                                <Tau></Tau>
+                                {
+                                    Taus.map((item, index) => (
+                                        <Tau key={index} value={item}></Tau>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
@@ -37,8 +53,7 @@ function ChonVe(props) {
                             </div>
                             <div className="flex justify-center">
                                 <div className="p-6">
-                                    <Tau></Tau>
-                                    <Tau></Tau>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -51,15 +66,13 @@ function ChonVe(props) {
                             </div>
                             <div className="flex justify-center">
                                 <div className="p-6">
-                                    <Tau></Tau>
-                                    <Tau></Tau>
-                                    <Tau></Tau>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 {/* Render Giỏ Vé */}
 
                 <div className="flex justify-center">

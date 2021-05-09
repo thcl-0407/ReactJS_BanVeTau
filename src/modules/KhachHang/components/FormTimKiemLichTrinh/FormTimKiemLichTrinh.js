@@ -89,7 +89,9 @@ function FormTimKiemLichTrinh(props){
         //Lưu Vào Global Storage
         SetStateSchedule({
             MaGaDi: param.MaGaDi,
+            TenGaDi: MaGaDi.label,
             MaGaDen: param.MaGaDen,
+            TenGaDen: MaGaDen.label,
             ThoiGianDi: param.NgayDi
         })
     }

@@ -5,9 +5,11 @@ export const LichTrinhContext = createContext()
 const LichTrinhContextProvider = ({children}) => {
     //State
     const [Schedule, SetSchedule] = useState({
-        MaGaDi: 1,
-        MaGaDen: 2,
-        ThoiGianDi: new Date()
+        MaGaDi: 2,
+        TenGaDi: 'Sài Gòn',
+        MaGaDen: 52,
+        TenGaDen: 'Lạc Sơn',
+        ThoiGianDi: new Date('2021-05-27')
     })
 
     //Set Schedule
