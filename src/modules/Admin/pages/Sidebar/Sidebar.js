@@ -6,7 +6,7 @@ import lodash from 'lodash';
 import {reactLocalStorage} from 'reactjs-localstorage';
 function Sidebar() {
 
-    if(lodash.isEmpty(reactLocalStorage.getObject('CurrentUser'))){
+    if(lodash.isEmpty(reactLocalStorage.getObject('CurrentUserAdmin'))){
     return (
         <aside className="relative bg-sidebar h-screen hidden sm:block shadow-xl ml-0 w-60 float-left">
             <div className="p-6">
@@ -89,7 +89,7 @@ function Sidebar() {
                     </div>
                     <button
                         className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-10">
-                        <strong className="font-normal">Hello, {reactLocalStorage.getObject('CurrentUser').HoTenNhanVien}</strong>
+                        <strong className="font-normal">Hello, {reactLocalStorage.getObject('CurrentUserAdmin').HoTenNhanVien}</strong>
                     </button>
                 </div>
                 <nav className="text-white text-base font-semibold pt-3">

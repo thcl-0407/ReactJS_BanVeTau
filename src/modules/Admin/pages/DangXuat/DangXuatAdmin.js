@@ -5,8 +5,8 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 
 function DangXuatAdmin(props){
     const DangXuatAdmin = ()=>{
-        reactLocalStorage.remove('CurrentUser');
-        reactLocalStorage.remove('CurrentToken');
+        reactLocalStorage.remove('CurrentUserAdmin');
+        reactLocalStorage.remove('CurrentTokenAdmin');
         history.push('/Admin/Login')
     }
 
