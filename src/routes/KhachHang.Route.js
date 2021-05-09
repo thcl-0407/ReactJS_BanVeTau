@@ -30,7 +30,7 @@ function KhachHangRoute(props) {
             </Route>
             <Route path="/TimVe" exact>
                 <Header></Header>
-               <ChonVe></ChonVe>
+                <ChonVe></ChonVe>
                 <Footer></Footer>
             </Route>
             <Route path="/DangXuat" exact>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import FormTimKiemLichTrinh from "./../../components/FormTimKiemLichTrinh/FormTimKiemLichTrinh"
 import GioVe from "./../../components/GioVe/GioVe"
 import lodash from "lodash";
@@ -16,7 +16,7 @@ function TimVe(props) {
                         <img className="object-cover min-w-screen" src="http://www.vr.com.vn/uploads/content/Nhaga-Doantau/IMG_5815%20(2).JPG"/>
                     </div>
                     <div className="flex justify-start pl-4">
-                        <GioVe></GioVe>
+                        <GioVe ></GioVe>
                     </div>
                 </div>
             </div>

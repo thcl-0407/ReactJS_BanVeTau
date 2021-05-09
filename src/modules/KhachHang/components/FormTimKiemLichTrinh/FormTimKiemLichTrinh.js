@@ -1,5 +1,5 @@
 import DataPicker from "react-datepicker"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {registerLocale} from "react-datepicker";
 import vi from 'date-fns/locale/vi';
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,6 +10,8 @@ import KhachHangService from "./../../../../services/KhachHang.Service"
 import ToastifyMessage from "../../../../utilities/ToastifyMessage";
 import lodash from "lodash"
 import history from "./../../../../history"
+import { LichTrinhContext } from "./../../../../contexts/LichTrinhContext";
+
 var options = []
 
 //Config Date
@@ -31,6 +33,9 @@ function FormTimKiemLichTrinh(props){
     const [endDate, setEndDate] = useState(new Date());
     const [MaGaDi, setMaGaDi] = useState();
     const [MaGaDen, setMaGaDen] = useState();
+
+    //Context
+    const {SetStateSchedule} = useContext(LichTrinhContext)
 
     useEffect(()=>{
         KhachHangService.GetDanhSachNhaGa().then(response =>{
@@ -78,12 +83,15 @@ function FormTimKiemLichTrinh(props){
             return
         }
 
-        KhachHangService.TimKiemLichTrinh(param).then((res)=>{
-            console.log(res)
-        })
-
         history.push("/TimVe")
         options=[]
+
+        //Lưu Vào Global Storage
+        SetStateSchedule({
+            MaGaDi: param.MaGaDi,
+            MaGaDen: param.MaGaDen,
+            ThoiGianDi: param.NgayDi
+        })
     }
 
     const ChonMaGaDi = (selected)=>{

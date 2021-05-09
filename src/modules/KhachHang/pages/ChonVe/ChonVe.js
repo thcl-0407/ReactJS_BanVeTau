@@ -1,8 +1,14 @@
+import {useContext} from "react"
 import Tau from "./../../components/Tau/Tau"
 import GioVe from "./../../components/GioVe/GioVe"
 import "./ChonVe.scss"
+import { LichTrinhContext } from "./../../../../contexts/LichTrinhContext"
 
-function ChonVe() {
+function ChonVe(props) {
+    const {Schedule} = useContext(LichTrinhContext)
+
+    console.log(Schedule)
+
     return (
         <div className="">
             <div className="grid grid-cols-4">
