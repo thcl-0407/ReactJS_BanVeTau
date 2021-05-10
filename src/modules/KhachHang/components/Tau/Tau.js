@@ -1,11 +1,28 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import DateFormat from "date-format"
+import KhachHangService from "./../../../../services/KhachHang.Service"
 
 function Tau(props) {
+    const [SoLuongDaDat, SetSoLuongDaDat] = useState()
     let ThoiGianDi = DateFormat("dd-MM-yyyy", new Date(props.value.ThoiGianDi))
 
+    useEffect(() => {
+        let param = {
+            MaGaDi: props.value.MaGaDi,
+            MaGaDen: props.value.MaGaDen,
+            ThoiGianDi: DateFormat("yyyy-MM-dd", new Date(props.value.ThoiGianDi)),
+            MaTau: props.value.MaTau
+        }
+        
+        KhachHangService.GetDSGheDaDat(param).then(response => {
+            let soLuongDaDat = props.value.SoLuongChoNgoi - response.data.data.length
+            
+            SetSoLuongDaDat(soLuongDaDat)
+        })
+    },[])
+
     return (
-        <div className="inline-block m-2">
+        <div className="inline-block m-2" onClick={props.ClickSelectTau.bind(null, props.value.MaTau)}>
             <div className="bg-white shadow-xl border border-gray-400 w-80 hover:bg-blue-100">
                 <div className="text-center bg-mainFont">
                     <h2 className="text-white">{props.value.TenTau}</h2>
@@ -20,7 +37,7 @@ function Tau(props) {
                         </div>
                         <div>
                             <span className="font-black">SL Chỗ Trống: &ensp;</span>
-                            <span></span>
+                            <span>{SoLuongDaDat}</span>
                         </div>
                     </form>
                 </div>

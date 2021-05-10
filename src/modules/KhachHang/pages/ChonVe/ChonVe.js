@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import Tau from "./../../components/Tau/Tau"
+import ToaTau from "./../../components/ToaTau/ToaTau"
 import GioVe from "./../../components/GioVe/GioVe"
 import "./ChonVe.scss"
 import { LichTrinhContext } from "./../../../../contexts/LichTrinhContext"
@@ -11,6 +12,7 @@ function ChonVe(props) {
 
     //State
     const [Taus, SetTaus] = useState([])
+    const [DSToa, SetDSToa] = useState([])
 
     useEffect(() => {
         let param = {
@@ -19,10 +21,18 @@ function ChonVe(props) {
             ThoiGianDi: DateFormat("yyyy-MM-dd", Schedule.ThoiGianDi)
         }
 
-        KhachHangService.GetDanhSachTau_FollowLichTrinh(param).then((response) => {            
+        KhachHangService.GetDanhSachTau_FollowLichTrinh(param).then((response) => {
             SetTaus(response.data.data)
         })
-    },[])
+    }, [])
+
+    //Loading Danh Sach Toa Tau
+    const SelectedTau = (MaTau) => {
+        KhachHangService.GetDSToa_Of_Tau(MaTau).then((response) => {
+            SetDSToa(response.data.data)
+            console.log(response.data.data)
+        })
+    }
 
     return (
         <div className="">
@@ -39,7 +49,7 @@ function ChonVe(props) {
                             <div className="p-6">
                                 {
                                     Taus.map((item, index) => (
-                                        <Tau key={index} value={item}></Tau>
+                                        <Tau key={index} value={item} ClickSelectTau={SelectedTau}></Tau>
                                     ))
                                 }
                             </div>
@@ -53,7 +63,9 @@ function ChonVe(props) {
                             </div>
                             <div className="flex justify-center">
                                 <div className="p-6">
-                                    
+                                    {DSToa.map((item, index) => (
+                                        <ToaTau key={index} index={index} value={item}></ToaTau>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -66,7 +78,7 @@ function ChonVe(props) {
                             </div>
                             <div className="flex justify-center">
                                 <div className="p-6">
-                                    
+
                                 </div>
                             </div>
                         </div>

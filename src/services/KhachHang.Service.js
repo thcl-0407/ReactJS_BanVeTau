@@ -23,9 +23,24 @@ const GetDanhSachTau_FollowLichTrinh = (param) => {
     return axios.post(env.API_ADMIN_LOCAL + "tau/lichtrinh", param)
 }
 
+const GetDSGheDaDat = (param) => {
+    return axios.post(env.API_ADMIN_LOCAL + "tau/gheDaDat", param)
+}
+
+const GetDSToa_Of_Tau = (MaTau) => {
+    return axios.post(env.API_ADMIN_LOCAL + "tau/dsToa", {MaTau:MaTau})
+}
+
+const GetChiTietToa_Of_Tau = (MaTau) => {
+    return axios.post(env.API_ADMIN_LOCAL + "tau/chitiettoa", {MaTau:MaTau})
+}
+
 export default {
     TimKiemLichTrinh,
     GetDanhSachNhaGa,
     DangNhapKhachHang,
-    GetDanhSachTau_FollowLichTrinh
+    GetDanhSachTau_FollowLichTrinh,
+    GetDSGheDaDat,
+    GetDSToa_Of_Tau,
+    GetChiTietToa_Of_Tau
 }
