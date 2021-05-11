@@ -22,7 +22,7 @@ function Tau(props) {
     },[])
 
     return (
-        <div className="inline-block m-2" onClick={props.ClickSelectTau.bind(null, props.value.MaTau)}>
+        <div className="inline-block m-2" onClick={props.ClickSelectTau.bind(null, props.value)}>
             <div className="bg-white shadow-xl border border-gray-400 w-80 hover:bg-blue-100">
                 <div className="text-center bg-mainFont">
                     <h2 className="text-white">{props.value.TenTau}</h2>

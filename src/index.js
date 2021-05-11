@@ -4,11 +4,14 @@ import "./index.scss"
 import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
 import LichTrinhContextProvider from "./contexts/LichTrinhContext"
+import VeContextProvider from "./contexts/VeContext"
 
 ReactDOM.render(
   <React.StrictMode>
     <LichTrinhContextProvider>
-      <App></App>
+      <VeContextProvider>
+        <App></App>
+      </VeContextProvider>
     </LichTrinhContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
