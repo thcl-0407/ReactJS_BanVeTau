@@ -37,6 +37,10 @@ const GetNhaGaByID=(ID)=>{
     return axios.get(env.API_ADMIN_LOCAL +"nhaGa/id=" + ID)
 }
 
+const ThemLichTrinh=(param)=>{
+    return axios.post(env.API_ADMIN_LOCAL + "themLichTrinh", param)
+}
+
 export default {
     DangNhap, 
     ThemMoiNhanVien,
@@ -45,5 +49,6 @@ export default {
     GetKhachHang,
     GetKhachHangBySDT,
     GetAllLichTrinh,
-    GetNhaGaByID
+    GetNhaGaByID,
+    ThemLichTrinh
 }
