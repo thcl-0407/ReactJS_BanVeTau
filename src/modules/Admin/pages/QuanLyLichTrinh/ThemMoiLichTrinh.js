@@ -113,9 +113,9 @@ function ThemMoiLichTrinh(props) {
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             minDate={subDays(new Date(), 0)}
-            timeInputLabel="Time:"
-            dateFormat="yyyy-MM-dd HH:mm"
-            showTimeInput
+            
+            dateFormat="yyyy-MM-dd"
+            
           ></DataPicker>
         </div>
         <div className="grid grid-cols-2">
