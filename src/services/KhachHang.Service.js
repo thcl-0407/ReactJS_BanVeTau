@@ -35,6 +35,10 @@ const GetChiTietToa_Of_Tau = (MaTau) => {
     return axios.post(env.API_ADMIN_LOCAL + "tau/chitiettoa", {MaTau:MaTau})
 }
 
+const GetDSGhe_Of_ToaTau = (MaToaTau) => {
+    return axios.get(env.API_ADMIN_LOCAL + "Ghe/MaToa=" + MaToaTau)
+}
+
 export default {
     TimKiemLichTrinh,
     GetDanhSachNhaGa,
@@ -42,5 +46,7 @@ export default {
     GetDanhSachTau_FollowLichTrinh,
     GetDSGheDaDat,
     GetDSToa_Of_Tau,
-    GetChiTietToa_Of_Tau
+    GetChiTietToa_Of_Tau,
+    GetChiTietToa_Of_Tau,
+    GetDSGhe_Of_ToaTau
 }

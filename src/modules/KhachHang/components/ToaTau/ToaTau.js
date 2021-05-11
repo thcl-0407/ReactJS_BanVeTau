@@ -1,7 +1,6 @@
 function ToaTau(props) {
-    console.log(props.key)
     return (
-        <div className="inline-block m-2">
+        <div className="inline-block m-2" onClick={props.ClickSelectToaTau.bind(null, props.value.MaToaTau)}>
             <div className="bg-white shadow-xl border border-gray-400 w-80 hover:bg-blue-100">
                 <div className="text-center bg-mainFont">
                     <h2 className="text-white">Toa {props.index + 1}: {props.value.TenPhanLoai}</h2>
