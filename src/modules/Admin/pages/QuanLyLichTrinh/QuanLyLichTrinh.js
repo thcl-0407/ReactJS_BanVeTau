@@ -62,7 +62,7 @@ function QuanLyLichTrinh(props){
                   <td>{item.TenTau}</td>
                   <td>{item.TenGaDi}</td>
                   <td>{item.TenGaDen}</td>
-                  <td>{item.ThoiGianDi}</td>
+                  <td>{item.ThoiGianDi} 06:00</td>
                   <td>{item.ThoiGianDen}</td>
                   <td>
                     {/* <button
