@@ -3,6 +3,7 @@ import lodash from "lodash"
 import ToastifyMessage from "./../../../../utilities/ToastifyMessage"
 import history from "./../../../../history"
 import { reactLocalStorage } from "reactjs-localstorage"
+import { useEffect } from "react"
 
 
 function Login(props) {
@@ -15,7 +16,7 @@ function Login(props) {
             ToastifyMessage.ToastError("Chưa Nhập Đủ Thông Tin")
             return
         }
-
+        
         AdminService.DangNhap(UserName, MatKhau).then(response => {
             console.log("Call Admin Login", response)
 
@@ -31,6 +32,7 @@ function Login(props) {
                 ToastifyMessage.ToastError(response.data.data)
             }
         })
+
     }
 
     return (
