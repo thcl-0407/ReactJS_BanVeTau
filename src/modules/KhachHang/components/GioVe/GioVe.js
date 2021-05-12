@@ -22,7 +22,7 @@ function GioVe(props) {
     }
 
     return (
-        <div className="w-full">
+        <div className="" style={{width: "60%"}}>
             <div className="border border-gray-400 shadow-lg bg-white">
                 <div className="py-2 text-mainFont border-b-4 border-main pl-2">
                     <span className="font-semibold"><i className="fas fa-list-ul"></i>&ensp;Giỏ Vé</span>
