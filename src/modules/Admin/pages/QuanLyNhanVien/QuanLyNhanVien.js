@@ -53,6 +53,23 @@ function QuanLyNhanVien(props) {
   const isThemNhanVienThanhCong=()=>{
     onCloseModal(true)
   }
+
+  const KhoaTaiKhoan=()=>{
+
+    // let param={
+    //   MaNhanVien: 'n456',
+    //   isActive: 1
+    // }
+
+    // console.log("param", param)
+    
+    // AdminService.KhoaTaiKhoan(param).then((res)=>{
+    //   console.log(res)
+    //   setData([res.data.data])
+    //   history.push("/Admin/QLNV")
+    // })
+  }
+
   return (
     <div className="flex justify-center pt-8">
       <div>
@@ -136,8 +153,10 @@ function QuanLyNhanVien(props) {
                   </td>
                   {/* <td className="bg-blue-200 text-purple-600 py-1 px-2 rounded-2xl text-xs my-1"></td> */}
                   <td>
-                    <button className="bg-red-600 text-white py-1 px-3 rounded-full text-xs">
-                      Khoá
+                    <button className="bg-red-600 text-white py-1 px-3 rounded-full text-xs" onClick={KhoaTaiKhoan}>
+                      {item.isActive==0? (
+                        <strong>Bi khoa</strong>
+                      ): ( <strong>Dang hoat dong</strong>)}
                     </button>
                   </td>
                 </tr>
