@@ -15,7 +15,7 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 
 function ChonVe(props) {
     const { Schedule } = useContext(LichTrinhContext)
-    const { AddNewVe } = useContext(VeContext)
+    const { AddNewVe, VeStateContext } = useContext(VeContext)
 
     //State
     const [Taus, SetTaus] = useState([])
@@ -38,6 +38,8 @@ function ChonVe(props) {
         KhachHangService.GetDanhSachTau_FollowLichTrinh(param).then((response) => {
             SetTaus(response.data.data)
         })
+
+        SetGheSelect(VeStateContext)
     }, [])
 
     const onCloseModalXacNhanMuaVe = () => {
