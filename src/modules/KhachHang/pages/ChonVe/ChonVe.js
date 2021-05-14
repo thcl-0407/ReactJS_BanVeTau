@@ -49,18 +49,21 @@ function ChonVe(props) {
     //Loading Danh Sach Toa Tau
     const SelectedTau = (Tau) => {
         SetTauSelect(Tau)
+        SetDSToa([])
         SetDSGhe([])
 
         KhachHangService.GetDSToa_Of_Tau(Tau.MaTau).then((response) => {
             SetDSToa(response.data.data)
             console.log(response.data.data)
         })
+
+        SetToaSelect({})
     }
 
     //Loading Danh Sach Ghe Cua Toa Tau
     const SelectedToaTau = (object) => {
         SetToaSelect(object)
-
+       
         KhachHangService.GetDSGhe_Of_ToaTau(object.ToaTau.MaToaTau).then(response => {
             if(!lodash.isEmpty(GheSelect)){
                 var DSGhe = []
@@ -72,7 +75,7 @@ function ChonVe(props) {
                     }
 
                     GheSelect.forEach(g => {
-                        if(item.MaGhe == g.Ghe.MaGhe){
+                        if(item.MaGhe == g.Ghe.MaGhe && g.Ghe.MaToaTau == object.ToaTau.MaToaTau){
                             Ghe.isSelected = true
                         }
                     })
@@ -170,6 +173,7 @@ function ChonVe(props) {
                     <div className="border border-gray-400">
                         <div className="text-left border-b-4 border-main">
                             <p className="text-xl font-semibold p-3 text-mainFont"><i className="fas fa-subway"></i>&ensp;Chọn Tàu</p>
+                            <p className="font-semibold">&ensp;Bạn Đang Chọn Tàu: {TauSelect.TenTau}</p>
                         </div>
                         <div className="flex justify-center cursor-pointer">
                             <div className="p-6">
@@ -186,6 +190,7 @@ function ChonVe(props) {
                         <div className="border border-gray-400">
                             <div className="text-left border-b-4 border-main">
                                 <p className="text-xl font-semibold p-3 text-mainFont"><i className="fas fa-train"></i>&ensp;Chọn Toa</p>
+                                <p className="font-semibold">&ensp;Bạn Đang Chọn Toa: {ToaSelect.STT}</p>
                             </div>
                             <div className="flex justify-center cursor-pointer">
                                 <div className="p-6">
@@ -203,7 +208,7 @@ function ChonVe(props) {
                                 <p className="text-xl font-semibold p-3 text-mainFont"><i className="fas fa-couch"></i>&ensp;Chọn Ghế</p>
                             </div>
                             <div className="flex justify-center items-center cursor-pointer">
-                                <div className="p-6">
+                                <div className="p-6" id="box-dsGhe">
                                     {DSGhe.map((item, index) => (
                                         <Ghe key={index} index={index} value={item} ClickSelectGhe={SelectedGhe}></Ghe>
                                     ))}
