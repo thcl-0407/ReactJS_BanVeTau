@@ -81,6 +81,9 @@ function QuanLyKhachHang(props) {
             <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
               Số điện thoại
             </th>
+            <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
+              Email
+            </th>
             <th className="w-1/8 bg-blue-100 border text-left px-8 py-4"></th>
             <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
               Hoạt động
@@ -94,6 +97,7 @@ function QuanLyKhachHang(props) {
                 <td>{index + 1}</td>
                 <td>{item.HoTen}</td>
                 <td>{item.SoDienThoai}</td>
+                <td>{item.email}</td>
                 <td>
                   <button
                     className="underline text-blue-400"
