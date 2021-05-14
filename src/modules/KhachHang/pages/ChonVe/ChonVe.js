@@ -4,6 +4,7 @@ import ToaTau from "./../../components/ToaTau/ToaTau"
 import GioVe from "./../../components/GioVe/GioVe"
 import Ghe from "./../../components/Ghe/Ghe"
 import "./ChonVe.scss"
+import history from "./../../../../history"
 import lodash from "lodash"
 import { Modal } from 'react-responsive-modal';
 import { LichTrinhContext } from "./../../../../contexts/LichTrinhContext"
@@ -27,6 +28,7 @@ function ChonVe(props) {
     const [GheSelect, SetGheSelect] = useState([])
 
     const [StatusModalXacNhanMuaVe, SetStatusModalXacNhanMuaVe] = useState(false);
+    const [StatusModalThongBaoTimKiem, SetStatusModalThongBaoTimKiem] = useState(false);
 
     useEffect(() => {
         let param = {
@@ -36,6 +38,11 @@ function ChonVe(props) {
         }
 
         KhachHangService.GetDanhSachTau_FollowLichTrinh(param).then((response) => {
+            if(response.data.data.length == 0){
+                SetStatusModalThongBaoTimKiem(true)
+                return
+            }
+
             SetTaus(response.data.data)
         })
 
@@ -44,6 +51,15 @@ function ChonVe(props) {
 
     const onCloseModalXacNhanMuaVe = () => {
         SetStatusModalXacNhanMuaVe(false)
+    }
+
+    const onCloseModalThongBaoTimKiem = ()=>{
+        SetStatusModalThongBaoTimKiem(false)
+    }
+
+    //Quay Về Trang Chủ
+    const btnQuayVeTrangChu_Click = ()=>{
+        history.push('/')
     }
 
     //Loading Danh Sach Toa Tau
@@ -62,6 +78,7 @@ function ChonVe(props) {
 
     //Loading Danh Sach Ghe Cua Toa Tau
     const SelectedToaTau = (object) => {
+        SetDSGhe([])
         SetToaSelect(object)
        
         KhachHangService.GetDSGhe_Of_ToaTau(object.ToaTau.MaToaTau).then(response => {
@@ -254,6 +271,18 @@ function ChonVe(props) {
                         ))}
                         <div className="text-center mt-8">
                             <button className="px-6 py-2 bg-main text-white" onClick={btnMuaVe_Click}>Mua Vé</button>
+                        </div>
+                    </div>
+                </Modal>
+            </React.Fragment>
+            <React.Fragment>
+                <Modal open={StatusModalThongBaoTimKiem} onClose={onCloseModalThongBaoTimKiem} center closeOnOverlayClick={false} showCloseIcon={false}>
+                    <div className="py-6 px-4">
+                        <div className="text-center mb-4">
+                            <h2 className="font-bold text-lg text-mainFont">Opps! Không tìm thấy lịch trình này</h2>
+                        </div>
+                        <div className="text-center mt-8">
+                            <button className="px-6 py-2 bg-main text-white" onClick={btnQuayVeTrangChu_Click}>Quay Lại Trang Chủ</button>
                         </div>
                     </div>
                 </Modal>

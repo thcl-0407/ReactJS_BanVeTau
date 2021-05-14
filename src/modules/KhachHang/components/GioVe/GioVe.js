@@ -5,8 +5,6 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import history from "./../../../../history"
 
 function GioVe(props) {
-    console.log(props.DSVe);
-
     function btnMuaVe_Click() {
         //Check Đăng Nhập
         if (lodash.isEmpty(reactLocalStorage.getObject('CurrentUser'))) {
@@ -22,17 +20,24 @@ function GioVe(props) {
     }
 
     return (
-        <div className="" style={{width: "60%"}}>
+        <div className="" style={{ width: "60%" }}>
             <div className="border border-gray-400 shadow-lg bg-white">
                 <div className="py-2 text-mainFont border-b-4 border-main pl-2">
                     <span className="font-semibold"><i className="fas fa-list-ul"></i>&ensp;Giỏ Vé</span>
                 </div>
-                <div className="px-2 py-2">
-                    {props.DSVe.map((item, index)=>(
-                        <div key={index}>Mã Chỗ Ngồi: {item.Ghe.MaChoNgoi}</div>
-                    ))}
+                <div className="p-4">
+                    {props.DSVe.length > 0 ? props.DSVe.map((item, index) => (
+                        <div key={index} className="text-left border p-4 mb-2 bg-gray-100">
+                            <div>Tàu {item.Tau.TenTau} </div>
+                            <div className="mt-2">Từ {item.Tau.TenGaDi} đến {item.Tau.TenGaDen}</div>
+                            <div>Toa {item.Toa.STT}: {item.Toa.ToaTau.TenPhanLoai}</div>
+                            <div>Ghế Số: {item.Ghe.MaChoNgoi}</div>
+                        </div>
+                    )):(
+                        <div className="text-center text-red-600">Bạn Chưa Chọn Vé Cần Mua</div>
+                    )}
                 </div>
-                <div className="text-center mb-2">
+                <div className="text-center mb-6">
                     <input type="button" onClick={btnMuaVe_Click} className="cursor-pointer px-2 py-1 border-2 border-main bg-main text-white hover:bg-white hover:text-main hover:pointer" value="Mua Vé" />
                 </div>
             </div>

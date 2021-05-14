@@ -83,7 +83,6 @@ function FormTimKiemLichTrinh(props){
             return
         }
 
-        history.push("/TimVe")
         options=[]
 
         //Lưu Vào Global Storage
@@ -94,6 +93,8 @@ function FormTimKiemLichTrinh(props){
             TenGaDen: MaGaDen.label,
             ThoiGianDi: param.NgayDi
         })
+
+        history.push("/TimVe")
     }
 
     const ChonMaGaDi = (selected)=>{
