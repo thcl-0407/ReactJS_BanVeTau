@@ -12,7 +12,7 @@ module.exports = {
       },
       minHeight: {
         screen: '85vh',
-      }
+      },
     },
   },
   variants: {
