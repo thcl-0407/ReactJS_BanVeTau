@@ -26,6 +26,9 @@ function ChonVe(props) {
     const [TauSelect, SetTauSelect] = useState({})
     const [ToaSelect, SetToaSelect] = useState({})
     const [GheSelect, SetGheSelect] = useState([])
+    const [TongTien, SetTongTien] = useState(0)
+
+    const [DSGheDaMua, SetDSGheDaMua] = useState([])
 
     const [StatusModalXacNhanMuaVe, SetStatusModalXacNhanMuaVe] = useState(false);
     const [StatusModalThongBaoTimKiem, SetStatusModalThongBaoTimKiem] = useState(false);
@@ -74,12 +77,26 @@ function ChonVe(props) {
         })
 
         SetToaSelect({})
+
+        let param = {
+            MaGaDi: Tau.MaGaDi,
+            MaGaDen: Tau.MaGaDen,
+            ThoiGianDi: DateFormat("yyyy-MM-dd", new Date(Tau.ThoiGianDi)),
+            MaTau: Tau.MaTau
+        }
+
+        //Get Danh Sach Ghe Da Mua
+        KhachHangService.GetDSGheDaDat(param).then(response => {
+            SetDSGheDaMua(response.data.data)
+        })
     }
 
     //Loading Danh Sach Ghe Cua Toa Tau
     const SelectedToaTau = (object) => {
         SetDSGhe([])
         SetToaSelect(object)
+
+        console.log(DSGheDaMua)
        
         KhachHangService.GetDSGhe_Of_ToaTau(object.ToaTau.MaToaTau).then(response => {
             if(!lodash.isEmpty(GheSelect)){
@@ -88,9 +105,17 @@ function ChonVe(props) {
                 response.data.data.forEach((item, index) => {
                     var Ghe = {
                         data: item,
-                        isSelected: false
+                        isSelected: false,
+                        isAvailable: true
                     }
 
+                    DSGheDaMua.forEach(dsg => {
+                        if(dsg.MaGhe == item.MaGhe){
+                            Ghe.isAvailable = false
+                        }
+                    })
+
+                    //Check DS Ghế Đã Chọn
                     GheSelect.forEach(g => {
                         if(item.MaGhe == g.Ghe.MaGhe && g.Ghe.MaToaTau == object.ToaTau.MaToaTau){
                             Ghe.isSelected = true
@@ -107,8 +132,16 @@ function ChonVe(props) {
                 response.data.data.forEach(item => {
                     let Ghe = {
                         data: item,
-                        isSelected: false
+                        isSelected: false,
+                        isAvailable: true
                     }
+  
+                    //Check Ghe Da Mua
+                    DSGheDaMua.forEach(dsg => {
+                        if(dsg.MaGhe == item.MaGhe){
+                            Ghe.isAvailable = false
+                        }
+                    })
 
                     DSGhe.push(Ghe)
                 })
@@ -126,6 +159,11 @@ function ChonVe(props) {
 
         //Fix Lỗi Mã Chỗ Ngồi
         object.Ghe.MaChoNgoi = object.STT
+
+        if(ElementGhe.style.backgroundColor == "red"){
+            ToastifyMessage.ToastError("Ghế Đã Được Mua")
+            return
+        }
 
         //Fix Lỗi Tracking Giỏ Vé
         object.Ghe.isSelected = true
@@ -154,6 +192,20 @@ function ChonVe(props) {
 
         //Add Global Storage
         AddNewVe(temp)
+
+        //Tinh Tong Tien
+        let TongTien = TinhTongTien(temp)
+        SetTongTien(TongTien)
+    }
+
+    const TinhTongTien = (DSDatCho) => {
+        var TongTien = 0
+        
+        DSDatCho.forEach((item, index) =>{
+            TongTien += parseFloat(item.Toa.ToaTau.GiaVe)
+        })
+
+        return TongTien
     }
 
     const btnXacNhanMuaVe_Click = () => {
@@ -173,11 +225,20 @@ function ChonVe(props) {
 
         SetGheSelect(temp)
         AddNewVe(temp)
+        
+        //Tinh Tong Tien
+        let TongTien = TinhTongTien(temp)
+        SetTongTien(TongTien)
     }
 
     //Click Mua vé
     const btnMuaVe_Click = () => {
         ToastifyMessage.ToastError("Có Lỗi Xảy Ra !")
+    }
+
+    //Get Danh Sach Ve Da Dat
+    const onListenToRecieveDSVe = (DSGheDaMua) => {
+        SetDSGheDaMua(DSGheDaMua)
     }
 
     return (
@@ -196,7 +257,7 @@ function ChonVe(props) {
                             <div className="p-6">
                                 {
                                     Taus.map((item, index) => (
-                                        <Tau key={index} value={item} ClickSelectTau={SelectedTau}></Tau>
+                                        <Tau key={index} value={item} onListenToRecieveDSVe={onListenToRecieveDSVe} ClickSelectTau={SelectedTau}></Tau>
                                     ))
                                 }
                             </div>
@@ -218,7 +279,22 @@ function ChonVe(props) {
                             </div>
                         </div>
                     </div>
-
+                    <div className="mt-4">
+                        <div className="border border-gray-400 flex p-6">
+                            <div>
+                                <span className="px-4 py-2 bg-red-600"></span>
+                                <span className="font-bold">&ensp;Ghế Đã Được Mua</span>
+                            </div>
+                            <div className="ml-6">
+                                <span className="px-4 py-2 bg-green-700"></span>
+                                <span className="font-bold">&ensp;Ghế Đang Chọn</span>
+                            </div>
+                            <div className="ml-6">
+                                <span className="px-4 py-2 bg-white border border-main"></span>
+                                <span className="font-bold">&ensp;Ghế Trống</span>
+                            </div>
+                        </div>
+                    </div>
                     <div className="mt-4">
                         <div className="border border-gray-400">
                             <div className="text-left border-b-4 border-main">
@@ -230,6 +306,15 @@ function ChonVe(props) {
                                         <Ghe key={index} index={index} value={item} ClickSelectGhe={SelectedGhe}></Ghe>
                                     ))}
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-4">
+                        <div className="border border-gray-400">
+                            <div className="text-right py-4 pr-4 text-xl font-bold bg-gray-200">
+                                <span>Tổng Tiền: </span>
+                                <span>{TongTien} VNĐ</span>
                             </div>
                         </div>
                     </div>
@@ -251,6 +336,9 @@ function ChonVe(props) {
                         <div className="text-center mb-4">
                             <h2 className="font-bold text-lg text-mainFont">Danh Sách Chi Tiết Vé Đặt Mua</h2>
                         </div>
+                        <div>
+                            <div>Tổng Tiền: {TongTien} VNĐ</div>
+                        </div>
                         {GheSelect.map((item, index) => (
                             <div key={index} className="py-4 mt-4 w-80 flex justify-center items-center border border-gray-400 bg-gray-100">
                                 <div>
@@ -264,8 +352,8 @@ function ChonVe(props) {
                                     <p>Đi từ ga {item.Tau.TenGaDi} đến ga {item.Tau.TenGaDen}</p>
                                     <p>Toa Số {item.Toa.STT}: {item.Toa.ToaTau.TenPhanLoai}</p>
                                     <p>Ghế Số: {item.Ghe.MaChoNgoi}</p>
-                                    <br></br>
-                                    <p><b>Thời gian khởi hành:</b> {DateFormat("dd-MM-yyyy", new Date(item.Tau.ThoiGianDi))}</p>
+                                    <p className="mt-2"><b>Thời gian khởi hành:</b> {DateFormat("dd-MM-yyyy", new Date(item.Tau.ThoiGianDi))}</p>
+                                    <p className="mt-2">Giá Vé: {item.Toa.ToaTau.GiaVe} VNĐ</p>
                                 </div>
                             </div>
                         ))}
