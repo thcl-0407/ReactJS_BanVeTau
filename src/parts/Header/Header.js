@@ -1,8 +1,8 @@
 import './Header.scss'
-import {React, useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
 import lodash from 'lodash';
 import { NavLink } from 'react-router-dom';
-import {reactLocalStorage} from 'reactjs-localstorage';
+import { reactLocalStorage } from 'reactjs-localstorage';
 
 function Header(props) {
     //Check Đã Đăng Nhập Chưa
@@ -12,7 +12,7 @@ function Header(props) {
                 className='flex justify-between bg-main text-white shadow-sm font-medium'
                 role='navigation'>
                 <NavLink to='/' className='pl-8 my-2'>
-                    Logo
+                    <i className="fab fa-docker"></i>&ensp;VeTauOnline
                 </NavLink>
                 <div className='pr-8 my-2'>
                     <NavLink to='/' className='hover:bg-mainHover hover:shadow-xl p-3 text-sm text-white font-medium'>
@@ -33,13 +33,13 @@ function Header(props) {
                 </div>
             </nav>
         )
-    }else{
+    } else {
         return (
             <nav
                 className='flex justify-between bg-main text-white shadow-sm font-medium'
                 role='navigation'>
                 <NavLink to='/' className='pl-8 my-2'>
-                    Logo
+                    <i className="fab fa-docker"></i>&ensp;VeTauOnline
                 </NavLink>
                 <div className='pr-8 my-2'>
                     <NavLink to='/' className='hover:bg-mainHover hover:shadow-xl p-3 text-sm text-white font-medium'>

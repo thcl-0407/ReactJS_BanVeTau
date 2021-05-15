@@ -7,6 +7,10 @@ import ToastifyMessage from "../../../../utilities/ToastifyMessage";
 import {reactLocalStorage} from 'reactjs-localstorage';
 
 function DangNhapKH(props) {
+    if(!lodash.isEmpty(reactLocalStorage.getObject("CurrentUser"))){
+        history.push("/")
+    }
+
     const btnKhachHangLoginSubmit_Click=()=>{
         let SoDienThoai = document.getElementById("txtSoDienThoai").value
         let MatKhau = document.getElementById("txtMatKhau").value

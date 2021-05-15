@@ -11,6 +11,10 @@ function ToaTau(props) {
                             <span className="font-black">SL Chỗ Ngồi: &ensp;</span>
                             <span>{props.value.SoLuongChoNgoi}</span>
                         </div>
+                        <div>
+                            <span className="font-black">Giá Vé: &ensp;</span>
+                            <span>{props.value.GiaVe} VNĐ</span>
+                        </div>
                     </form>
                 </div>
                 {/* <div className="grid grid-cols-2">

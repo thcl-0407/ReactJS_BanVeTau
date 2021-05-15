@@ -1,4 +1,12 @@
+import {reactLocalStorage} from 'reactjs-localstorage';
+import lodash from "lodash";
+import history from "./../../../../history"
+
 function DangKyKH() {
+    if(!lodash.isEmpty(reactLocalStorage.getObject("CurrentUser"))){
+        history.push("/")
+    }
+
     return (
         <div className="flex justify-center items-center min-h-screen p-16">
             <div className="bg-white p-8 shadow-xl w-1/3 border border-gray-400 bg-gray-100">

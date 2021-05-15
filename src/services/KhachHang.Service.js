@@ -39,6 +39,13 @@ const GetDSGhe_Of_ToaTau = (MaToaTau) => {
     return axios.get(env.API_ADMIN_LOCAL + "Ghe/MaToa=" + MaToaTau)
 }
 
+//Dat Ve
+const DatVe = (param, token) => {
+    return axios.post(env.API_ADMIN_LOCAL + "datve", param, {
+        headers: {Authorization: "Bearer " + token}
+    })
+}
+
 export default {
     TimKiemLichTrinh,
     GetDanhSachNhaGa,
@@ -48,5 +55,6 @@ export default {
     GetDSToa_Of_Tau,
     GetChiTietToa_Of_Tau,
     GetChiTietToa_Of_Tau,
-    GetDSGhe_Of_ToaTau
+    GetDSGhe_Of_ToaTau,
+    DatVe
 }
