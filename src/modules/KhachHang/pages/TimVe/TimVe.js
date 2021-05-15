@@ -3,10 +3,16 @@ import FormTimKiemLichTrinh from "./../../components/FormTimKiemLichTrinh/FormTi
 import GioVe from "./../../components/GioVe/GioVe"
 import lodash from "lodash";
 import "./TimVe.scss"
-import {VeContext} from "./../../../../contexts/VeContext"
+import { VeContext } from "./../../../../contexts/VeContext"
 
 function TimVe(props) {
-    const {VeStateContext} = useContext(VeContext)
+    const { VeStateContext, AddNewVe } = useContext(VeContext)
+
+    const onClickMuaVe = (res) => {
+        if (res) {
+            AddNewVe([])
+        }
+    }
 
     return (
         <div id="boxTimVe" className="min-h-screen flex justify-center items-center p-12">
@@ -16,10 +22,10 @@ function TimVe(props) {
                         <FormTimKiemLichTrinh></FormTimKiemLichTrinh>
                     </div>
                     <div>
-                        <img className="object-cover min-w-screen" src="http://www.vr.com.vn/uploads/content/Nhaga-Doantau/IMG_5815%20(2).JPG"/>
+                        <img className="object-cover min-w-screen" src="http://www.vr.com.vn/uploads/content/Nhaga-Doantau/IMG_5815%20(2).JPG" />
                     </div>
                     <div className="flex justify-start pl-4">
-                        <GioVe DSVe={VeStateContext}></GioVe>
+                        <GioVe DSVe={VeStateContext} onClickMuaVe={onClickMuaVe}></GioVe>
                     </div>
                 </div>
             </div>

@@ -19,7 +19,36 @@ function GioVe(props) {
             return;
         }
 
+        DatVe(res => {
+            if(res){
+                ToastifyMessage.ToastSuccess("Đặt Vé Thành Công")
+                props.onClickMuaVe(res)
+            }
+        })
+    }
 
+    const DatVe = (callback) => {
+        const token = reactLocalStorage.getObject('CurrentToken')
+
+        props.DSVe.forEach((item, index)=>{
+            console.log(item);
+
+            let param = {
+                ThoiGianDi: item.Tau.ThoiGianDi,
+                GiaVe: item.Toa.ToaTau.GiaVe,
+                MaGaDi: item.Tau.MaGaDi,
+                MaGaDen: item.Tau.MaGaDen,
+                isPaid: false,
+                MaGhe: item.Ghe.MaGhe,
+                PhuongThucThanhToan: 0
+            }
+
+            KhachHangService.DatVe(param, token).then(response => {
+                if(response.data.status && index == (props.DSVe.length -1)){
+                    callback(true)
+                }
+            })
+        })
     }
 
     return (
@@ -36,7 +65,7 @@ function GioVe(props) {
                             <div>Toa {item.Toa.STT}: {item.Toa.ToaTau.TenPhanLoai}</div>
                             <div>Ghế Số: {item.Ghe.MaChoNgoi}</div>
                         </div>
-                    )):(
+                    )) : (
                         <div className="text-center text-red-600">Bạn Chưa Chọn Vé Cần Mua</div>
                     )}
                 </div>
