@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import Tau from "./../../components/Tau/Tau"
 import ToaTau from "./../../components/ToaTau/ToaTau"
-import GioVe from "./../../components/GioVe/GioVe"
 import Ghe from "./../../components/Ghe/Ghe"
 import "./ChonVe.scss"
 import history from "./../../../../history"
@@ -12,7 +11,7 @@ import { VeContext } from "./../../../../contexts/VeContext"
 import DateFormat from "date-format"
 import KhachHangService from "./../../../../services/KhachHang.Service"
 import ToastifyMessage from "./../../../../utilities/ToastifyMessage"
-import { reactLocalStorage } from 'reactjs-localstorage';
+import numeral from "numeral"
 
 function ChonVe(props) {
     const { Schedule } = useContext(LichTrinhContext)
@@ -314,7 +313,7 @@ function ChonVe(props) {
                         <div className="border border-gray-400">
                             <div className="text-right py-4 pr-4 text-xl font-bold bg-gray-200">
                                 <span>Tổng Tiền: </span>
-                                <span>{TongTien} VNĐ</span>
+                                <span>{numeral(TongTien).format('0,0')} VNĐ</span>
                             </div>
                         </div>
                     </div>
@@ -337,7 +336,7 @@ function ChonVe(props) {
                             <h2 className="font-bold text-lg text-mainFont">Danh Sách Chi Tiết Vé Đặt Mua</h2>
                         </div>
                         <div>
-                            <div>Tổng Tiền: {TongTien} VNĐ</div>
+                            <div>Tổng Tiền: {numeral(TongTien).format('0,0')} VNĐ</div>
                         </div>
                         {GheSelect.map((item, index) => (
                             <div key={index} className="py-4 mt-4 w-80 flex justify-center items-center border border-gray-400 bg-gray-100">
@@ -353,7 +352,7 @@ function ChonVe(props) {
                                     <p>Toa Số {item.Toa.STT}: {item.Toa.ToaTau.TenPhanLoai}</p>
                                     <p>Ghế Số: {item.Ghe.MaChoNgoi}</p>
                                     <p className="mt-2"><b>Thời gian khởi hành:</b> {DateFormat("dd-MM-yyyy", new Date(item.Tau.ThoiGianDi))}</p>
-                                    <p className="mt-2">Giá Vé: {item.Toa.ToaTau.GiaVe} VNĐ</p>
+                                    <p className="mt-2">Giá Vé: {numeral(item.Toa.ToaTau.GiaVe).format('0,0')} VNĐ</p>
                                 </div>
                             </div>
                         ))}

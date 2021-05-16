@@ -1,3 +1,5 @@
+import numeral from "numeral"
+
 function ToaTau(props) {
     return (
         <div className="inline-block m-2" onClick={props.ClickSelectToaTau.bind(null, {ToaTau: props.value, STT: props.index + 1})}>
@@ -13,7 +15,7 @@ function ToaTau(props) {
                         </div>
                         <div>
                             <span className="font-black">Giá Vé: &ensp;</span>
-                            <span>{props.value.GiaVe} VNĐ</span>
+                            <span>{numeral(props.value.GiaVe).format('0,0')} VNĐ</span>
                         </div>
                     </form>
                 </div>

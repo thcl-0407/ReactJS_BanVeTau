@@ -1,0 +1,20 @@
+table {
+    width: 100%;
+
+    th{
+        font-weight: bold;
+        background-color: rgb(207, 207, 207);
+    }
+
+    th, td{
+        border: 1px solid rgb(45, 45, 45);
+        padding: 8px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    td{
+        font-size: 1.1em;
+        padding: 18px;
+    }
+}
