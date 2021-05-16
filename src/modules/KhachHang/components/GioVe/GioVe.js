@@ -19,15 +19,28 @@ function GioVe(props) {
             return;
         }
 
-        DatVe(res => {
-            if(res){
+        DatVe(reports => {
+            let status = true
+
+            reports.forEach(item => {
+                if(!item.status){
+                    status = false
+                    return
+                }
+            })
+
+            if(status){
                 ToastifyMessage.ToastSuccess("Đặt Vé Thành Công")
-                props.onClickMuaVe(res)
+                props.onClickMuaVe(status)
+            }else{
+                ToastifyMessage.ToastError("Có Lỗi Xảy Ra")
+                props.onClickMuaVe(status)
             }
         })
     }
 
     const DatVe = (callback) => {
+        let reports = []
         const token = reactLocalStorage.getObject('CurrentToken')
 
         props.DSVe.forEach((item, index)=>{
@@ -44,11 +57,11 @@ function GioVe(props) {
             }
 
             KhachHangService.DatVe(param, token).then(response => {
-                if(response.data.status && index == (props.DSVe.length -1)){
-                    callback(true)
-                }
+                reports.push(response.data);
             })
         })
+
+        callback(reports)
     }
 
     return (

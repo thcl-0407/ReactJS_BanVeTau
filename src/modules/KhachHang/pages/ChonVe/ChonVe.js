@@ -233,7 +233,7 @@ function ChonVe(props) {
 
     //Click Mua vé
     const btnMuaVe_Click = () => {
-        ToastifyMessage.ToastError("Có Lỗi Xảy Ra !")
+        history.push('/ThanhToan')
     }
 
     //Get Danh Sach Ve Da Dat

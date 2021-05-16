@@ -9,9 +9,7 @@ function TimVe(props) {
     const { VeStateContext, AddNewVe } = useContext(VeContext)
 
     const onClickMuaVe = (res) => {
-        if (res) {
-            AddNewVe([])
-        }
+        AddNewVe([])
     }
 
     return (

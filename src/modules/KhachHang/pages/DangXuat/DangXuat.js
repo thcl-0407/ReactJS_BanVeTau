@@ -4,8 +4,6 @@ import history from './../../../../history'
 import {reactLocalStorage} from 'reactjs-localstorage';
 
 function DangXuat(props){
-    
-
     const ExecDangXuat = ()=>{
         reactLocalStorage.remove('CurrentUser');
         reactLocalStorage.remove('CurrentToken');
