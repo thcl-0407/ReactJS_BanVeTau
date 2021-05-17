@@ -45,7 +45,9 @@ function KhachHangRoute(props) {
                 <DangXuat></DangXuat>
             </Route>
             <Route path="/TaiKhoan" exact>
+                <Header></Header>
                <QuanLyTaiKhoan/>
+               <Footer></Footer>
             </Route>
             <Route path="/CamOnQuyKhach" exact>
                 <Header></Header>
