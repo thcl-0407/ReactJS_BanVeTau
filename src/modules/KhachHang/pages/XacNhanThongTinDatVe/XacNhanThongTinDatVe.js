@@ -6,12 +6,25 @@ import { VeContext } from "./../../../../contexts/VeContext"
 import "./XacNhanThongTinDatVe.scss"
 import DateFormat from "date-format"
 import numeral from 'numeral';
-import Select from 'react-select'
+import { Modal } from 'react-responsive-modal';
+import ToastifyMessage from './../../../../utilities/ToastifyMessage';
+import KhachHangService from './../../../../services/KhachHang.Service';
 
 function XacNhanThongTinDatVe(props) {
-    const { VeStateContext } = useContext(VeContext)
+    const { VeStateContext, AddNewVe } = useContext(VeContext)
     const [TongCong, SetTongCong] = useState(0)
     const [User, SetUser] = useState(0)
+
+    const [StateModalInformDatVe, SetStateModalInformDatVe] = useState(false)
+    const [StateModalSuccessDatVe, SetStateModalSuccessDatVe] = useState(false)
+
+    const onCloseModalInformDatVe = () => {
+        SetStateModalInformDatVe(false)
+    }
+
+    const onCloseModalSuccessDatVe = () => {
+        SetStateModalSuccessDatVe(false)
+    }
 
     useEffect(() => {
         if (lodash.isEmpty(reactLocalStorage.getObject("CurrentUser")) && VeStateContext.length == 0) {
@@ -37,7 +50,58 @@ function XacNhanThongTinDatVe(props) {
         return TongTien
     }
 
-    console.log(User)
+    const btnThanhToan_Click = () => {
+        SetStateModalInformDatVe(true)
+
+        DatVe(reports => {
+            let status = true
+
+            reports.forEach(item => {
+                if(!item.status){
+                    status = false
+                    return
+                }
+            })
+
+            if(status){
+                setTimeout(()=>{
+                    SetStateModalInformDatVe(false)
+                    SetStateModalSuccessDatVe(true)
+
+                    setTimeout(()=>{
+                        history.push('/CamOnQuyKhach')
+                    }, 3000)
+                },1000)
+            }else{
+                ToastifyMessage.ToastError("Có Lỗi Xảy Ra")
+            }
+        })
+    }
+
+    const DatVe = (callback) => {
+        let reports = []
+        const token = reactLocalStorage.getObject('CurrentToken')
+
+        VeStateContext.forEach((item, index)=>{
+            console.log(item);
+
+            let param = {
+                ThoiGianDi: item.Tau.ThoiGianDi,
+                GiaVe: item.Toa.ToaTau.GiaVe,
+                MaGaDi: item.Tau.MaGaDi,
+                MaGaDen: item.Tau.MaGaDen,
+                isPaid: false,
+                MaGhe: item.Ghe.MaGhe,
+                PhuongThucThanhToan: 0
+            }
+
+            KhachHangService.DatVe(param, token).then(response => {
+                reports.push(response.data);
+            })
+        })
+
+        callback(reports)
+    }
 
     return (
         <div className="p-8">
@@ -134,9 +198,29 @@ function XacNhanThongTinDatVe(props) {
                     <span>Tôi đã đọc kỹ và đồng ý tuân thủ tất cả các quy định mua vé trực tuyến, các chính sách của Tổng công ty đường sắt Việt Nam và chịu trách nhiệm về tính xác thực của các thông tin trên.</span>
                 </div>
                 <div className="text-right py-4">
-                    <button className="cursor-pointer px-8 py-4 bg-main text-white font-bold text-lg"><i class="fas fa-shopping-cart"></i>&ensp;Thanh Toán</button>
+                    <button onClick={btnThanhToan_Click} className="cursor-pointer px-8 py-4 bg-main text-white font-bold text-lg"><i class="fas fa-shopping-cart"></i>&ensp;Thanh Toán</button>
                 </div>
             </div>
+            <React.Fragment>
+                <Modal classNames="text-center" open={StateModalInformDatVe} onClose={onCloseModalInformDatVe} center closeOnOverlayClick={false} showCloseIcon={false}>
+                    <div className="flex justify-center py-6">
+                        <img style={{ width: "12%" }} src="https://i.gifer.com/ZKZg.gif"></img>
+                    </div>
+                    <div className="flex justify-center">
+                        <span className="font-bold">ĐANG XỬ LÝ...</span>
+                    </div>
+                </Modal>
+            </React.Fragment>
+            <React.Fragment>
+                <Modal classNames="text-center" open={StateModalSuccessDatVe} onClose={onCloseModalSuccessDatVe} center closeOnOverlayClick={false} showCloseIcon={false}>
+                    <div className="flex justify-center py-4 w-80">
+                        <span className="text-5xl" style={{ color: "green" }}><i className="far fa-check-circle"></i></span>
+                    </div>
+                    <div className="flex justify-center">
+                        <span className="font-bold" style={{ color: "green" }}>ĐẶT VÉ THÀNH CÔNG</span>
+                    </div>
+                </Modal>
+            </React.Fragment>
         </div>
     )
 }

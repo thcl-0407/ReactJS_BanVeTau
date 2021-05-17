@@ -19,50 +19,52 @@ function GioVe(props) {
             return;
         }
 
-        DatVe(reports => {
-            let status = true
+        history.push('/ThanhToan')
 
-            reports.forEach(item => {
-                if(!item.status){
-                    status = false
-                    return
-                }
-            })
+        // DatVe(reports => {
+        //     let status = true
 
-            if(status){
-                ToastifyMessage.ToastSuccess("Đặt Vé Thành Công")
-                props.onClickMuaVe(status)
-            }else{
-                ToastifyMessage.ToastError("Có Lỗi Xảy Ra")
-                props.onClickMuaVe(status)
-            }
-        })
+        //     reports.forEach(item => {
+        //         if(!item.status){
+        //             status = false
+        //             return
+        //         }
+        //     })
+
+        //     if(status){
+        //         ToastifyMessage.ToastSuccess("Đặt Vé Thành Công")
+        //         props.onClickMuaVe(status)
+        //     }else{
+        //         ToastifyMessage.ToastError("Có Lỗi Xảy Ra")
+        //         props.onClickMuaVe(status)
+        //     }
+        // })
     }
 
-    const DatVe = (callback) => {
-        let reports = []
-        const token = reactLocalStorage.getObject('CurrentToken')
+    // const DatVe = (callback) => {
+    //     let reports = []
+    //     const token = reactLocalStorage.getObject('CurrentToken')
 
-        props.DSVe.forEach((item, index)=>{
-            console.log(item);
+    //     props.DSVe.forEach((item, index)=>{
+    //         console.log(item);
 
-            let param = {
-                ThoiGianDi: item.Tau.ThoiGianDi,
-                GiaVe: item.Toa.ToaTau.GiaVe,
-                MaGaDi: item.Tau.MaGaDi,
-                MaGaDen: item.Tau.MaGaDen,
-                isPaid: false,
-                MaGhe: item.Ghe.MaGhe,
-                PhuongThucThanhToan: 0
-            }
+    //         let param = {
+    //             ThoiGianDi: item.Tau.ThoiGianDi,
+    //             GiaVe: item.Toa.ToaTau.GiaVe,
+    //             MaGaDi: item.Tau.MaGaDi,
+    //             MaGaDen: item.Tau.MaGaDen,
+    //             isPaid: false,
+    //             MaGhe: item.Ghe.MaGhe,
+    //             PhuongThucThanhToan: 0
+    //         }
 
-            KhachHangService.DatVe(param, token).then(response => {
-                reports.push(response.data);
-            })
-        })
+    //         KhachHangService.DatVe(param, token).then(response => {
+    //             reports.push(response.data);
+    //         })
+    //     })
 
-        callback(reports)
-    }
+    //     callback(reports)
+    // }
 
     return (
         <div className="" style={{ width: "60%" }}>

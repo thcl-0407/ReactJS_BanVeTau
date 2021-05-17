@@ -10,6 +10,7 @@ import ChonVe from "../modules/KhachHang/pages/ChonVe/ChonVe";
 import DangXuat from "../modules/KhachHang/pages/DangXuat/DangXuat";
 import XacNhanThongTinDatVe from "./../modules/KhachHang/pages/XacNhanThongTinDatVe/XacNhanThongTinDatVe"
 import QuanLyTaiKhoan from "../modules/KhachHang/pages/QuanLyTaiKhoan/QuanLyTaiKhoan";
+import CamOnQuyKhach from "../modules/KhachHang/pages/CamOnQuyKhach/CamOnQuyKhach";
 
 function KhachHangRoute(props) {
     return (
@@ -45,6 +46,10 @@ function KhachHangRoute(props) {
             </Route>
             <Route path="/TaiKhoan" exact>
                <QuanLyTaiKhoan/>
+            </Route>
+            <Route path="/CamOnQuyKhach" exact>
+                <Header></Header>
+                <CamOnQuyKhach></CamOnQuyKhach>
             </Route>
         </>
     )
