@@ -5,7 +5,7 @@ import lodash from "lodash";
 import ToastifyMessage from "./../../../../utilities/ToastifyMessage";
 function ThemNhanVien(props) {
   const ThemNhanVien = () => {
-    let MaNhanVien = document.getElementById("txtMaNhanVien").value;
+    let MaNhanVien = document.getElementById("txtMaNhanVien").value
     let HoTen = document.getElementById("txtHoTenNhanVien").value;
     let Username = document.getElementById("txtTenTaiKhoan").value;
     let CaLamViec = document.getElementById("txtCaLamViec").value;
