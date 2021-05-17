@@ -18,9 +18,9 @@ function QuanLyTaiKhoan(props) {
     });
   }, []);
 
-  // const CapNhatTaiKhoan=()=>{
-
-  // }
+  const CapNhatTaiKhoan=()=>{
+    onCloseModal(true)
+  }
   return (
     <div>
       <div className="py-60 min-h-full bg-gray-200">
@@ -38,17 +38,17 @@ function QuanLyTaiKhoan(props) {
                 <span className="text-2xl font-medium">{khachhang.HoTen}</span>{" "}
                 <span className="text-md text-gray-400">online</span>{" "}
               </div>
-              <p className="px-16 text-center text-md text-gray-800">
+              <p className="px-16 py-2 text-md text-gray-800">
                 Số điện thoại: <strong>{khachhang.SoDienThoai}</strong>
               </p>
-              <p className="p-3.5 text-center text-md text-gray-800">
+              <p className="px-16 py-2 text-md text-gray-800">
                 Số CMND: <strong>{khachhang.SoCMND}</strong>
               </p>
-              <p className="px-16 text-center text-md text-gray-800">
+              <p className="px-16 py-2 text-md text-gray-800">
                 Email: <strong>{khachhang.email}</strong>
               </p>
 
-              <div class="px-28 mt-5 flex justify-between items-center">
+              <div class="px-28 mt-5 flex ">
                 <button
                   className="cursor-pointer px-6 py-1.5 border-2 border-main bg-main text-white hover:bg-white hover:text-main hover:pointer"
                   onClick={onOpenModal}
@@ -56,7 +56,7 @@ function QuanLyTaiKhoan(props) {
                   Cập nhật thông tin
                 </button>
                 <Modal open={open} onClose={onCloseModal} center>
-                  <CapNhatThongTin />
+                  <CapNhatThongTin isSuccess={CapNhatTaiKhoan}></CapNhatThongTin>
                 </Modal>
               </div>
             </div>
