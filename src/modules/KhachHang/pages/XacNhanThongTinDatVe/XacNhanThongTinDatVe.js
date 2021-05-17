@@ -51,38 +51,21 @@ function XacNhanThongTinDatVe(props) {
     }
 
     const btnThanhToan_Click = () => {
+        let AgreeRegulation = document.getElementById("cbxAcceptRegulation")
+
+        if(!AgreeRegulation.checked){
+            ToastifyMessage.ToastError("Bạn cần đồng ý với các quy định của trang web")
+            return
+        }
+        
         SetStateModalInformDatVe(true)
-
-        DatVe(reports => {
-            let status = true
-
-            reports.forEach(item => {
-                if(!item.status){
-                    status = false
-                    return
-                }
-            })
-
-            if(status){
-                setTimeout(()=>{
-                    SetStateModalInformDatVe(false)
-                    SetStateModalSuccessDatVe(true)
-
-                    setTimeout(()=>{
-                        history.push('/CamOnQuyKhach')
-                    }, 3000)
-                },1000)
-            }else{
-                ToastifyMessage.ToastError("Có Lỗi Xảy Ra")
-            }
-        })
+        DatVe()
     }
 
-    const DatVe = (callback) => {
-        let reports = []
+    const DatVe = () => {
         const token = reactLocalStorage.getObject('CurrentToken')
 
-        VeStateContext.forEach((item, index)=>{
+        VeStateContext.forEach(async (item, index)=>{
             console.log(item);
 
             let param = {
@@ -95,12 +78,25 @@ function XacNhanThongTinDatVe(props) {
                 PhuongThucThanhToan: 0
             }
 
-            KhachHangService.DatVe(param, token).then(response => {
-                reports.push(response.data);
+            await KhachHangService.DatVe(param, token).then(response => {
+                if(!response.data.status){
+                    SetStateModalInformDatVe(false)
+                    ToastifyMessage.ToastError("Có Lỗi Xảy Ra")
+                    return
+                }
+
+                if(response.data.status && index == VeStateContext.length - 1){
+                    setTimeout(()=>{
+                        SetStateModalInformDatVe(false)
+                        SetStateModalSuccessDatVe(true)
+    
+                        setTimeout(()=>{
+                            history.push('/CamOnQuyKhach')
+                        }, 3000)
+                    },1000)
+                }
             })
         })
-
-        callback(reports)
     }
 
     return (
