@@ -45,6 +45,10 @@ const KhoaTaiKhoan=(param)=>{
     return axios.post(env.API_ADMIN_LOCAL + "khoaTaiKhoan", param)
 }
 
+const GetAllChiTietVe= ()=>{
+    return axios.get(env.API_ADMIN_LOCAL + "chiTietVe")
+}
+
 export default {
     DangNhap, 
     ThemMoiNhanVien,
@@ -55,5 +59,6 @@ export default {
     GetAllLichTrinh,
     GetNhaGaByID,
     ThemLichTrinh,
-    KhoaTaiKhoan
+    KhoaTaiKhoan,
+    GetAllChiTietVe
 }

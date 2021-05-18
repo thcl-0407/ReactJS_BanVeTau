@@ -5,6 +5,7 @@ import QuanLyNhanVien from "../modules/Admin/pages/QuanLyNhanVien/QuanLyNhanVien
 import QuanLyKhachHang from "../modules/Admin/pages/QuanLyKhachHang/QuanLyKhachHang"
 import QuanLyLichTrinh from "../modules/Admin/pages/QuanLyLichTrinh/QuanLyLichTrinh"
 import DangXuatAdmin from "../modules/Admin/pages/DangXuat/DangXuatAdmin"
+import QuanLyVe from "../modules/Admin/pages/QuanLyVe/QuanLyVe"
 
 
 function AdminRoute(props) {
@@ -28,6 +29,10 @@ function AdminRoute(props) {
             </Route>
             <Route path="/Admin/Logout" exact>
                 <DangXuatAdmin/>
+            </Route>
+            <Route path="/Admin/QLV" exact>
+                <Sidebar/>
+                <QuanLyVe/>
             </Route>
         </>
     )
