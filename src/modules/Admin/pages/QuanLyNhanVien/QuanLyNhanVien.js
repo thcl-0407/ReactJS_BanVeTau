@@ -31,11 +31,11 @@ function QuanLyNhanVien(props) {
 
   useEffect(() => {
     AdminService.GetNhanVien().then((response) => {
-      console.log("getAll",response);
+      // console.log("getAll",response);
       setData(response.data.data);
       setFilterd(response.data.data);
     });
-  },[]);
+  },[data]);
 
   const TimKiemNhanVien = () => {
     let strKey = document.getElementById("txtSoDienThoaiTimKiem").value
@@ -54,20 +54,38 @@ function QuanLyNhanVien(props) {
     onCloseModal(true)
   }
 
-  const KhoaTaiKhoan=()=>{
+  const KhoaTaiKhoan=(MaNhanVien)=>{
 
     // let param={
     //   MaNhanVien: 'n456',
     //   isActive: 1
     // }
+    let param={
+      MaNhanVien: MaNhanVien
+    }
 
+    console.log("param", param)
+    //console.log("mnv", props.MaNhanVien)
     // console.log("param", param)
-    
-    // AdminService.KhoaTaiKhoan(param).then((res)=>{
-    //   console.log(res)
-    //   setData([res.data.data])
-    //   history.push("/Admin/QLNV")
-    // })
+    //console.log("a",props.MaNhanVien)
+    AdminService.KhoaTaiKhoan(param).then((res)=>{
+      console.log(res)
+      ToastifyMessage.ToastSuccess("Khoá tài khoản thành công")
+      //setData([res.data.data])
+      history.push("/Admin/QLNV")
+    })
+  }
+
+  const MoKhoaTaiKhoan= (MaNhanVien)=>{
+    let param={
+      MaNhanVien: MaNhanVien
+    }
+
+    AdminService.MoKhoaTaiKhoan(param).then((res)=>{
+      ToastifyMessage.ToastSuccess("Mở khoá tài khoản thành công")
+      history.push("/Admin/QLNV")
+
+    })
   }
 
   return (
@@ -153,11 +171,11 @@ function QuanLyNhanVien(props) {
                   </td>
                   {/* <td className="bg-blue-200 text-purple-600 py-1 px-2 rounded-2xl text-xs my-1"></td> */}
                   <td>
-                    <button className="bg-red-600 text-white py-1 px-3 rounded-full text-xs" onClick={KhoaTaiKhoan}>
+                    
                       {item.isActive==0? (
-                        <strong>Bi khoa</strong>
-                      ): ( <strong>Dang hoat dong</strong>)}
-                    </button>
+                        <button className="bg-red-500 rounded-2xl" onClick={()=> MoKhoaTaiKhoan(item.MaNhanVien)}>Mở khoá</button>
+                      ): ( <button className="bg-green-300 rounded-2xl" onClick={()=> KhoaTaiKhoan(item.MaNhanVien)}>Khoá tài khoản</button>)}
+                    
                   </td>
                 </tr>
               );

@@ -41,12 +41,16 @@ const ThemLichTrinh=(param)=>{
     return axios.post(env.API_ADMIN_LOCAL + "themLichTrinh", param)
 }
 
-const KhoaTaiKhoan=(param)=>{
-    return axios.post(env.API_ADMIN_LOCAL + "khoaTaiKhoan", param)
+const KhoaTaiKhoan=(MaNhanVien)=>{
+    return axios.post(env.API_ADMIN_LOCAL + "khoaTaiKhoan", MaNhanVien)
 }
 
 const GetAllChiTietVe= ()=>{
     return axios.get(env.API_ADMIN_LOCAL + "chiTietVe")
+}
+
+const MoKhoaTaiKhoan= (MaNhanVien)=>{
+    return axios.post(env.API_ADMIN_LOCAL + "moKhoaTaiKhoan", MaNhanVien)
 }
 
 export default {
@@ -60,5 +64,6 @@ export default {
     GetNhaGaByID,
     ThemLichTrinh,
     KhoaTaiKhoan,
-    GetAllChiTietVe
+    GetAllChiTietVe,
+    MoKhoaTaiKhoan
 }
