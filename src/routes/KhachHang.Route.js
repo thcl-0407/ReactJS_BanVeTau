@@ -3,7 +3,7 @@ import LienHe from "../modules/KhachHang/pages/LienHe/LienHe";
 import Header from "./../parts/Header/Header"
 import Footer from "./../parts/Footer/Footer"
 import HuongDan from "./../modules/KhachHang/pages/HuongDan/HuongDan";
-
+import VeDaMua from "./../modules/KhachHang/pages/VeDaMua/VeDaMua"
 import DangKyKH from "../modules/KhachHang/pages/DangKy/DangKyKH";
 import DangNhapKH from "../modules/KhachHang/pages/DangNhap/DangNhapKH";
 import ChonVe from "../modules/KhachHang/pages/ChonVe/ChonVe";
@@ -43,6 +43,10 @@ function KhachHangRoute(props) {
             </Route>
             <Route path="/DangXuat" exact>
                 <DangXuat></DangXuat>
+            </Route>
+            <Route path="/VeDaMua" exact>
+                <Header></Header>
+                <VeDaMua></VeDaMua>
             </Route>
             <Route path="/TaiKhoan" exact>
                 <Header></Header>

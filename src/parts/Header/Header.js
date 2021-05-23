@@ -54,6 +54,9 @@ function Header(props) {
                     <NavLink to='/TaiKhoan' className='hover:bg-mainHover hover:shadow-xl border-l p-3 text-sm text-white font-medium'>
                         CHÀO, {reactLocalStorage.getObject('CurrentUser').HoTen}
                     </NavLink>
+                    <NavLink to='/VeDaMua' className='hover:bg-mainHover hover:shadow-xl border-l p-3 text-sm text-white font-medium'>
+                        VÉ ĐÃ MUA
+                    </NavLink>
                     <NavLink to='/DangXuat' className='hover:bg-mainHover hover:shadow-xl border-l p-3 text-sm text-white font-medium'>
                         ĐĂNG XUẤT
                     </NavLink>

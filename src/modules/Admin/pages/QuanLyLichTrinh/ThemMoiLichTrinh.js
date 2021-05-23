@@ -77,7 +77,7 @@ function ThemMoiLichTrinh(props) {
     setMaGaDen(selected);
   };
   return (
-    <div>
+    <div style={{width: "42em", height: "36em"}}>
       <h1 className="text-center font-bold text-2xl">Thêm lịch trình</h1>
       <form>
         <div className="grid grid-cols-2">

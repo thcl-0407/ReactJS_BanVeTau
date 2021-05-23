@@ -50,6 +50,12 @@ const CapNhatThongTin= (param)=>{
     return axios.post(env.API_ADMIN_LOCAL + "CapNhatKH", param)
 }
 
+const GetDSVeDaMua = (token)=>{
+    return axios.post(env.API_ADMIN_LOCAL + "dsVeDaMua", null,{
+        headers: {Authorization: "Bearer " + token}
+    })
+}
+
 export default {
     TimKiemLichTrinh,
     GetDanhSachNhaGa,
@@ -61,5 +67,6 @@ export default {
     GetChiTietToa_Of_Tau,
     GetDSGhe_Of_ToaTau,
     DatVe,
-    CapNhatThongTin
+    CapNhatThongTin,
+    GetDSVeDaMua
 }
