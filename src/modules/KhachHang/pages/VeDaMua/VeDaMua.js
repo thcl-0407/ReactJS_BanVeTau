@@ -8,16 +8,19 @@ import numeral from "numeral"
 import ToastifyMessage from "./../../../../utilities/ToastifyMessage";
 import Modal from "react-responsive-modal";
 
+var token = ""
+
 function VeDaMua(props) {
     const [DSVeDaMua, SetDSVeDaMua] = useState([])
     const [StatusModalThongBaoHuyVe, SetStatusModalThongBaoHuyVe] = useState(false)
     const [StateModalHandling, SetStateModalHandling] = useState(false)
     const [StateModalXacNhanSoDienThoai, SetStateModalXacNhanSoDienThoai] = useState(false)
     const [StateModalXacNhanHuyVe, SetStateModalXacNhanHuyVe] = useState(false)
+    const [VeSelectToHuy, SetVeSelectToHuy] = useState({})
 
     useEffect(() => {
         SetStateModalHandling(true)
-        let token = reactLocalStorage.getObject("CurrentToken")
+        token = reactLocalStorage.getObject("CurrentToken")
 
         if (token != undefined) {
             KhachHangService.GetDSVeDaMua(token).then(response => {
@@ -32,6 +35,8 @@ function VeDaMua(props) {
         let DateNeedCheck = addSubtractDate.add(new Date(Date.now()), 2, "day")
         DateNeedCheck = DateFormat("yyyy-MM-dd", new Date(DateNeedCheck))
         let ThoiGianDi = DateFormat("yyyy-MM-dd", new Date(Ve.ThoiGianDi))
+
+        SetVeSelectToHuy(Ve)
 
         if (ThoiGianDi == DateNeedCheck) {
             SetStatusModalThongBaoHuyVe(true)
@@ -53,53 +58,81 @@ function VeDaMua(props) {
         SetStateModalXacNhanSoDienThoai(false)
     }
 
-    const onCloseModalXacNhanHuyVe = ()=>{
+    const onCloseModalXacNhanHuyVe = () => {
         SetStateModalXacNhanHuyVe(false)
     }
 
-    const btnXacNhanMaXacThuc_Click = ()=>{
+    const btnXacNhanMaXacThuc_Click = () => {
+        SetStateModalXacNhanHuyVe(false)
         SetStateModalHandling(true)
 
         let SoDienThoai = reactLocalStorage.getObject('CurrentUser').SoDienThoai.trim()
         let Code = document.getElementById('txtMaXacNhan').value
 
-        if(Code.trim() == ""){
+        KhachHangService.TraVe(VeSelectToHuy.MaVe, token).then(response => {
+            console.log(response);
+        })
+
+        if (Code.trim() == "") {
+            SetStateModalHandling(false)
             ToastifyMessage.ToastError("Chưa Nhập Mã Xác Nhận")
             return
         }
 
         OTPService.VerifyCode(SoDienThoai, Code).then(response => {
-            if(response.data.status == 404){
+            if (response.data.status == 404) {
                 SetStateModalHandling(false)
                 ToastifyMessage.ToastError("Mã Xác Nhận Đã Hết Hạn")
                 return
             }
-            if(response.data.valid == false){
+            if (response.data.valid == false) {
                 SetStateModalHandling(false)
                 ToastifyMessage.ToastError("Mã Xác Nhận Chưa Chính Xác")
                 return
             }
-            if(response.data.valid == true){
+            if (response.data.valid == true) {
                 //Xử Lý Huỷ Vé
-                ToastifyMessage.ToastSuccess("Mã Xác Nhận Hợp Lệ")
-                SetStateModalXacNhanSoDienThoai(false)
+                KhachHangService.TraVe(VeSelectToHuy.MaVe, token).then(response => {
+                    if(response.data.status){
+                        SetStateModalHandling(false)
+                        SetStateModalXacNhanSoDienThoai(false)
+
+                        KhachHangService.GetDSVeDaMua(token).then(response => {
+                            console.log("Update Data DSVeDaMua",response.data.data);
+                            SetDSVeDaMua(response.data.data)
+                        })
+
+                        ToastifyMessage.ToastSuccess("Chấp Nhận Trả Vé")
+                    }else{
+                        SetStateModalHandling(false)
+                        SetStateModalXacNhanSoDienThoai(false)
+                        
+                        ToastifyMessage.ToastError("Có Lỗi Xảy Ra, Bạn Không Thể Trả Vé Vào Lúc Này")
+                    }
+                })    
             }
         })
     }
 
-    const btnCancleHuyVe_Click = ()=>{
+    const btnCancleHuyVe_Click = () => {
         SetStateModalXacNhanHuyVe(false)
     }
 
-    const btnDongYHuyVe_Click = ()=>{
+    const btnDongYHuyVe_Click = () => {
         SetStateModalHandling(true)
-        let SoDienThoai = reactLocalStorage.getObject('CurrentUser').SoDienThoai.trim()
+        let SoDienThoai = reactLocalStorage.getObject('CurrentUser').SoDienThoai
         
         OTPService.SendSMSCode(SoDienThoai).then(response => {
             console.log(response);
             if(response.data.isSended){
                 SetStateModalHandling(false)
                 SetStateModalXacNhanSoDienThoai(true)
+            }
+        }).catch(error=>{
+            if(error){
+                SetStateModalHandling(false)
+                SetStateModalXacNhanHuyVe(false)
+                ToastifyMessage.ToastError("Không Thể Gửi Mã Xác Nhận Lúc Này")
             }
         })
     }
@@ -118,7 +151,7 @@ function VeDaMua(props) {
                                 <th>PT Thanh Toán</th>
                                 <th>Đã Thanh Toán</th>
                                 <th>Đã Sử Dụng</th>
-                                <th>Đã Huỷ</th>
+                                <th>Vé Trả Lại</th>
                                 <th>Giá Vé</th>
                                 <th></th>
                             </tr>
@@ -186,10 +219,14 @@ function VeDaMua(props) {
                                         {numeral(item.GiaVe).format('0,0')} VNĐ
                                     </td>
                                     <td>
-                                        {item.isCheckIn ? (
-                                            <div>Vé Đã Sử Dụng</div>
+                                        {item.isCancel ? (
+                                            <div>Vé Trả Lại</div>
                                         ) : (
-                                            <button onClick={btnHuyVeClick.bind(null, item)} className="py-1 px-2 text-white bg-red-600">Trả Vé</button>
+                                            item.isCheckIn ? (
+                                                <div>Vé Đã Sử Dụng</div>
+                                            ) : (
+                                                <button onClick={btnHuyVeClick.bind(null, item)} className="py-1 px-2 text-white bg-red-600">Trả Vé</button>
+                                            )
                                         )}
                                     </td>
                                 </tr>
@@ -202,7 +239,7 @@ function VeDaMua(props) {
                 <Modal open={StateModalXacNhanHuyVe} onClose={onCloseModalXacNhanHuyVe} center closeOnOverlayClick={false} showCloseIcon={false}>
                     <div className="mt-4 py-3 px-6">
                         <div className="text-lg">Bạn có chắc chắn muốn huỷ vé này không ?</div>
-                        <br/>
+                        <br />
                         <div className="text-center mt-2">
                             <button onClick={btnDongYHuyVe_Click} className="bg-main text-white px-2 py-1">Đồng Ý</button>
                             <button onClick={btnCancleHuyVe_Click} className="bg-red-500 text-white px-2 py-1 ml-6">Không</button>
@@ -214,7 +251,7 @@ function VeDaMua(props) {
                 <Modal open={StateModalXacNhanSoDienThoai} onClose={onCloseModalXacNhanSoDienThoai} center closeOnOverlayClick={false} showCloseIcon={false}>
                     <div className="mt-4 py-3 px-6">
                         <div className="text-lg">Để tiếp tục thực hiện huỷ vé bạn cần xác nhận số điện thoại</div>
-                        <br/>
+                        <br />
                         <span>Đã gửi mã xác nhận đến số điện thoại: </span>
                         <span>{reactLocalStorage.getObject('CurrentUser').SoDienThoai}</span>
                         <div>

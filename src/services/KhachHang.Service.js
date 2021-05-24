@@ -56,6 +56,12 @@ const GetDSVeDaMua = (token)=>{
     })
 }
 
+const TraVe = (MaVe, token)=>{
+    return axios.patch(env.API_ADMIN_LOCAL + "chiTietVe/huyVe", {MaVe: MaVe},{
+        headers: {Authorization: "Bearer " + token}
+    })
+}
+
 export default {
     TimKiemLichTrinh,
     GetDanhSachNhaGa,
@@ -68,5 +74,6 @@ export default {
     GetDSGhe_Of_ToaTau,
     DatVe,
     CapNhatThongTin,
-    GetDSVeDaMua
+    GetDSVeDaMua,
+    TraVe
 }
