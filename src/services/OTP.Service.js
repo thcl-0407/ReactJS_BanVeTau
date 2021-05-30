@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Base_URL = "http://localhost:5001/api/"
+const Base_URL = "http://localhost:5002/api/"
 
 const SendSMSCode = (phone)=>{
     let param = {

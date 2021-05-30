@@ -62,6 +62,12 @@ const TraVe = (MaVe, token)=>{
     })
 }
 
+const SendEmailTraVe = (ChiTietVeTra, token)=>{
+    return axios.post(env.API_ADMIN_LOCAL + "email/thongbaohuyve", ChiTietVeTra, {
+        headers: {Authorization: "Bearer " + token}
+    })
+}
+
 export default {
     TimKiemLichTrinh,
     GetDanhSachNhaGa,
@@ -75,5 +81,6 @@ export default {
     DatVe,
     CapNhatThongTin,
     GetDSVeDaMua,
-    TraVe
+    TraVe,
+    SendEmailTraVe
 }

@@ -100,6 +100,11 @@ function VeDaMua(props) {
                         KhachHangService.GetDSVeDaMua(token).then(response => {
                             console.log("Update Data DSVeDaMua",response.data.data);
                             SetDSVeDaMua(response.data.data)
+
+                            let token = reactLocalStorage.getObject('CurrentToken')
+                            KhachHangService.SendEmailTraVe(VeSelectToHuy, token).then(response =>{
+                                console.log(response.data.data);
+                            })
                         })
 
                         ToastifyMessage.ToastSuccess("Chấp Nhận Trả Vé")
