@@ -52,6 +52,7 @@ function XacNhanThongTinDatVe(props) {
 
     const btnThanhToan_Click = () => {
         let AgreeRegulation = document.getElementById("cbxAcceptRegulation")
+        let token = reactLocalStorage.getObject('CurrentToken')
 
         if(!AgreeRegulation.checked){
             ToastifyMessage.ToastError("Bạn cần đồng ý với các quy định của trang web")
@@ -91,6 +92,7 @@ function XacNhanThongTinDatVe(props) {
                         SetStateModalSuccessDatVe(true)
     
                         setTimeout(()=>{
+                            KhachHangService.SendEmailDatVe(VeStateContext, token)
                             history.push('/CamOnQuyKhach')
                         }, 3000)
                     },1000)
