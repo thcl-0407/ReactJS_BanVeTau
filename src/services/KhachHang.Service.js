@@ -10,6 +10,10 @@ const GetDanhSachNhaGa = ()=>{
     return axios.get(env.API_ADMIN_LOCAL + "nhaGa")
 }
 
+const DangKyKhachHang = (param)=>{
+    return axios.post(env.API_ADMIN_LOCAL + "signupKH", param)
+}
+
 const DangNhapKhachHang=(SoDienThoai, MatKhau)=>{
     let param={
         SoDienThoai: SoDienThoai,
@@ -77,11 +81,11 @@ const SendEmailDatVe = (DSDatVe, token)=>{
 export default {
     TimKiemLichTrinh,
     GetDanhSachNhaGa,
+    DangKyKhachHang,
     DangNhapKhachHang,
     GetDanhSachTau_FollowLichTrinh,
     GetDSGheDaDat,
     GetDSToa_Of_Tau,
-    GetChiTietToa_Of_Tau,
     GetChiTietToa_Of_Tau,
     GetDSGhe_Of_ToaTau,
     DatVe,
