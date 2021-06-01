@@ -26,6 +26,10 @@ function XacNhanThongTinDatVe(props) {
         SetStateModalSuccessDatVe(false)
     }
 
+    if(lodash.isEmpty(reactLocalStorage.getObject("CurrentUser"))){
+        history.push("/DangNhap")
+    }
+
     useEffect(() => {
         if (lodash.isEmpty(reactLocalStorage.getObject("CurrentUser")) && VeStateContext.length == 0) {
             history.push("/")
