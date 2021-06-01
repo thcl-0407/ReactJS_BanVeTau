@@ -44,10 +44,15 @@ function QuanLyNhanVien(props) {
       //console.log('tim kiem')
       AdminService.GetNhanVienBySDT(strKey).then((res)=>{
         console.log("log search", res)
+        if (!res.data.data){
+          ToastifyMessage.ToastError("không tồn tại")
+        } else{
         setData([res.data.data]);
+        }
         //setFilterd(res.data.data)
       })
     }
+  
 
     if (lodash.isEmpty(strKey)){
       AdminService.GetNhanVien().then((response) => {
