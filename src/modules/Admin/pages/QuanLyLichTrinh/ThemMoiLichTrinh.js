@@ -11,12 +11,14 @@ import ToastifyMessage from "../../../../utilities/ToastifyMessage";
 import AdminService from "../../../../services/Admin.Service";
 import history from "./../../../../history";
 var options = [];
+var option=[]
 registerLocale('vi', vi)
 function ThemMoiLichTrinh(props) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [MaGaDi, setMaGaDi] = useState();
   const [MaGaDen, setMaGaDen] = useState();
+  const [MaTau, setMaTau]= useState()
 
   useEffect(() => {
     KhachHangService.GetDanhSachNhaGa().then((response) => {
@@ -29,11 +31,36 @@ function ThemMoiLichTrinh(props) {
 
         options.push(temp_object);
       });
-    });
+    })
+    
   }, [options]);
+
+  useEffect(()=>{
+    AdminService.GetDanhSachTau().then((response)=>{
+      response.data.data.forEach((item)=>{
+        let obj= {
+          value: item.MaTau,
+          label: item.TenTau
+        }
+
+        option.push(obj)
+      })
+    })
+  },[option])
+  
   const ThemLichTrinh = () => {
-    let MaTau = document.getElementById("txtMaTau").value;
+    
     let MaLichTrinh = document.getElementById("txtMaLichTrinh").value;
+
+    if (lodash.isEmpty(MaTau)) {
+      ToastifyMessage.ToastError("Tau Trống");
+      return;
+    }
+
+    if (lodash.isEmpty(MaLichTrinh)) {
+      ToastifyMessage.ToastError("lich trinh Trống");
+      return;
+    }
 
     if (lodash.isEmpty(MaGaDi)) {
       ToastifyMessage.ToastError("Ga Đi Trống");
@@ -52,18 +79,30 @@ function ThemMoiLichTrinh(props) {
       return;
     }
 
+    if (startDate > endDate){
+      ToastifyMessage.ToastError("Ngày đi phải nhỏ hơn ngày đến")
+      return
+    }
+
+    if (MaGaDi.value == MaGaDen.value){
+      ToastifyMessage.ToastError("Ga đi phải khác ga đến")
+      return
+    }
+
     let param = {
-      MaTau: MaTau,
+      MaTau: MaTau.value,
       MaLichTrinh: MaLichTrinh,
       MaGaDi: MaGaDi.value,
       MaGaDen: MaGaDen.value,
       ThoiGianDi: startDate,
       ThoiGianDen: endDate,
+      TrangThai:1
     };
 
     AdminService.ThemLichTrinh(param).then((res) => {
       console.log("themLichTrinh", res);
       history.push("/Admin/QLLT");
+      ToastifyMessage.ToastSuccess("Them thanh cong")
     });
   };
 
@@ -76,19 +115,25 @@ function ThemMoiLichTrinh(props) {
     console.log("Chon Ma Ga Den", selected.value);
     setMaGaDen(selected);
   };
+
+  const ChonTau= (selected)=>{
+    console.log("Chon Tau", selected.value)
+    setMaTau(selected)
+  }
   return (
-    <div style={{width: "42em", height: "36em"}}>
+    <div style={{width: "42em", height: "28em"}}>
       <h1 className="text-center font-bold text-2xl">Thêm lịch trình</h1>
-      <form>
-        <div className="grid grid-cols-2">
+      <form className="m-2">
+        <div className="grid grid-cols-2 m-2">
           <label>Mã Tàu</label>
-          <input type="text" placeholder="Mã tàu" id="txtMaTau" />
+          {/* <input type="text" placeholder="Mã tàu" id="txtMaTau" /> */}
+          <Select options={option} onChange={ChonTau} id="txtTau"></Select>
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 m-2">
           <label>Mã lịch trình</label>
           <input type="text" placeholder="Mã lịch trình" id="txtMaLichTrinh" />
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 m-2">
           <label>Mã Ga Đi</label>
 
           <Select
@@ -97,7 +142,7 @@ function ThemMoiLichTrinh(props) {
             id="txtMaGaDi"
           ></Select>
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 m-2">
           <label>Mã Ga Đến</label>
           <Select
             options={options}
@@ -105,7 +150,7 @@ function ThemMoiLichTrinh(props) {
             id="txtMaGaDen"
           ></Select>
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 m-2">
           <label>Thời gian đi</label>
           <DataPicker
             className="border p-1.5"
@@ -118,7 +163,7 @@ function ThemMoiLichTrinh(props) {
             
           ></DataPicker>
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 m-2">
           <label>Thời gian đến</label>
           <DataPicker
             className="border p-1.5"
@@ -132,7 +177,7 @@ function ThemMoiLichTrinh(props) {
           ></DataPicker>
         </div>
 
-        <div className="pt-3 text-center">
+        <div className="pt-3 text-center m-2">
           <input
             // onClick={ThemNhanVien}
             type="button"

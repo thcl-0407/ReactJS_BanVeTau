@@ -35,7 +35,7 @@ function QuanLyNhanVien(props) {
       setData(response.data.data);
       setFilterd(response.data.data);
     });
-  },[data]);
+  },[]);
 
   const TimKiemNhanVien = () => {
     let strKey = document.getElementById("txtSoDienThoaiTimKiem").value
@@ -47,6 +47,13 @@ function QuanLyNhanVien(props) {
         setData([res.data.data]);
         //setFilterd(res.data.data)
       })
+    }
+
+    if (lodash.isEmpty(strKey)){
+      AdminService.GetNhanVien().then((response) => {
+        console.log(response);
+        setData(response.data.data);
+      });
     }
   };
 

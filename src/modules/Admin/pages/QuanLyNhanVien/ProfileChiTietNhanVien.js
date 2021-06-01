@@ -48,13 +48,15 @@ function ProfileChiTietNhanVien(props){
                     <h2 className="font-bold">Ca làm việc</h2>
                     <p>{profile.CaLamViec}</p>
                 </div>
+
+                <div className="grid grid-cols-2 m-2">
+                    <h2 className="font-bold">Tên tài khoản</h2>
+                    <p className="ml-7">{profile.UserName}</p>
+                </div>
             </div>
             
 
-                <div className="grid grid-cols-2">
-                    <h2 className="font-bold">Tên tài khoản</h2>
-                    <p className="ml-2">{profile.UserName}</p>
-                </div>
+                
                 {/* <div className="grid grid-cols-2">
                     <h2 className="font-bold">Mật khẩu</h2>
                     <p className="ml-2" >{profile.MatKhau}</p>

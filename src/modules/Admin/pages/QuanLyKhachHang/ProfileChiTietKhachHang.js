@@ -25,7 +25,7 @@ function ProfileChiTietKhachHang(props){
         <form>
             <h1 className="text-center font-extrabold text-2xl">Thông tin chi tiết khách hàng</h1>
             {/* <h2>Thông tin cá nhân</h2> */}
-            <div className="grid grid-cols-2 border border-separate my-1 mx-3">                
+            <div className="grid grid-cols-2 border border-separate my-3 mx-4">                
                 {/* <div className="grid grid-cols-2 m-2">
                     <h2 className="font-bold">Mã nhân viên</h2>
                     <p>{profile.MaNhanVien}</p>
@@ -46,6 +46,10 @@ function ProfileChiTietKhachHang(props){
                     <p className="ml-7">{profile.SoCMND}</p>
                 </div>
 
+                <div className="grid grid-cols-2 m-2">
+                    <h2 className="font-bold">Email</h2>
+                    <p>{profile.email}</p>
+                </div>
                 {/* <div className="grid grid-cols-2 m-2">
                     <h2 className="font-bold">Ca làm việc</h2>
                     <p>{profile.CaLamViec}</p>

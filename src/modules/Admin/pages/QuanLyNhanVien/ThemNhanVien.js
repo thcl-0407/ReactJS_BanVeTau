@@ -27,6 +27,23 @@ function ThemNhanVien(props) {
       return;
     }
 
+    let SoDienThoaiRegex = /0[1-9][0-9]{8}/
+
+        if (!SoDienThoaiRegex.test(SoDienThoai)) {
+            ToastifyMessage.ToastError("Số điện thoại không đúng định dạng")
+            return
+        }
+
+    let CMNDRegex=/[0-9]{12}|[0-9]{9}/
+    if (!CMNDRegex.test(SoCMND)){
+      ToastifyMessage.ToastError("Số CMND/Căn cước không đúng định dạng")
+      return
+    }
+
+    if (MatKhau.trim().length <6){
+      ToastifyMessage.ToastError("Mật khẩu phải lớn hơn 6 kí tự")
+      return
+    }
     let NhanVien = {
       MaNhanVien: MaNhanVien,
       HoTenNhanVien: HoTen,
