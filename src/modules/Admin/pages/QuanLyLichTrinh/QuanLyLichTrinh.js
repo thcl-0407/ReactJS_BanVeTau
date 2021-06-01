@@ -3,6 +3,7 @@ import AdminService from "../../../../services/Admin.Service"
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import ThemMoiLichTrinh from "./ThemMoiLichTrinh";
+import ToastifyMessage from "../../../../utilities/ToastifyMessage";
 function QuanLyLichTrinh(props){
     const [data, setData]= useState([])
     const [open, setOpen] = useState(false);
@@ -15,6 +16,13 @@ function QuanLyLichTrinh(props){
         })
     })
 
+    const CapNhatLichTrinh=()=>{
+      ToastifyMessage.ToastSuccess("Chức năng đang phát triển")
+    }
+
+    const HuyLichTrinh=()=>{
+      ToastifyMessage.ToastSuccess("Chức năng đang phát triển")
+    }
     return(
         <div className="flex justify-center pt-8">
             <div>
@@ -46,7 +54,7 @@ function QuanLyLichTrinh(props){
               <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
                   Thời gian đến
               </th>
-              <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
+              <th className="w-1/8 bg-blue-100 border text-left px-8 py-4 text-center">
                 Hoạt động
               </th>
             </tr>
@@ -71,6 +79,13 @@ function QuanLyLichTrinh(props){
                     >
                       Chi tiết
                     </button> */}
+                    <button className="bg-green-500 rounded m-2" onClick={CapNhatLichTrinh}>
+                      Cập nhật lịch trình
+                    </button>
+
+                    <button className="bg-red-500 rounded" onClick={HuyLichTrinh}>
+                      Huỷ lịch trình
+                    </button>
                   </td>
                   </tr>
                 )
