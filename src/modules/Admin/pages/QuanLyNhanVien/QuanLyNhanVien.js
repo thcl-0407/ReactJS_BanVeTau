@@ -33,7 +33,7 @@ function QuanLyNhanVien(props) {
     AdminService.GetNhanVien().then((response) => {
       // console.log("getAll",response);
       setData(response.data.data);
-      setFilterd(response.data.data);
+      //setFilterd(response.data.data);
     });
   },[]);
 
@@ -45,11 +45,11 @@ function QuanLyNhanVien(props) {
       AdminService.GetNhanVienBySDT(strKey).then((res)=>{
         console.log("log search", res)
         if (!res.data.data){
-          ToastifyMessage.ToastError("không tồn tại")
+          ToastifyMessage.ToastError("Không tìm thấy số điện thoại này")
         } else{
         setData([res.data.data]);
-        }
         //setFilterd(res.data.data)
+        }
       })
     }
   
@@ -84,7 +84,12 @@ function QuanLyNhanVien(props) {
       console.log(res)
       ToastifyMessage.ToastSuccess("Khoá tài khoản thành công")
       //setData([res.data.data])
-      history.push("/Admin/QLNV")
+      //history.push("/Admin/QLNV")
+      AdminService.GetNhanVien().then((response) => {
+        // console.log("getAll",response);
+        setData(response.data.data);
+        //setFilterd(response.data.data);
+      });
     })
   }
 
@@ -95,8 +100,12 @@ function QuanLyNhanVien(props) {
 
     AdminService.MoKhoaTaiKhoan(param).then((res)=>{
       ToastifyMessage.ToastSuccess("Mở khoá tài khoản thành công")
-      history.push("/Admin/QLNV")
-
+      //history.push("/Admin/QLNV")
+      AdminService.GetNhanVien().then((response) => {
+        // console.log("getAll",response);
+        setData(response.data.data);
+        //setFilterd(response.data.data);
+      });
     })
   }
 
@@ -118,7 +127,7 @@ function QuanLyNhanVien(props) {
             className="ml-96 border border-4 mb-2"
             type="text"
             id="txtSoDienThoaiTimKiem"
-            placeholder="Tim bang so dien thoai"
+            placeholder="Tìm bằng số điện thoại"
             defaultValue={result}/>
           <button onClick={TimKiemNhanVien} className="bg-blue-300 text-white py-1 px-3 rounded-sm text-xl mb-2">Tìm kiếm</button>
           {/* {filtered.map((item, index) => (
