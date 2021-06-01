@@ -39,7 +39,12 @@ function QuanLyKhachHang(props) {
     if (!lodash.isEmpty(txtSoDienThoai.trim())){
       
       AdminService.GetKhachHangBySDT(txtSoDienThoai).then((res)=>{
-        setKhachHang([res.data.data])
+        if (!res.data.data){
+          ToastifyMessage.ToastError("Số điện thoại không tồn tại")
+        } else{
+          setKhachHang([res.data.data])
+        }
+        
       })
     } 
     
