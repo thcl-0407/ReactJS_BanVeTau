@@ -40,7 +40,7 @@ function QuanLyKhachHang(props) {
       
       AdminService.GetKhachHangBySDT(txtSoDienThoai).then((res)=>{
         if (!res.data.data){
-          ToastifyMessage.ToastError("Số điện thoại không tồn tại")
+          ToastifyMessage.ToastError("Không tìm thấy số điện thoại này")
         } else{
           setKhachHang([res.data.data])
         }
@@ -61,7 +61,7 @@ function QuanLyKhachHang(props) {
     <div>
       <div>
         <input
-          className="ml-96 border border-4 mb-2"
+          className="ml-96 border border-4 mb-2 px-3 py-1.5 mr-2"
           type="text"
           id="txtSoDienThoaiTimKiem"
           placeholder="Tim bang so dien thoai"
@@ -86,7 +86,7 @@ function QuanLyKhachHang(props) {
             <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
               Số điện thoại
             </th>
-            <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
+            <th className="w-1/8 bg-blue-100 border px-8 py-4 text-center">
               Email
             </th>
             <th className="w-1/8 bg-blue-100 border text-left px-8 py-4"></th>

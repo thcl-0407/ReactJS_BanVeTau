@@ -79,11 +79,11 @@ function QuanLyLichTrinh(props){
                     >
                       Chi tiết
                     </button> */}
-                    <button className="bg-green-500 rounded m-2" onClick={CapNhatLichTrinh}>
+                    <button className="bg-green-500 rounded m-2 p-1" onClick={CapNhatLichTrinh}>
                       Cập nhật lịch trình
                     </button>
 
-                    <button className="bg-red-500 rounded" onClick={HuyLichTrinh}>
+                    <button className="bg-red-500 rounded p-1" onClick={HuyLichTrinh}>
                       Huỷ lịch trình
                     </button>
                   </td>
