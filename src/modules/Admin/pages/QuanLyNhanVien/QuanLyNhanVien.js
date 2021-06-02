@@ -46,8 +46,8 @@ function QuanLyNhanVien(props) {
         console.log("log search", res)
         if (!res.data.data){
           ToastifyMessage.ToastError("Không tìm thấy số điện thoại này")
-        } else{
-        setData([res.data.data]);
+        } else{         
+          setData([res.data.data]);                    
         //setFilterd(res.data.data)
         }
       })
@@ -151,7 +151,7 @@ function QuanLyNhanVien(props) {
               <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
                 STT
               </th>
-              <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
+              <th className="w-1/8 bg-blue-100 border px-8 py-4 text-center">
                 Mã nhân viên
               </th>
               <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">

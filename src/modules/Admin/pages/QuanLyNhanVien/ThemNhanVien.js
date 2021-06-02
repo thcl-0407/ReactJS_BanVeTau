@@ -5,7 +5,7 @@ import lodash from "lodash";
 import ToastifyMessage from "./../../../../utilities/ToastifyMessage";
 function ThemNhanVien(props) {
   const ThemNhanVien = () => {
-    let MaNhanVien = document.getElementById("txtMaNhanVien").value
+    //let MaNhanVien = document.getElementById("txtMaNhanVien").value
     let HoTen = document.getElementById("txtHoTenNhanVien").value;
     let Username = document.getElementById("txtTenTaiKhoan").value;
     let CaLamViec = document.getElementById("txtCaLamViec").value;
@@ -15,7 +15,7 @@ function ThemNhanVien(props) {
     //let isAdmin = document.getElementById("txtAdmin").value;
 
     if (
-      lodash.isEmpty(MaNhanVien) ||
+      
       lodash.isEmpty(HoTen) ||
       lodash.isEmpty(Username) ||
       lodash.isEmpty(CaLamViec) ||
@@ -44,8 +44,10 @@ function ThemNhanVien(props) {
       ToastifyMessage.ToastError("Mật khẩu phải lớn hơn 6 kí tự")
       return
     }
+
+    
     let NhanVien = {
-      MaNhanVien: MaNhanVien,
+      MaNhanVien: '',
       HoTenNhanVien: HoTen,
       UserName: Username,
       CaLamViec: CaLamViec,
@@ -66,10 +68,10 @@ function ThemNhanVien(props) {
     <div>
       <h1 className="text-center font-bold text-2xl">Thêm nhân viên</h1>
       <form>
-        <div className="grid grid-cols-2 m-4">
+        {/* <div className="grid grid-cols-2 m-4">
           <label>Mã Nhân Viên</label>
           <input type="text" placeholder="Mã nhân viên" id="txtMaNhanVien" />
-        </div>
+        </div> */}
         <div className="grid grid-cols-2 m-4">
           <label>Họ tên nhân viên</label>
           <input
