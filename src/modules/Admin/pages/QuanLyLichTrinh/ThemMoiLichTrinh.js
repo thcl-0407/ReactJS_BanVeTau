@@ -53,12 +53,12 @@ function ThemMoiLichTrinh(props) {
     let MaLichTrinh = document.getElementById("txtMaLichTrinh").value;
 
     if (lodash.isEmpty(MaTau)) {
-      ToastifyMessage.ToastError("Tau Trống");
+      ToastifyMessage.ToastError("Tàu trống");
       return;
     }
 
     if (lodash.isEmpty(MaLichTrinh)) {
-      ToastifyMessage.ToastError("lich trinh Trống");
+      ToastifyMessage.ToastError("lich trinh trống");
       return;
     }
 
@@ -102,7 +102,7 @@ function ThemMoiLichTrinh(props) {
     AdminService.ThemLichTrinh(param).then((res) => {
       console.log("themLichTrinh", res);
       history.push("/Admin/QLLT");
-      ToastifyMessage.ToastSuccess("Them thanh cong")
+      ToastifyMessage.ToastSuccess("Thêm thành công")
     });
   };
 
