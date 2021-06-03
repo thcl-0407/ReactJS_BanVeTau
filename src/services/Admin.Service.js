@@ -57,6 +57,18 @@ const GetDanhSachTau= ()=>{
     return axios.get(env.API_ADMIN_LOCAL + "tau")
 }
 
+const  ThanhToan = (MaVe)=>{
+    let param = {
+        MaVe: MaVe
+    }
+
+    return axios.patch(env.API_ADMIN_LOCAL + "chiTietVe/thanhToan", param)
+}
+
+const SendEmailThanhToan = (VeThanhToan)=>{
+   return axios.post(env.API_ADMIN_LOCAL + "sendEmail/thanhToan", VeThanhToan)
+}
+
 export default {
     DangNhap, 
     ThemMoiNhanVien,
@@ -70,5 +82,7 @@ export default {
     KhoaTaiKhoan,
     GetAllChiTietVe,
     MoKhoaTaiKhoan,
-    GetDanhSachTau
+    GetDanhSachTau,
+    ThanhToan,
+    SendEmailThanhToan
 }
