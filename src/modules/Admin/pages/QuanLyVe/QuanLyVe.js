@@ -10,13 +10,9 @@ function QuanLyVe(props) {
     });
   });
 
-  const btnHuyVeClick=()=>{
+  const btnHuyVeClick = () => {};
 
-  }
-
-  const btnThanhToanClick=()=>{
-
-  }
+  const btnThanhToanClick = () => {};
   return (
     <div className="flex pt-8">
       <table className="border-collapse border border-green-800 shadow-lg bg-white ml-10">
@@ -138,17 +134,25 @@ function QuanLyVe(props) {
                   )}
                 </td>
                 <td>
-                    <button
-                      onClick={btnHuyVeClick.bind(null, item)}
-                      className="m-2 p-1 text-white bg-red-600">
-                      Trả Vé
-                    </button>
-                  
-                    <button
-                      onClick={btnThanhToanClick.bind(null, item)}
-                      className="p-1 text-white bg-blue-600">
-                      Thanh Toán
-                    </button>
+                  {item.isCancel ? (
+                    <div>Vé Trả Lại</div>
+                  ) : (
+                    <div>
+                      <button
+                        onClick={btnHuyVeClick.bind(null, item)}
+                        className="m-2 p-1 text-white bg-red-600"
+                      >
+                        Trả Vé
+                      </button>
+
+                      <button
+                        onClick={btnThanhToanClick.bind(null, item)}
+                        className="p-1 text-white bg-blue-600"
+                      >
+                        Thanh Toán
+                      </button>
+                    </div>
+                  )}
                 </td>
               </tr>
             );
