@@ -97,13 +97,14 @@ function ChonVe(props) {
 
         let param = {
             MaGaDi: Tau.MaGaDi,
-            MaGaDen: Schedule.MaGaDen,
+            MaGaDen: Tau.MaGaDen,
             ThoiGianDi: DateFormat("yyyy-MM-dd", new Date(Tau.ThoiGianDi)),
             MaTau: Tau.MaTau
         }
 
         //Get Danh Sach Ghe Da Mua
         KhachHangService.GetDSGheDaDat(param).then(response => {
+            console.log("DSGheDaDat", response.data.data)
             SetDSGheDaMua(response.data.data)
         })
     }

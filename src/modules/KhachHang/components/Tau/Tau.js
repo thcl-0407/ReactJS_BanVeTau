@@ -1,29 +1,29 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import DateFormat from "date-format"
 import KhachHangService from "./../../../../services/KhachHang.Service"
+import {LichTrinhContext} from "../../../../contexts/LichTrinhContext";
 
 function Tau(props) {
     const [SoLuongDaDat, SetSoLuongDaDat] = useState()
     const [DSGaTrungGian, SetDSGaTrungGian] = useState([])
+    const { Schedule } = useContext(LichTrinhContext)
 
     let ThoiGianDi = DateFormat("dd-MM-yyyy", new Date(props.value.ThoiGianDi))
 
     useEffect(() => {
         let param = {
-            MaGaDi: props.value.MaGaDi,
-            MaGaDen: props.value.MaGaDen,
+            MaGaDi: Schedule.MaGaDi,
+            MaGaDen: Schedule.MaGaDen,
             ThoiGianDi: DateFormat("yyyy-MM-dd", new Date(props.value.ThoiGianDi)),
             MaTau: props.value.MaTau
         }
+        console.log("ParamGetSoLuong", param)
         
         KhachHangService.GetDSGheDaDat(param).then(response => {
             let soLuongDaDat = props.value.SoLuongChoNgoi - response.data.data.length
             
             SetSoLuongDaDat(soLuongDaDat)
-
             SetDSGaTrungGian(props.value.inforGaTrungGian)
-
-            console.log(props.value.inforGaTrungGian)
         })
     },[])
 
