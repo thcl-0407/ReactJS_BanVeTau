@@ -30,7 +30,7 @@ function DangNhapKH(props) {
                 reactLocalStorage.setObject('CurrentToken', response.data.token)
 
                 ToastifyMessage.ToastSuccess("Đăng Nhập Thành Công")
-                history.push("/")
+                history.goBack()
                 
             }else{
                 ToastifyMessage.ToastError(response.data.data)

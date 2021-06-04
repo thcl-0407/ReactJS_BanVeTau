@@ -45,6 +45,18 @@ function ChonVe(props) {
                 return
             }
 
+            response.data.data.forEach(item => {
+                let GaTrungGian = item.GaTrungGian.split(',')
+                item.inforGaTrungGian = []
+
+                GaTrungGian.forEach(id => {
+                    KhachHangService.GetNhaGa(id).then(result => {
+                        item.inforGaTrungGian.push(result.data.data)
+                    })
+                })
+            })
+
+            console.log(response.data.data)
             SetTaus(response.data.data)
         })
 
@@ -66,6 +78,12 @@ function ChonVe(props) {
 
     //Loading Danh Sach Toa Tau
     const SelectedTau = (Tau) => {
+        //Fix MaGaDen Khi Tach Chuyen
+        Tau.MaGaDi = Schedule.MaGaDi
+        Tau.TenGaDi = Schedule.TenGaDi
+        Tau.MaGaDen = Schedule.MaGaDen
+        Tau.TenGaDen = Schedule.TenGaDen
+
         SetTauSelect(Tau)
         SetDSToa([])
         SetDSGhe([])
@@ -79,7 +97,7 @@ function ChonVe(props) {
 
         let param = {
             MaGaDi: Tau.MaGaDi,
-            MaGaDen: Tau.MaGaDen,
+            MaGaDen: Schedule.MaGaDen,
             ThoiGianDi: DateFormat("yyyy-MM-dd", new Date(Tau.ThoiGianDi)),
             MaTau: Tau.MaTau
         }
@@ -243,8 +261,9 @@ function ChonVe(props) {
     return (
         <div className="p-12">
             <div className="pt-5 px-4">
-                <p className="py-2 font-extrabold text-xl text-mainFont">Chiều Đi Ngày {DateFormat("dd-MM-yyyy", Schedule.ThoiGianDi)} từ {Schedule.TenGaDi} đến {Schedule.TenGaDen}</p>
+                <p className="py-2 font-extrabold text-xl text-mainFont">Chiều Đi Ngày {DateFormat("dd-MM-yyyy", Schedule.ThoiGianDi)} từ ga {Schedule.TenGaDi} đến ga {Schedule.TenGaDen}</p>
             </div>
+
             <div className="grid grid-cols-4">
                 <div className="col-span-4 p-4">
                     <div className="border border-gray-400">

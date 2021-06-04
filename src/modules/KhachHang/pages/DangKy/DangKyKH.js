@@ -133,7 +133,7 @@ function DangKyKH() {
             }
 
             SetUserSignUp(param)
-            document.getElementById('lblSoDienThoai').innerHTML = UserSignUp.SoDienThoai
+            //document.getElementById('lblSoDienThoai').innerHTML = UserSignUp.SoDienThoai
 
             OTPService.SendSMSCode(param.SoDienThoai).then(response => {
                 console.log(response);

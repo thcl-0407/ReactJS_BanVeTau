@@ -4,6 +4,8 @@ import KhachHangService from "./../../../../services/KhachHang.Service"
 
 function Tau(props) {
     const [SoLuongDaDat, SetSoLuongDaDat] = useState()
+    const [DSGaTrungGian, SetDSGaTrungGian] = useState([])
+
     let ThoiGianDi = DateFormat("dd-MM-yyyy", new Date(props.value.ThoiGianDi))
 
     useEffect(() => {
@@ -18,6 +20,10 @@ function Tau(props) {
             let soLuongDaDat = props.value.SoLuongChoNgoi - response.data.data.length
             
             SetSoLuongDaDat(soLuongDaDat)
+
+            SetDSGaTrungGian(props.value.inforGaTrungGian)
+
+            console.log(props.value.inforGaTrungGian)
         })
     },[])
 
@@ -38,6 +44,12 @@ function Tau(props) {
                         <div>
                             <span className="font-black">SL Chỗ Trống: &ensp;</span>
                             <span>{SoLuongDaDat}</span>
+                        </div>
+                        <div>
+                            <span className="font-black">Qua các ga: &ensp;</span>
+                            {DSGaTrungGian.map((res, index)=>(
+                                <span key={index}>{res.TenNhaGa + "(" + res.MaNhaGa + ") "}</span>
+                            ))}
                         </div>
                     </form>
                 </div>

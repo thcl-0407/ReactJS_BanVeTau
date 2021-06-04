@@ -10,6 +10,10 @@ const GetDanhSachNhaGa = ()=>{
     return axios.get(env.API_ADMIN_LOCAL + "nhaGa")
 }
 
+const GetNhaGa = (id)=>{
+    return axios.get(env.API_ADMIN_LOCAL + "nhaGa/id=" + id)
+}
+
 const DangKyKhachHang = (param)=>{
     return axios.post(env.API_ADMIN_LOCAL + "signupKH", param)
 }
@@ -81,6 +85,7 @@ const SendEmailDatVe = (DSDatVe, token)=>{
 export default {
     TimKiemLichTrinh,
     GetDanhSachNhaGa,
+    GetNhaGa,
     DangKyKhachHang,
     DangNhapKhachHang,
     GetDanhSachTau_FollowLichTrinh,
