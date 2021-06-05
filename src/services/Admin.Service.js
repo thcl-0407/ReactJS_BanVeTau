@@ -73,8 +73,30 @@ const  ThanhToan = (MaVe)=>{
     return axios.patch(env.API_ADMIN_LOCAL + "chiTietVe/thanhToan", param)
 }
 
-const SendEmailThanhToan = (VeThanhToan)=>{
-   return axios.post(env.API_ADMIN_LOCAL + "sendEmail/thanhToan", VeThanhToan)
+const SendEmailThanhToan = (Email, VeThanhToan)=>{
+    let param = {
+        email: Email,
+        ChiTietVe: VeThanhToan
+    }
+
+   return axios.post(env.API_ADMIN_LOCAL + "email/thongbaothanhtoan/admin", param)
+}
+
+const TraVe = (MaVe)=>{
+    let param = {
+        MaVe: MaVe
+    }
+
+    return axios.post(env.API_ADMIN_LOCAL + "huyve", param)
+}
+
+const SendEmailHuyVe = (Email, VeSelected)=>{
+    let param = {
+        email: Email,
+        ChiTietVe: VeSelected
+    }
+
+    return axios.post(env.API_ADMIN_LOCAL + "email/thongbaohuyve/admin", param)
 }
 
 export default {
@@ -93,5 +115,7 @@ export default {
     GetDanhSachTau,
     ThanhToan,
     SendEmailThanhToan,
-    GetProfileGaTrungGian
+    GetProfileGaTrungGian,
+    TraVe,
+    SendEmailHuyVe
 }

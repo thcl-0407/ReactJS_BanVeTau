@@ -1,16 +1,30 @@
 import React, {useEffect, useState} from "react";
 import AdminService from "../../../../services/Admin.Service";
+import OTPService from "./../../../../services/OTP.Service"
 import ToastifyMessage from "../../../../utilities/ToastifyMessage";
 import Modal from "react-responsive-modal";
 import numeral from "numeral"
+import KhachHangService from "../../../../services/KhachHang.Service";
+import {reactLocalStorage} from "reactjs-localstorage";
 
 function QuanLyVe(props) {
     const [chiTietVe, setChiTietVe] = useState([]);
     const [StatusModalXacNhanThanhToan, SetStatusModalXacNhanThanhToan] = useState(false)
+    const [StatusModalXacNhanHuyVe, SetStatusModalXacNhanHuyVe] = useState(false)
+    const [StateModalHandling, SetStateModalHandling] = useState(false)
     const [VeSelected, SetVeSelected] = useState({})
 
     const onCloseModalXacNhanThanhToan = () => {
         SetStatusModalXacNhanThanhToan(false)
+    }
+
+    const onCloseModalHandling = () => {
+        SetStateModalHandling(false)
+    }
+
+
+    const  onCloseModalXacNhanHuyVe = ()=>{
+        SetStatusModalXacNhanHuyVe(false)
     }
 
     useEffect(() => {
@@ -26,6 +40,22 @@ function QuanLyVe(props) {
     const btnHuyVeClick = (VeSelected) => {
         VeSelected.MaVe = VeSelected.MaVe[0]
         SetVeSelected(VeSelected)
+
+        SetStateModalHandling(true)
+
+        OTPService.SendSMSCode(VeSelected.SoDienThoai).then(response => {
+            console.log(response);
+            if(response.data.isSended){
+                SetStatusModalXacNhanHuyVe(true)
+                SetStateModalHandling(false)
+            }
+        }).catch(error=>{
+            if(error){
+                SetStatusModalXacNhanHuyVe(true)
+                SetStateModalHandling(false)
+                ToastifyMessage.ToastError("Không Thể Gửi Mã Xác Nhận Lúc Này")
+            }
+        })
     };
 
     const btnThanhToanClick = (VeSelected) => {
@@ -35,10 +65,54 @@ function QuanLyVe(props) {
         SetStatusModalXacNhanThanhToan(true)
     };
 
+    const btnXacNhanSoDienThoai_Click = ()=>{
+        let txtMaXacNhan = document.getElementById('txtMaXacNhan').value
+
+        if(txtMaXacNhan.trim() == ""){
+            ToastifyMessage.ToastError("Chưa Nhập Mã Xác Thực")
+            return
+        }
+
+        SetStateModalHandling(true)
+
+        OTPService.VerifyCode(VeSelected.SoDienThoai, txtMaXacNhan).then(response => {
+            if (response.data.status == 404) {
+                ToastifyMessage.ToastError("Mã Xác Nhận Đã Hết Hạn")
+                return
+            }
+            if (response.data.valid == false) {
+                ToastifyMessage.ToastError("Mã Xác Nhận Chưa Chính Xác")
+                return
+            }
+            if (response.data.valid == true) {
+                //Xử Lý Huỷ Vé
+                AdminService.TraVe(VeSelected.MaVe).then(response => {
+                    if(response.data.status){
+                        AdminService.SendEmailHuyVe(VeSelected.Email, VeSelected)
+
+                        RefreshData()
+                        ToastifyMessage.ToastSuccess("Huỷ vé thành công")
+                        SetStatusModalXacNhanHuyVe(false)
+                        SetStateModalHandling(false)
+                    }else {
+                        ToastifyMessage.ToastError("Không thể huỷ vé này")
+                        SetStatusModalXacNhanHuyVe(false)
+                        SetStateModalHandling(false)
+                    }
+                })
+            }
+        })
+    }
+
     const btnAccepPayment_Click = (MaVe)=>{
+        SetStateModalHandling(true)
+
         AdminService.ThanhToan(MaVe).then(response => {
+            SetStateModalHandling(false)
             SetStatusModalXacNhanThanhToan(false)
             if (response.data.status) {
+                AdminService.SendEmailThanhToan(VeSelected.email, VeSelected)
+
                 RefreshData()
                 ToastifyMessage.ToastSuccess("Thanh Toán Thành Công")
             }else {
@@ -130,7 +204,7 @@ function QuanLyVe(props) {
                             </td>
                             <td>{item.ThoiGianDi}</td>
                             <td>{item.NgayDatVe}</td>
-                            <td>{item.GiaVe}</td>
+                            <td>{numeral(parseFloat(item.GiaVe) + (parseFloat(item.GiaVe) * 10/100)).format(0,0)} VNĐ</td>
 
                             <td>
                                 {item.isPaid ? (
@@ -198,6 +272,34 @@ function QuanLyVe(props) {
                 </tbody>
             </table>
             <React.Fragment>
+                <Modal open={StatusModalXacNhanHuyVe} onClose={onCloseModalXacNhanHuyVe} center
+                       closeOnOverlayClick={false} showCloseIcon={true}>
+                    <div className="py-8 px-4">
+                        <div className="text-2xl text-center font-bold">Xác thực huỷ vé</div>
+                        <div className="border p-4 mt-4">
+                            <p>Nhập mã xác nhận được gửi đến số điện thoại của khách hàng: </p>
+                            <br/>
+                            <div className="text-center">
+                                <input className="border px-4 py-2" type="text" id="txtMaXacNhan"/>
+                            </div>
+                        </div>
+                        <div className="text-center mt-8">
+                            <button className="px-6 py-2 bg-main text-white" onClick={btnXacNhanSoDienThoai_Click}>Chấp Nhận</button>
+                        </div>
+                    </div>
+                </Modal>
+            </React.Fragment>
+            <React.Fragment>
+                <Modal classNames="text-center" open={StateModalHandling} onClose={onCloseModalHandling} center closeOnOverlayClick={false} showCloseIcon={false}>
+                    <div className="flex justify-center py-6">
+                        <img style={{ width: "12%" }} src="https://i.gifer.com/ZKZg.gif"></img>
+                    </div>
+                    <div className="flex justify-center">
+                        <span className="font-bold">ĐANG XỬ LÝ...</span>
+                    </div>
+                </Modal>
+            </React.Fragment>
+            <React.Fragment>
                 <Modal open={StatusModalXacNhanThanhToan} onClose={onCloseModalXacNhanThanhToan} center
                        closeOnOverlayClick={false} showCloseIcon={true}>
                     <div className="py-8 px-4">
@@ -214,7 +316,7 @@ function QuanLyVe(props) {
                                         <p>Mã ghế: {VeSelected.MaGhe}</p>
                                         <p>Mã toa: {VeSelected.MaToaTau}</p>
                                         <div className="text-xl text-center py-4">
-                                            <p>{numeral(VeSelected.GiaVe).format('0,0')} VNĐ</p>
+                                            <p>{numeral(parseFloat(VeSelected.GiaVe) + (parseFloat(VeSelected.GiaVe) * 10/100)).format('0,0')} VNĐ</p>
                                         </div>
                                     </div>) : (
                                     <div></div>
