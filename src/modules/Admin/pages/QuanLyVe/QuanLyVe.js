@@ -47,8 +47,8 @@ function QuanLyVe(props) {
         })
     }
     return (
-        <div className="flex pt-8">
-            <table className="border-collapse border border-green-800 shadow-lg bg-white ml-10">
+        <div className="flex p-12">
+            <table className="border-collapse border border-green-800 shadow-lg bg-white">
                 <thead className="table-header-group">
                 <tr className="bg-blue-100 border text-left px-8 py-4">
                     <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
@@ -113,8 +113,7 @@ function QuanLyVe(props) {
                                 </div>
 
                                 <div className="mt-2">
-                                    Đi từ {item.TenGaDi}({item.MaGaDi}) đến {item.TenGaDen}(
-                                    {item.MaGaDen})
+                                    Đi từ {item.TenGaDi} đến {item.TenGaDen}
                                 </div>
                                 <div className="mt-2">
                                     <b>Mã Ghế: </b>

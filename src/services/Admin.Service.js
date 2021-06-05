@@ -11,6 +11,14 @@ const DangNhap = (UserName, MatKhau)=>{
     return axios.post(env.API_ADMIN_LOCAL + "loginNV", param)
 }
 
+const GetProfileGaTrungGian = (GaTrungGian)=>{
+    let param = {
+        GaTrungGian: GaTrungGian
+    }
+
+    return axios.post(env.API_ADMIN_LOCAL + "gatrunggian", param)
+}
+
 const GetNhanVienBySDT=(SoDienThoai)=>{
     return axios.get(env.API_ADMIN_LOCAL + "nhanvien/sdt=" + SoDienThoai)
 }
@@ -84,5 +92,6 @@ export default {
     MoKhoaTaiKhoan,
     GetDanhSachTau,
     ThanhToan,
-    SendEmailThanhToan
+    SendEmailThanhToan,
+    GetProfileGaTrungGian
 }
