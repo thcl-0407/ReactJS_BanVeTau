@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react"
 import AdminService from "../../../../services/Admin.Service"
-import KhachHangService from "../../../../services/KhachHang.Service"
 import {Modal} from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import ThemMoiLichTrinh from "./ThemMoiLichTrinh";
@@ -11,14 +10,17 @@ function QuanLyLichTrinh(props) {
     const [open, setOpen] = useState(false);
     const onOpenModal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
+    //const [dsGaTrungGian, setDsGaTrungGian]= useState([])
     //let gaDen= document.getElementById("txtGaDen").value;
 
     useEffect(() => {
         AdminService.GetAllLichTrinh().then((res) => {
+            console.log("res", res)
             res.data.data.forEach(item => {
                 item.dsGaTrungGian = []
 
                 AdminService.GetProfileGaTrungGian(item.GaTrungGian).then(response => {
+                    console.log("TG", response.data)
                     item.dsGaTrungGian.push(response.data)
                 })
             })
@@ -69,7 +71,7 @@ function QuanLyLichTrinh(props) {
                         <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
                             Thời gian đến
                         </th>
-                        <th className="w-1/8 bg-blue-100 border text-left px-8 py-4 text-center">
+                        <th className="w-1/8 bg-blue-100 border px-8 py-4 text-center">
                             Hoạt động
                         </th>
                     </tr>
@@ -85,11 +87,14 @@ function QuanLyLichTrinh(props) {
                                 <td>{item.TenTau}</td>
                                 <td>{item.TenGaDi}</td>
                                 <td>
-                                    {item.dsGaTrungGian.map((item, index) => (
+                                    {/* {console.log("ds", item.dsGaTrungGian)} */}
+                                    {item.dsGaTrungGian.map(function(item, index){ return(
                                         <span key={index}>
+                                            {console.log("item", item.TenNhaGa)}
                                             {item.TenNhaGa}
                                         </span>
-                                    ))}
+                                    )})}
+                                    
                                 </td>
                                 <td>{item.TenGaDen}</td>
                                 <td>{item.ThoiGianDi} 08:00</td>

@@ -19,7 +19,7 @@ function ThemMoiLichTrinh(props) {
   const [MaGaDi, setMaGaDi] = useState();
   const [MaGaDen, setMaGaDen] = useState();
   const [MaTau, setMaTau]= useState()
-
+  const [GaTrungGian, setGaTrungGian]=useState([])
   useEffect(() => {
     KhachHangService.GetDanhSachNhaGa().then((response) => {
       response.data.data.forEach((item) => {
@@ -96,7 +96,8 @@ function ThemMoiLichTrinh(props) {
       MaGaDen: MaGaDen.value,
       ThoiGianDi: startDate,
       ThoiGianDen: endDate,
-      TrangThai:1
+      TrangThai:1,
+      GaTrungGian: GaTrungGian
     };
 
     AdminService.ThemLichTrinh(param).then((res) => {
@@ -119,6 +120,11 @@ function ThemMoiLichTrinh(props) {
   const ChonTau= (selected)=>{
     console.log("Chon Tau", selected.value)
     setMaTau(selected)
+  }
+
+  const ChonGaTrungGian=(selected)=>{
+    let temp= JSON.stringify(selected)
+    setGaTrungGian(temp)
   }
   return (
     <div style={{width: "42em", height: "28em"}}>
@@ -148,6 +154,15 @@ function ThemMoiLichTrinh(props) {
             options={options}
             onChange={ChonMaGaDen}
             id="txtMaGaDen"
+          ></Select>
+        </div>
+        <div className="grid grid-cols-2 m-2">
+          <label>Ga trung gian</label>
+          <Select
+            isMulti
+            options={options}
+            onChange={ChonGaTrungGian}
+            id="txtGaTrungGian"
           ></Select>
         </div>
         <div className="grid grid-cols-2 m-2">
