@@ -138,7 +138,9 @@ function QuanLyVe(props) {
                     <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
                         Thời gian đi
                     </th>
-
+                    <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
+                        Thời gian đến
+                    </th>
                     <th className="w-1/8 bg-blue-100 border text-left px-8 py-4">
                         Ngày đặt vé
                     </th>
@@ -202,7 +204,8 @@ function QuanLyVe(props) {
                                     {item.TenPhanLoai}
                                 </div>
                             </td>
-                            <td>{item.ThoiGianDi}</td>
+                            <td>{item.ThoiGianDi} 08:00</td>
+                            <td>{item.ThoiGianDen}</td>
                             <td>{item.NgayDatVe}</td>
                             <td>{numeral(parseFloat(item.GiaVe) + (parseFloat(item.GiaVe) * 10/100)).format(0,0)} VNĐ</td>
 
