@@ -14,6 +14,10 @@ function QuanLyLichTrinh(props) {
     //let gaDen= document.getElementById("txtGaDen").value;
 
     useEffect(() => {
+        RefreshData()
+    }, [])
+
+    const RefreshData = () => {
         AdminService.GetAllLichTrinh().then((res) => {
             console.log("res", res)
             res.data.data.forEach(item => {
@@ -27,7 +31,7 @@ function QuanLyLichTrinh(props) {
 
             setData(res.data.data)
         })
-    }, [])
+    }
 
     const CapNhatLichTrinh = () => {
         ToastifyMessage.ToastSuccess("Chức năng đang phát triển")
@@ -36,6 +40,17 @@ function QuanLyLichTrinh(props) {
     const HuyLichTrinh = () => {
         ToastifyMessage.ToastSuccess("Chức năng đang phát triển")
     }
+
+    const isSuccessAddSchedule = (status) => {
+        RefreshData()
+
+        if (status) {
+            ToastifyMessage.ToastSuccess("Thêm thành công")
+        } else {
+            ToastifyMessage.ToastError("Lịch trình đã tồn tại !")
+        }
+    }
+
     return (
         <div className="flex justify-center p-12">
             <div>
@@ -44,7 +59,7 @@ function QuanLyLichTrinh(props) {
                             onClick={onOpenModal}>Thêm mới lịch trình
                     </button>
                     <Modal open={open} onClose={onCloseModal} center>
-                        <ThemMoiLichTrinh/>
+                        <ThemMoiLichTrinh isSuccessul={isSuccessAddSchedule}/>
                     </Modal>
                 </div>
                 <table className="border-collapse border border-green-800 shadow-lg bg-white">
@@ -88,13 +103,15 @@ function QuanLyLichTrinh(props) {
                                 <td>{item.TenGaDi}</td>
                                 <td>
                                     {/* {console.log("ds", item.dsGaTrungGian)} */}
-                                    {item.dsGaTrungGian.map(function(item, index){ return(
-                                        <span key={index}>
+                                    {item.dsGaTrungGian.map(function (item, index) {
+                                        return (
+                                            <span key={index}>
                                             {console.log("item", item.TenNhaGa)}
-                                            {item.TenNhaGa}
+                                                {item.TenNhaGa}
                                         </span>
-                                    )})}
-                                    
+                                        )
+                                    })}
+
                                 </td>
                                 <td>{item.TenGaDen}</td>
                                 <td>{item.ThoiGianDi} 08:00</td>
