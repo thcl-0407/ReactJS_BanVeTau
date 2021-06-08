@@ -41,10 +41,10 @@ function Tau(props) {
                             <span className="font-black">SL Chỗ Ngồi: &ensp;</span>
                             <span>{props.value.SoLuongChoNgoi}</span>
                         </div>
-                        <div>
+                        {/* <div>
                             <span className="font-black">SL Chỗ Trống: &ensp;</span>
                             <span>{SoLuongDaDat}</span>
-                        </div>
+                        </div> */}
                         <div>
                             <span className="font-black">Qua các ga: &ensp;</span>
                             {DSGaTrungGian.map((res, index)=>(

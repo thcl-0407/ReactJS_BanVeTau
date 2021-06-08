@@ -167,6 +167,9 @@ function VeDaMua(props) {
                                     <td>{index + 1}</td>
                                     <td className="text-left">
                                         <div>
+                                            <b>Mã vé: </b>{item.MaVe}
+                                        </div>
+                                        <div>
                                             <b>Tàu: </b>{item.TenTau}
                                         </div>
                                         <div className="mt-2">
